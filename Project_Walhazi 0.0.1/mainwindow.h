@@ -5,8 +5,7 @@
 #include <QtSql>
 #include <QTableView>
 #include <QStandardItemModel>
-#include "equipments.h"
-#include<QMessageBox>
+#include <QMessageBox>
 #include <QTextDocument>
 #include <QPdfWriter>
 
@@ -25,6 +24,8 @@
 #include <QtCharts/QPieSlice>
 #include <QtCharts>
 
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -36,6 +37,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+public slots:
+    void clear_chart_widget() ;
+    void chart_render() ;
+    void bar_code(QString) ;
+
 
 private slots:
 
@@ -65,10 +72,10 @@ private slots:
 
     void on_tri_type_clicked();
 
-
     void on_tri_qnt_clicked();
 
     void on_pdf_clicked();
+
 
     void on_pushButton_clicked();
 

@@ -508,7 +508,7 @@ font-weight:bold;
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>330</y>
+         <y>340</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -673,7 +673,8 @@ border-radius:20px ;
               <item>
                <widget class="QWidget" name="widget_2" native="true">
                 <property name="styleSheet">
-                 <string notr="true">background-color:white ; </string>
+                 <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
                 </property>
                </widget>
               </item>
@@ -686,7 +687,8 @@ border-radius:20px ;
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color:white ; </string>
+                 <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <item>

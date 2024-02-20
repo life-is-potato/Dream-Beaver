@@ -3,6 +3,8 @@
 #include<QString>
 #include <QMainWindow>
 #include <QStandardItemModel>
+#include "databaseconnection.h"
+
 
 
 class Equipments

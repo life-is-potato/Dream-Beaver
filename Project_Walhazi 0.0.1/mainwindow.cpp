@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tri_bar->hide() ;
-
+    chart_render() ;
 }
 
 
@@ -20,13 +20,14 @@ MainWindow::~MainWindow()
 }
 
 
-
-
 void MainWindow::on_equipments_clicked()
 {
    ui->stackedWidget->setCurrentIndex(0) ;
    ui->tableView->setModel(e->afficher());
-}
+   clear_chart_widget() ;
+   chart_render() ;
+    }
+
 
 void MainWindow::on_equipments_clicked(bool checked)
 {
@@ -84,6 +85,7 @@ void MainWindow::on_add_equip_clicked()
            ui->checkBox->clearMask();
            ui->checkBox_2->clearMask();
            ui->tableView->setModel(e->afficher());
+           chart_render() ;
            ui->stackedWidget->setCurrentIndex(0);
     }
     else {
@@ -116,6 +118,7 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
        }
 }
 
+
 void MainWindow::on_back_2_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
@@ -139,6 +142,7 @@ void MainWindow::on_modify_clicked()
             if (e->Modify_element(id,name,type,qnt,disp,desc)) {
                    QMessageBox::information(nullptr,"okay","jwk mrgl") ;
                    ui->tableView->setModel(e->afficher());
+                   chart_render() ;
                    ui->stackedWidget->setCurrentIndex(0);
             }
             else {
@@ -231,52 +235,55 @@ void MainWindow::on_pdf_clicked()
                 tableHtml += "<th style=\"border: 1px solid black; padding: 8px;\">" + data.toString() + "</th>";
             }
             tableHtml += "</tr>";
-
-
             for (int row = 0; row < rowCount; ++row) {
                 tableHtml += "<tr>";
-                for (int col = 0; col < columnCount ; ++col) { // Exclude the last 2 columns
+                for (int col = 0; col < columnCount ; ++col) {
                     QModelIndex index = model->index(row, col);
                     QVariant data = model->data(index);
                     tableHtml += "<td style=\"border: 1px solid black; padding: 8px;\">" + data.toString() + "</td>";
                 }
                 tableHtml += "</tr>";
             }
-
             tableHtml += "</table>";
-
-
             doc.setHtml(tableHtml);
-
-
             painter.scale(30.0, 30.0);
-
-
             doc.setPageSize(printer.pageRect().size());
             doc.drawContents(&painter);
         }
-
         painter.end();
     }
 }
 
-void MainWindow::on_pushButton_clicked()
-{
+void MainWindow::clear_chart_widget(){
+    QLayout *donutLayout = ui->donut->layout();
+    if (donutLayout) {
+        QLayoutItem *item;
+        while ((item = donutLayout->takeAt(0)) != nullptr) {
+            QWidget *widget = item->widget();
+            if (widget) {
+                delete widget;
+            }
+            delete item;
+        }
+    }
+}
 
 
-    // Your chart creation code
+void MainWindow::chart_render(){
+    clear_chart_widget() ;
     QSqlQueryModel *model = new QSqlQueryModel();
-    model->setQuery("select * from CENTRE where lieu='tunis'");
-    int number1 = 20;
-    model->setQuery("select * from CENTRE where lieu='jerba'");
-    int number2 = 15;
-    model->setQuery("select * from CENTRE where lieu='sousse'");
-    int number3 = 50;
-    model->setQuery("select * from CENTRE where lieu='beja'");
+   // d.connect() ; // al DB
+    model->setQuery("select * from EQUIPEMENTS where TYPE = '1' ");
+    int number1 = model->rowCount();
+    model->setQuery("select * from EQUIPEMENTS where TYPE = '2' ");
+    int number2 = model->rowCount();
+    model->setQuery("select * from EQUIPEMENTS where TYPE = '3' ");
+    int number3 = model->rowCount();
+
     QPieSeries *series = new QPieSeries();
-    QStringList colors = {"#002F5D", "#8BC1F7", "#0066CC"}; // Couleurs pour chaque tranche
-    QStringList labels = {"1", "2", "3"}; // Labels pour chaque tranche
-    QVector<int> numbers = {number1, number2, number3}; // Nombre d'éléments dans chaque catégorie
+    QStringList colors = {"#002F5D", "#8BC1F7", "#0066CC"};
+    QStringList labels = {"1", "2", "3"};
+    QVector<int> numbers = {number1, number2, number3};
     for (int i = 0; i < 3; ++i)
     {
         QString color = colors.at(i);
@@ -286,7 +293,7 @@ void MainWindow::on_pushButton_clicked()
         slice->setPen(QPen(Qt::black, 1.5));
         slice->setLabelFont(QFont("Arial", 10,QFont::Bold));
         slice->setExploded();
-        connect(slice, &QPieSlice::clicked, this, [slice, series]() {
+        connect(slice, &QPieSlice::clicked,ui->donut,[slice, series]() {
             if (slice->isExploded()){
                 slice->setExploded(false);
             }
@@ -299,6 +306,7 @@ void MainWindow::on_pushButton_clicked()
                 }
             }
         });
+
         slice->setBrush(QColor(color));
         series->append(slice);
     }
@@ -319,7 +327,15 @@ void MainWindow::on_pushButton_clicked()
     chartView->resize(300, 300);
 
     ui->donut->layout()->addWidget(chartView);
+}
+
+void MainWindow::bar_code(QString str) {
+
+}
 
 
 
+void MainWindow::on_pushButton_clicked()
+{
+    bar_code("123456789") ;
 }

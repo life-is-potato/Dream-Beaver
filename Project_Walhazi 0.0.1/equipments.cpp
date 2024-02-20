@@ -1,10 +1,5 @@
 #include "equipments.h"
-#include <QMainWindow>
-#include <QTableView>
-#include <QStandardItemModel>
-#include <QtSql>
 #include "mainwindow.h"
-
 
  QStandardItemModel * Equipments::afficher() {
      int rows ;
@@ -39,7 +34,6 @@
      q.bindValue(":v4",qnt) ;
      q.bindValue(":v5",disp) ;
      q.bindValue(":v6",desc) ;
-
      return q.exec() ;
 
  }
@@ -142,3 +136,4 @@
      }
      return model ;
  }
+
