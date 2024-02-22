@@ -25,7 +25,6 @@
 #include <QtCharts>
 
 
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -41,7 +40,6 @@ public:
 public slots:
     void clear_chart_widget() ;
     void chart_render() ;
-    void bar_code(QString) ;
 
 
 private slots:

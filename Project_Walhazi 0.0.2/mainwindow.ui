@@ -504,19 +504,6 @@ font-weight:bold;
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>340</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
      </widget>
     </item>
     <item>
@@ -652,7 +639,7 @@ QPushButton::hover {
 }  </string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="page_2">
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -772,7 +759,7 @@ QHeaderView::section {
                <bool>true</bool>
               </property>
               <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>143</number>
+               <number>146</number>
               </attribute>
              </widget>
              <widget class="QPushButton" name="add_equipment">
@@ -1332,7 +1319,7 @@ font-weight:bold ; </string>
             <rect>
              <x>310</x>
              <y>40</y>
-             <width>201</width>
+             <width>221</width>
              <height>31</height>
             </rect>
            </property>
@@ -1344,7 +1331,7 @@ font-weight:bold ; </string>
 }</string>
            </property>
            <property name="text">
-            <string>Add Equipment</string>
+            <string>Modify Equipmet</string>
            </property>
           </widget>
           <widget class="QLabel" name="label_8">
@@ -1552,6 +1539,31 @@ QPushButton::hover {
             </property>
             <property name="text">
              <string>Delete</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton">
+            <property name="geometry">
+             <rect>
+              <x>480</x>
+              <y>10</y>
+              <width>21</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+	image: url(:/code (1).svg);
+ }
+
+QPushButton::hover {
+	image: url(:/code (2).svg);
+}</string>
+            </property>
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </widget>

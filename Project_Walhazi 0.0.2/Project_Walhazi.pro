@@ -19,12 +19,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    barcodeprinter.cpp \
     databaseconnection.cpp \
     equipments.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    barcodeprinter.h \
     databaseconnection.h \
     equipments.h \
     mainwindow.h

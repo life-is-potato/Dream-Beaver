@@ -86,6 +86,13 @@ void MainWindow::on_add_equip_clicked()
            ui->checkBox_2->clearMask();
            ui->tableView->setModel(e->afficher());
            chart_render() ;
+
+           QString s = QString::number(id);
+
+           BarcodePrinter * p = new BarcodePrinter();
+           p->configurePrinter();
+           p->printBarcode(s);
+
            ui->stackedWidget->setCurrentIndex(0);
     }
     else {
@@ -329,13 +336,25 @@ void MainWindow::chart_render(){
     ui->donut->layout()->addWidget(chartView);
 }
 
-void MainWindow::bar_code(QString str) {
-
-}
-
 
 
 void MainWindow::on_pushButton_clicked()
 {
-    bar_code("123456789") ;
+    QString s = ui->ID_2->text() ;
+    QSqlQuery q  ;
+    q.prepare("SELECT barcode FROM EQUIPEMENTS WHERE ID = :id ") ;
+    q.bindValue(":id",s);
+    q.exec() ;
+
+    while (q.next()) {
+           QByteArray blobData = q.value(0).toByteArray();
+           QFile file(s+".png");
+           if (!file.open(QIODevice::WriteOnly)) {
+                      qDebug() << "Error opening file for writing";
+                  }
+           file.write(blobData);
+           file.close();
+
+           qDebug() << "Image downloaded mrgl ";
+       }
 }
