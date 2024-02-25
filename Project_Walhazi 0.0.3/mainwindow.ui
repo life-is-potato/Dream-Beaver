@@ -179,14 +179,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 44px 10px 50px;
-	background: url(:/home.svg) no-repeat;
+	background: url(:/icons/tsawer/home.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #home::hover {
-	background: url(:/home (1).svg) no-repeat;
+	background: url(:/icons/tsawer/home_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 44px 10px 50px;
 	background-origin: content; 
@@ -226,14 +226,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 30px 10px 50px;
-	background: url(:/project1.svg) no-repeat;
+	background: url(:/icons/tsawer/project.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #project::hover {
-	background: url(:/project2.svg) no-repeat;
+	background: url(:/icons/tsawer/project_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 30px 10px 50px;
 	background-origin: content; 
@@ -273,14 +273,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 10px 10px 50px;
-	background: url(:/equip2.svg) no-repeat;
+	background: url(:/icons/tsawer/equip.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #equipments::hover {
-	background: url(:/equip1.svg) no-repeat;
+	background: url(:/icons/tsawer/equip_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	border-radius:10px;	
 	padding: 10px 10px 10px 50px;
@@ -364,14 +364,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 30px 10px 50px;
-	background: url(:/settings1.svg) no-repeat;
+	background: url(:/icons/tsawer/settings.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #settings::hover {
-	background: url(:/settings2.svg) no-repeat;
+	background: url(:/icons/tsawer/settings_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 30px 10px 50px;
 	background-origin: content; 
@@ -411,14 +411,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 31px 10px 50px;
-	background: url(:/log-out1.svg) no-repeat;
+	background: url(:/icons/tsawer/log-out.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #logout::hover {
-	background: url(:/log-out2.svg) no-repeat;
+	background: url(:/icons/tsawer/log-out_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 31px 10px 50px;
 	background-origin: content; 
@@ -458,14 +458,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 25px 10px 50px;
-	background: url(:/info2.svg) no-repeat;
+	background: url(:/icons/tsawer/info.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #About_us::hover {
-	background: url(:/info1.svg) no-repeat;
+	background: url(:/icons/tsawer/info_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 25px 10px 50px;
 	background-origin: content; 
@@ -498,7 +498,7 @@ font-weight:bold;
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/logo.png</pixmap>
+        <pixmap resource="Resources.qrc">:/icons/tsawer/logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -568,11 +568,11 @@ border-radius:20px ; </string>
            <string notr="true">QPushButton {	
 	background-color: transparent ;
 	border-radius:20px ; 
-	background:url(:/search1.svg) no-repeat  center center; 
+	background:url(:/icons/tsawer/search.svg) no-repeat  center center; 
 } 
 
 QPushButton::hover {
-		background:url(:/search2.svg) no-repeat  center center; 
+		background:url(:/icons/tsawer/search_hover.svg) no-repeat  center center; 
 }</string>
           </property>
           <property name="text">
@@ -639,7 +639,7 @@ QPushButton::hover {
 }  </string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page_2">
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -723,19 +723,34 @@ border-radius:20px ;
               </property>
               <property name="styleSheet">
                <string notr="true">QTableView {
+    background-color : white ; 
     color: black;
-    gridline-color: black;
-    border-color: rgb(242, 128, 133);
-    font: 10px;
-	selection-background-color:#4AC7EA ;
+    font: 12px;
 }
 QHeaderView::section {
     background-color: #0F141E;
     color: white;
-    height: 35px;
-    font: 14px;
+    height: 30px;
+    font: 15px;
 }
-</string>
+QHeaderView::section:first {
+    border-top-left-radius: 5px;
+}
+QHeaderView::section:last {
+    border-top-right-radius: 5px;
+}
+QScrollBar:vertical {
+    background: #dee2e6;
+}
+ QScrollBar::handle:vertical {
+    background: #dee2e6;
+ }
+QScrollBar:horizontal {
+    background: #dee2e6;
+}
+ QScrollBar::handle:horizontal {
+    background: #dee2e6;
+ }</string>
               </property>
               <property name="verticalScrollBarPolicy">
                <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -776,10 +791,10 @@ QHeaderView::section {
               </property>
               <property name="styleSheet">
                <string notr="true">#add_equipment {
-	image: url(:/plus.svg);
+	image: url(:/icons/tsawer/plus.svg);
 }
 #add_equipment::hover {
-	image: url(:/plus (1).svg);
+	image:url(:/icons/tsawer/plus_hover.svg);
 }</string>
               </property>
               <property name="text">
@@ -827,13 +842,9 @@ QHeaderView::section {
 	background-color: transparent ;
 	border-radius:20px ; 
 	
-	image: url(:/search1.svg);
+	image: url(:/icons/tsawer/search.svg) ; 
 } 
-
-QPushButton::hover {
-		
-	image: url(:/search2.svg);
-}</string>
+</string>
               </property>
               <property name="text">
                <string/>
@@ -853,10 +864,10 @@ QPushButton::hover {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-	image: url(:/filter.svg);
+	image: url(:/icons/tsawer/filter.svg);
 }
 QPushButton::hover {
-	image: url(:/filter (1).svg);
+	image: url(:/icons/tsawer/filter_hover.svg);
 }</string>
               </property>
               <property name="text">
@@ -942,11 +953,11 @@ QPushButton::hover {
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
-	image: url(:/download (1).svg);
+	image: url(:/icons/tsawer/download.svg);
 }
 QPushButton::hover {
 	
-	image: url(:/download.svg);
+	image: url(:/icons/tsawer/download_hover.svg);
 }</string>
               </property>
               <property name="text">
@@ -1555,11 +1566,11 @@ QPushButton::hover {
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{
-	image: url(:/code (1).svg);
+	image: url(:/icons/tsawer/code.svg);
  }
 
 QPushButton::hover {
-	image: url(:/code (2).svg);
+	image: url(:/icons/tsawer/code_hover.svg);
 }</string>
             </property>
             <property name="text">
@@ -1733,7 +1744,7 @@ font-weight:bold ; </string>
   </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="Resources.qrc"/>
  </resources>
  <connections/>
 </ui>

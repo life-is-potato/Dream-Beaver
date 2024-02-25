@@ -27,8 +27,6 @@ void MainWindow::on_equipments_clicked()
    clear_chart_widget() ;
    chart_render() ;
     }
-
-
 void MainWindow::on_equipments_clicked(bool checked)
 {
         if (! checked) {
@@ -340,21 +338,24 @@ void MainWindow::chart_render(){
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString s = ui->ID_2->text() ;
-    QSqlQuery q  ;
-    q.prepare("SELECT barcode FROM EQUIPEMENTS WHERE ID = :id ") ;
-    q.bindValue(":id",s);
-    q.exec() ;
+    QString s = ui->ID_2->text();
+    QSqlQuery q;
+    q.prepare("SELECT barcode FROM EQUIPEMENTS WHERE ID = :id");
+    q.bindValue(":id", s);
+    q.exec();
+
+    QString filePath = QFileDialog::getExistingDirectory(this, tr("Select Directory"), QDir::homePath(), QFileDialog::ShowDirsOnly);
 
     while (q.next()) {
-           QByteArray blobData = q.value(0).toByteArray();
-           QFile file(s+".png");
-           if (!file.open(QIODevice::WriteOnly)) {
-                      qDebug() << "Error opening file for writing";
-                  }
-           file.write(blobData);
-           file.close();
+        QByteArray blobData = q.value(0).toByteArray();
+        QString fileName = s + ".png";
+        QFile file(filePath + "/" + fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            qDebug() << "8alet";
+        }
+        file.write(blobData);
+        file.close();
 
-           qDebug() << "Image downloaded mrgl ";
-       }
+        qDebug() << "Image downloaded mrgl";
+    }
 }
