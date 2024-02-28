@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QStandardItemModel>
 #include "databaseconnection.h"
-#include "barcodeprinter.h"
+
 
 
 class Equipments
@@ -14,7 +14,6 @@ class Equipments
         QString name ;
         QString type ;
         long int  bare_code ;
-
     public:
 
         // Constructor

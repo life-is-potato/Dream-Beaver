@@ -1,37 +1,33 @@
 #include "equipments.h"
 #include "mainwindow.h"
 
+ QStandardItemModel * Equipments::afficher() {
+     int rows ;
+     QStandardItemModel * model = new QStandardItemModel();
+     model->setColumnCount(5);
+     model->setHeaderData(0,Qt::Horizontal,"ID") ;
+     model->setHeaderData(1,Qt::Horizontal,"Name") ;
+     model->setHeaderData(2,Qt::Horizontal,"Type") ;
+     model->setHeaderData(3,Qt::Horizontal,"Quantity") ;
+     model->setHeaderData(4,Qt::Horizontal,"Disponibility") ;
+     //l query mta walhezi  :
+     QSqlQuery query ;
+     query.exec("SELECT * FROM EQUIPEMENTS ") ;
+     // (query.next()) ==> tt3ada ll query li ba3dha ;
 
-QStandardItemModel * Equipments::afficher() {
-    int rows ;
-    QStandardItemModel * model = new QStandardItemModel();
-    model->setColumnCount(5);
-    model->setHeaderData(0,Qt::Horizontal,"ID") ;
-    model->setHeaderData(1,Qt::Horizontal,"Name") ;
-    model->setHeaderData(2,Qt::Horizontal,"Type") ;
-    model->setHeaderData(3,Qt::Horizontal,"Quantity") ;
-    model->setHeaderData(4,Qt::Horizontal,"Disponibility") ;
-
-    //l query mta walhezi  :
-    QSqlQuery query ;
-    query.exec("SELECT * FROM EQUIPEMENTS ") ;
-    // (query.next()) ==> tt3ada ll query li ba3dha ;
-
-    while (query.next()) {
-        rows = model->rowCount() ;
-        model->insertRow(rows) ;
-        for(int i = 0 ; i < 5 ; i++ ){
-             model->setData(model->index(rows,i),query.value(i).toString());
-       }
-    }
-    return model ;
+     while (query.next()) {
+         rows = model->rowCount() ;
+         model->insertRow(rows) ;
+         for(int i = 0 ; i < 5 ; i++ ){
+              model->setData(model->index(rows,i),query.value(i).toString());
+        }
+     }
+     return model ;
 }
 
  bool Equipments::Add_element(int id , QString name , int type , int qnt , QString disp, QString desc) {
-
      QSqlQuery q ;
-
-     q.prepare("INSERT INTO EQUIPEMENTS(ID,NOM,TYPE,QNT_STOCK,DISPONIBILITE,DESCRIPTION) VALUES(:v1,:v2,:v3,:v4,:v5,:v6) ") ;
+     q.prepare("INSERT INTO EQUIPEMENTS VALUES(:v1,:v2,:v3,:v4,:v5,:v6) ") ;
      q.bindValue(":v1",id) ;
      q.bindValue(":v2",name) ;
      q.bindValue(":v3",type) ;

@@ -23,6 +23,8 @@
 #include <QtCharts/QAbstractSeries>
 #include <QtCharts/QPieSlice>
 #include <QtCharts>
+#include"sponsors.h"
+
 
 
 QT_BEGIN_NAMESPACE
@@ -40,6 +42,7 @@ public:
 public slots:
     void clear_chart_widget() ;
     void chart_render() ;
+    void bar_code(QString) ;
 
 
 private slots:
@@ -77,10 +80,18 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_add_sponsors_clicked();
+
+    void on_modifier_clicked();
+
+    void on_supprimer_clicked();
+
 private:
     Ui::MainWindow *ui;
     Equipments * e ;
     int i ;
+    sponsors s;
+    sponsors Stmp;
 };
 #endif // MAINWINDOW_H
 

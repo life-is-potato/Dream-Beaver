@@ -1,16 +1,18 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include"sponsors.h"
 
 
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent),
+     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tri_bar->hide() ;
+    //ui->tri_bar->hide() ;
     chart_render() ;
+    //ui->tableView_3->setModel(s.affichage());
 }
 
 
@@ -23,13 +25,15 @@ MainWindow::~MainWindow()
 void MainWindow::on_equipments_clicked()
 {
    ui->stackedWidget->setCurrentIndex(0) ;
-   ui->tableView->setModel(e->afficher());
+  // ui->tableView->setModel(e->afficher());
    clear_chart_widget() ;
    chart_render() ;
     }
+
+
 void MainWindow::on_equipments_clicked(bool checked)
 {
-        if (! checked) {
+        /*if (! checked) {
            ui->equipments->setStyleSheet("background: url(:/equip1.svg) no-repeat;"
                                          "background-color:#2A3E46 ;"
                                          "border-radius:10px;"
@@ -46,7 +50,7 @@ void MainWindow::on_equipments_clicked(bool checked)
                                          "color:#BFC9D3 ;"
                                          "font-size:13px;"
                                          "background-origin: content;");
-       }
+       }*/
 }
 
 void MainWindow::on_add_equipment_clicked()
@@ -61,46 +65,12 @@ void MainWindow::on_back_clicked()
 
 void MainWindow::on_add_equip_clicked()
 {
-    int id = ui->ID->text().toInt();
-    QString name = ui->name->text() ;
-    int type = ui->type->text().toInt() ;
-    int qnt = ui->qnt->text().toInt() ;
-    QString disp ;
-    QString desc = ui->desc->toPlainText() ;
-    if ((ui->checkBox) && !(ui->checkBox_2)){
-        disp = "Disponible" ;
-    }
-    else {
-        disp = "Non disponible" ;
-    }
-    if (e->Add_element(id,name,type,qnt,disp,desc)) {
-           QMessageBox::information(nullptr,"okay","jwk mrgl") ;
-           ui->ID->clear();
-           ui->name->clear();
-           ui->desc->clear();
-           ui->qnt->clear();
-           ui->type->clear();
-           ui->checkBox->clearMask();
-           ui->checkBox_2->clearMask();
-           ui->tableView->setModel(e->afficher());
-           chart_render() ;
 
-           QString s = QString::number(id);
-
-           BarcodePrinter * p = new BarcodePrinter();
-           p->configurePrinter();
-           p->printBarcode(s);
-
-           ui->stackedWidget->setCurrentIndex(0);
-    }
-    else {
-           QMessageBox::critical(nullptr,"zid thabet","bhim") ;
-    }
 }
 
 void MainWindow::on_tableView_activated(const QModelIndex &index)
 {
-       int row = index.row();
+      /* int row = index.row();
        QString cinValue = ui->tableView->model()->data(ui->tableView->model()->index(row, 0)).toString();
        QSqlQuery query;
        query.prepare("SELECT ID,NOM,TYPE,DESCRIPTION,DISPONIBILITE,QNT_STOCK FROM EQUIPEMENTS WHERE ID = :val");
@@ -120,7 +90,7 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
            }
            ui->qnt_2->setText(query.value(5).toString());
            ui->stackedWidget->setCurrentIndex(2);
-       }
+       }*/
 }
 
 
@@ -131,7 +101,7 @@ void MainWindow::on_back_2_clicked()
 
 void MainWindow::on_modify_clicked()
 {
-    int id = ui->ID_2->text().toInt();
+   /* int id = ui->ID_2->text().toInt();
     QString name = ui->name_2->text() ;
     int type = ui->type_2->text().toInt() ;
     int qnt = ui->qnt_2->text().toInt() ;
@@ -152,7 +122,7 @@ void MainWindow::on_modify_clicked()
             }
             else {
                    QMessageBox::critical(nullptr,"zid thabet","8alet") ;
-            }
+            }*/
 
 }
 
@@ -162,7 +132,7 @@ void MainWindow::on_delete_2_clicked()
     int id = ui->ID_2->text().toInt();
     if (e->Delete_element(id)) {
            QMessageBox::information(nullptr,"okay","jwk mrgl") ;
-           ui->tableView->setModel(e->afficher());
+           //ui->tableView->setModel(e->afficher());
            ui->stackedWidget->setCurrentIndex(0);
     }
     else {
@@ -174,20 +144,20 @@ void MainWindow::on_delete_2_clicked()
 
 void MainWindow::on_search_button_2_clicked()
 {
-    QString str = ui->search_bar_2->text() ;
-    ui->tableView->setModel(e->search_element(str)) ;
+    /*QString str = ui->search_bar_2->text() ;
+    ui->tableView->setModel(e->search_element(str)) ;*/
 }
 
 void MainWindow::on_search_bar_2_textChanged(const QString &arg1)
 {
-    ui->tableView->setModel(e->search_element(arg1)) ;
+    //ui->tableView->setModel(e->search_element(arg1)) ;
  }
 
 
 
 void MainWindow::on_tri_clicked()
 {
-    if(!i) {
+    /*if(!i) {
          ui->tri_bar->hide() ;
          i=1 ;
     }
@@ -256,11 +226,11 @@ void MainWindow::on_pdf_clicked()
             doc.drawContents(&painter);
         }
         painter.end();
-    }
+    }*/
 }
 
 void MainWindow::clear_chart_widget(){
-    QLayout *donutLayout = ui->donut->layout();
+    /*QLayout *donutLayout = ui->donut->layout();
     if (donutLayout) {
         QLayoutItem *item;
         while ((item = donutLayout->takeAt(0)) != nullptr) {
@@ -270,12 +240,12 @@ void MainWindow::clear_chart_widget(){
             }
             delete item;
         }
-    }
+    }*/
 }
 
 
 void MainWindow::chart_render(){
-    clear_chart_widget() ;
+    /*clear_chart_widget() ;
     QSqlQueryModel *model = new QSqlQueryModel();
    // d.connect() ; // al DB
     model->setQuery("select * from EQUIPEMENTS where TYPE = '1' ");
@@ -331,31 +301,200 @@ void MainWindow::chart_render(){
     chartView->chart()->setTitleFont(QFont("MS Shell Dlg 2", 10,QFont::Bold));
     chartView->resize(300, 300);
 
-    ui->donut->layout()->addWidget(chartView);
+    ui->donut->layout()->addWidget(chartView);*/
+}
+
+void MainWindow::bar_code(QString str) {
+
 }
 
 
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString s = ui->ID_2->text();
-    QSqlQuery q;
-    q.prepare("SELECT barcode FROM EQUIPEMENTS WHERE ID = :id");
-    q.bindValue(":id", s);
-    q.exec();
-
-    QString filePath = QFileDialog::getExistingDirectory(this, tr("Select Directory"), QDir::homePath(), QFileDialog::ShowDirsOnly);
-
-    while (q.next()) {
-        QByteArray blobData = q.value(0).toByteArray();
-        QString fileName = s + ".png";
-        QFile file(filePath + "/" + fileName);
-        if (!file.open(QIODevice::WriteOnly)) {
-            qDebug() << "8alet";
-        }
-        file.write(blobData);
-        file.close();
-
-        qDebug() << "Image downloaded mrgl";
-    }
+    bar_code("123456789") ;
 }
+
+void MainWindow::on_add_sponsors_clicked()
+{
+
+        int id= ui->ID->text().toInt();
+        QString nom= ui->nom->text();
+        QString email= ui->Email->text();
+        int num= ui->num->text().toInt();
+        QString type= ui->type->text();
+
+
+    sponsors s(id,nom,email,num,type);
+
+        bool test=s.ajouter();
+
+        if (test)
+
+        {
+
+          ui->tableView->setModel(s.afficher());
+
+            QMessageBox::information(nullptr, QObject::tr("ok"),
+
+                                     QObject::tr("ajout affectué\n"
+
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+
+        }
+
+        else
+
+            QMessageBox::critical(nullptr, QObject::tr("not ok"),
+
+                                  QObject::tr("ajout non affectué.\n"
+
+                                              "Click Cancel to exit"), QMessageBox::Cancel);
+
+
+}
+
+void MainWindow::on_modifier_clicked()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+        QSqlQuery query;
+        query.prepare("SELECT * FROM SPONSORS WHERE ID= :ID  ");
+        query.bindValue(":ID", ui->ID_2->text().toInt());
+        query.exec();
+        model->setQuery(query);
+
+    // Check if the model contains any data before calling delete
+
+        if (model->rowCount() > 0) {
+
+        int id= ui->ID_2->text().toInt();
+        QString nom= ui->ID_3->text();
+        QString email= ui->EMAIL_2->text();
+        int num= ui->ID_4->text().toInt();
+        QString type= ui->qnt_3->text();
+
+
+ sponsors s(id,nom,email,num,type);
+
+            bool test = s.modifier(id);
+
+            if (test){
+
+            ui->tableView->setModel(s.afficher());
+
+            QMessageBox::information(nullptr,QObject::tr("OK"),
+
+                                         QObject::tr("Modification effectué\n"
+
+                                                     "Click Cancel to exit"),QMessageBox::Cancel);
+            }
+
+            else{
+
+                ui->tableView->setModel(s.afficher());
+
+                QMessageBox::critical(nullptr,QObject::tr("Not OK"),
+
+                                              QObject::tr("Modification non effectué.\n"
+
+                                                          "Clic Cancel to exit."),QMessageBox::Cancel);
+
+            }
+
+        }
+
+
+
+        else {
+
+            // Handle the case where the model is empty
+
+            // For example, display an error message
+
+            QMessageBox::critical(nullptr, QObject::tr("ok"),
+
+                                     QObject::tr("le tableau est vide.\n"
+
+                                                 "Click Cancel to exit."), QMessageBox::Cancel );
+
+             ui->tableView->setModel(s.afficher());
+
+            delete model;
+
+        }
+
+
+}
+
+void MainWindow::on_supprimer_clicked()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+
+        QSqlQuery query;
+
+        query.prepare("SELECT * FROM SPONSORS WHERE ID= :ID  ");
+
+        query.bindValue(":ID", ui->ID_2->text().toInt());
+
+        query.exec();
+
+        model->setQuery(query);
+
+
+
+        if (model->rowCount() > 0) {
+
+            int id = ui->ID_2->text().toInt();
+
+            bool test = s.supprimer(id);
+
+            if (test) {
+
+                QMessageBox::information(nullptr, QObject::tr("ok"),
+
+                                         QObject::tr("Suppression effectuée. \n"
+
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+
+                ui->tableView->setModel(s.afficher());
+
+            }
+
+            else {
+
+                QMessageBox::critical(nullptr, QObject::tr("ok"),
+
+                                         QObject::tr("Suppression no effectuée.\n"
+
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+
+                ui->tableView->setModel(s.afficher());
+
+            }
+
+        }
+
+        else {
+
+            QMessageBox::critical(nullptr, QObject::tr("ok"),
+
+                                     QObject::tr("identifiant non trouvée!!\n"
+
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+
+            ui->tableView->setModel(s.afficher());
+
+        }
+
+
+
+        delete model;
+}
+
+
+void MainWindow::on_tri_type_clicked(){}
+void MainWindow::on_tri_qnt_clicked(){}
+void MainWindow::on_pdf_clicked(){}
+
+
+

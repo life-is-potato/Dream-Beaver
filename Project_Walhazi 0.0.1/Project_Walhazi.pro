@@ -19,20 +19,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    barcodeprinter.cpp \
     databaseconnection.cpp \
     equipments.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sponsors.cpp
 
 HEADERS += \
-    barcodeprinter.h \
     databaseconnection.h \
     equipments.h \
-    mainwindow.h
+    mainwindow.h \
+    sponsors.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    sponsors.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -40,7 +41,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    Resources.qrc
+    resources.qrc
 
 DISTFILES += \
     home (2).svg
