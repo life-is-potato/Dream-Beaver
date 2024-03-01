@@ -19,6 +19,7 @@ public:
 private :
     Ui::MainWindow *ui;
     Costumer* c;
+    QModelIndex selectedIndex;
 
 
 private slots :
@@ -26,5 +27,8 @@ private slots :
     void on_add_user_clicked();
     void on_Users_clicked();
     void on_adduser_clicked();
+    void on_modifyu_clicked();
+    void handleItemClicked(const QModelIndex &index);
+    void on_modify_user_clicked();
 };
 #endif // MAINWINDOW_H

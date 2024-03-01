@@ -60,21 +60,20 @@
     QStandardItemModel* Costumer::afficher() {
         int rows ;
         QStandardItemModel * model = new QStandardItemModel();
-        model->setColumnCount(5);
+        model->setColumnCount(6);
         model->setHeaderData(0,Qt::Horizontal,"CIN");
         model->setHeaderData(1,Qt::Horizontal,"FirstName");
         model->setHeaderData(2,Qt::Horizontal,"LastName");
         model->setHeaderData(3,Qt::Horizontal,"DoB");
-        model->setHeaderData(4,Qt::Horizontal,"Adress");
-        model->setHeaderData(4,Qt::Horizontal,"Email");
         model->setHeaderData(4,Qt::Horizontal,"Number");
+        model->setHeaderData(5,Qt::Horizontal,"Email");
         QSqlQuery query ;
         query.exec("SELECT* FROM ENTREPRENEURS") ;
         // (query.next()) ==> next query
         while (query.next()) {
             rows = model->rowCount() ;
             model->insertRow(rows) ;
-            for(int i = 0 ; i < 5 ; i++ ){
+            for(int i = 0 ; i < 6 ; i++ ){
                  model->setData(model->index(rows,i),query.value(i).toString());
            }
         }
@@ -93,3 +92,21 @@
             return true;
         }
     }
+    bool Costumer::Modify_element(int cinnv, QDate nvdob, int nvnumber, QString nvfName, QString nvlName, QString nvemail) {
+        QSqlQuery q;
+        q.prepare("UPDATE ENTREPRENEURS SET NOM = :v2, PRENOM = :v3, DDN = :v4, NUMERO = :v5, EMAIL = :v6 WHERE \"CIN\" = :v1");
+        q.bindValue(":v1", cinnv);
+        q.bindValue(":v2", nvfName);
+        q.bindValue(":v3", nvlName);
+        q.bindValue(":v4", nvdob);
+        q.bindValue(":v5", nvnumber);
+        q.bindValue(":v6", nvemail);
+
+        if (!q.exec()) {
+            qDebug() << "Error executing SQL query:" << q.lastError().text();
+            return false;
+        }
+
+        return true;
+    }
+

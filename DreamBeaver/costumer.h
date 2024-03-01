@@ -37,6 +37,7 @@ class Costumer
     bool AjouterClient(int cinnv,QDate nvdob,int nvnumber,QString nvfName, QString nvlName , QString nvemail );
     QStandardItemModel* afficher();
     bool EffacerClient(int n);
+    bool Modify_element(int cinnv,QDate nvdob,int nvnumber,QString nvfName,QString nvlName,QString nvemail);
 
 };
 
