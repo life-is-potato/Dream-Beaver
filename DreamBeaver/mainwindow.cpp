@@ -61,34 +61,90 @@ void MainWindow::handleItemDoubleClicked(const QModelIndex &index)
 
 void MainWindow::on_add_user_clicked()
 {
-    int cin = ui->cin->text().toInt();
-    QString fname = ui->fname->text();
-    QString lname= ui->lname->text() ;
-    QDate birthday = ui->birthday->date() ;
+    QString cinText=ui->cin->text();
+    QString fname=ui->fname->text();
+    QString lname=ui->lname->text();
+    QDate birthday=ui->birthday->date();
     QString email=ui->email->text();
-    int number = ui->phone_2->text().toInt();
-    if (c->AjouterClient(cin,birthday,number,fname,lname,email)) {
-           ui->cin->clear();
-           ui->fname->clear();
-           ui->lname->clear();
-           ui->email->clear();
-           ui->phone_2->clear();
-           ui->birthday->clearMask();
-           ui->stackedWidget->setCurrentIndex(0);
+    QString phoneText= ui->phone_2->text();
+    QRegularExpression cinRegex("\\d{8}");
+    QRegularExpression phoneRegex("\\d{8}");
+    QRegularExpression emailRegex("[\\w.-]+@[\\w.-]+\\.\\w+");
+    if (!cinRegex.match(cinText).hasMatch()) {
+        ui->cin->setText("Invalid CIN");
+        ui->fname->clear();
+        ui->lname->clear();
+        ui->birthday->clearMask();
+        return;
     }
-    else {
-          // QMessageBox::critical(nullptr,"zid thabet","bhim") ;
+    if (!phoneRegex.match(phoneText).hasMatch()) {
+        ui->phone_2->setText("Invalid phone number");
+        ui->fname->clear();
+        ui->lname->clear();
+        ui->birthday->clearMask();
+        return;
+    }
+    if (!emailRegex.match(email).hasMatch()) {
+        ui->email->setText("Invalid email format");
+        ui->fname->clear();
+        ui->lname->clear();
+        ui->birthday->clearMask();
+        return;
+    }
+    int cin=cinText.toInt();
+    int number=phoneText.toInt();
+    if (c->AjouterClient(cin, birthday, number, fname, lname, email)) {
+        ui->cin->clear();
+        ui->fname->clear();
+        ui->lname->clear();
+        ui->email->clear();
+        ui->phone_2->clear();
+        ui->birthday->clearMask();
+        ui->stackedWidget->setCurrentIndex(0);
     }
 }
 void MainWindow::on_modify_user_clicked()
 {
-    int cin = ui->cin_2->text().toInt();
+    QString cinText = ui->cin_2->text();
     QString fname = ui->fname_2->text();
     QString lname = ui->lname_2->text();
     QDate birthday = ui->birthday_2->date();
     QString email = ui->email_2->text();
-    int number = ui->phone_3->text().toInt();
+    QString phoneText = ui->phone_3->text();
+    QRegularExpression cinRegex("\\d{8}");
+    QRegularExpression phoneRegex("\\d{8}");
+    QRegularExpression emailRegex("[\\w.-]+@[\\w.-]+\\.\\w+");
+    if (!cinRegex.match(cinText).hasMatch()) {
+        ui->cin_2->setText("Invalid CIN");
+        // Clear other input fields
+        ui->fname_2->clear();
+        ui->lname_2->clear();
+        ui->email_2->clear();
+        ui->phone_3->clear();
+        ui->birthday_2->clearMask();
+        return;
+    }
 
+    if (!phoneRegex.match(phoneText).hasMatch()) {
+        ui->phone_3->setText("Invalid phone number");
+        ui->cin_2->clear();
+        ui->fname_2->clear();
+        ui->lname_2->clear();
+        ui->email_2->clear();
+        ui->birthday_2->clearMask();
+        return;
+    }
+    if (!emailRegex.match(email).hasMatch()) {
+        ui->email_2->setText("Invalid email format");
+        ui->cin_2->clear();
+        ui->fname_2->clear();
+        ui->lname_2->clear();
+        ui->phone_3->clear();
+        ui->birthday_2->clearMask();
+        return;
+    }
+    int cin = cinText.toInt();
+    int number = phoneText.toInt();
     if (c->Modify_element(cin, birthday, number, fname, lname, email)) {
         ui->cin_2->clear();
         ui->fname_2->clear();
@@ -98,7 +154,7 @@ void MainWindow::on_modify_user_clicked()
         ui->birthday_2->clearMask();
         ui->stackedWidget->setCurrentIndex(1);
     } else {
-        qDebug()<<"failed to modify";
+        qDebug() << "Failed to modify";
     }
 }
 void MainWindow::on_Users_clicked()

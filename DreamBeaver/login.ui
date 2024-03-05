@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>617</width>
-    <height>547</height>
+    <width>561</width>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>20</y>
-     <width>550</width>
-     <height>500</height>
+     <width>511</width>
+     <height>461</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -106,7 +106,7 @@ border-bottom-right-radius:50px;</string>
      <string>Log In</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="username">
     <property name="geometry">
      <rect>
       <x>295</x>
@@ -131,7 +131,7 @@ padding-bottom:7px;</string>
      <string>UserName</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="password">
     <property name="geometry">
      <rect>
       <x>295</x>
@@ -259,7 +259,7 @@ QPushButton#pushButton:pressed {
      <string>DreamBeaver</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>320</x>
