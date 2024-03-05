@@ -109,4 +109,33 @@
 
         return true;
     }
+    QStandardItemModel* Costumer::recherche_projet(QString str) {
+        int rows;
+        QSqlQuery query;
+        QStandardItemModel *model = new QStandardItemModel();
+        model->setColumnCount(6);
+        model->setHeaderData(0, Qt::Horizontal, "CIN");
+        model->setHeaderData(1, Qt::Horizontal, "FirstName");
+        model->setHeaderData(2, Qt::Horizontal, "LastName");
+        model->setHeaderData(3, Qt::Horizontal, "DoB");
+        model->setHeaderData(4, Qt::Horizontal, "Number");
+        model->setHeaderData(5, Qt::Horizontal, "Email");
+        query.prepare("SELECT E.* FROM ENTREPRENEURS E "
+                      "INNER JOIN PROJETS P ON E.CIN = P.CLIENT "
+                      "WHERE P.NOM = :x");
+        query.bindValue(":x", str);
+
+        if (query.exec()) {
+            while (query.next()) {
+                rows = model->rowCount();
+                model->insertRow(rows);
+                for (int i = 0; i < 6; i++) {
+                    model->setData(model->index(rows, i), query.value(i).toString());
+                }
+            }
+        } else {
+            qDebug() << "Query failed:" << query.lastError();
+        }
+        return model;
+    }
 

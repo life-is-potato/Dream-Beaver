@@ -38,6 +38,8 @@ class Costumer
     QStandardItemModel* afficher();
     bool EffacerClient(int n);
     bool Modify_element(int cinnv,QDate nvdob,int nvnumber,QString nvfName,QString nvlName,QString nvemail);
+
+    QStandardItemModel* recherche_projet(QString str);
 };
 
 #endif // COSTUMER_H

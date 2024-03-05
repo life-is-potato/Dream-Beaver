@@ -3,7 +3,10 @@
 #include "costumer.h"
 #include <QMainWindow>
 #include "connection.h"
-
+#include <QFileDialog>
+#include <QPrinter>
+#include <QPainter>
+#include <QMessageBox>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -30,5 +33,7 @@ private slots :
     void on_modifyu_clicked();
     void handleItemClicked(const QModelIndex &index);
     void on_modify_user_clicked();
+    void rechercheProjets(const QString &searchtext);
+    void on_pdf_clicked();
 };
 #endif // MAINWINDOW_H

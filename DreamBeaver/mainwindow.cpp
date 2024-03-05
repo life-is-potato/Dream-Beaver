@@ -8,12 +8,62 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->tableView, &QAbstractItemView::doubleClicked, this, &MainWindow::handleItemDoubleClicked);
     connect(ui->tableView, &QAbstractItemView::clicked, this, &MainWindow::handleItemClicked);
+    connect(ui->searchline, &QLineEdit::textChanged, this, &MainWindow::rechercheProjets);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::rechercheProjets(const QString &searchText) {
+    ui->tableView->setModel(c->recherche_projet(searchText));
+}
+void MainWindow::on_pdf_clicked()
+{
+         QString defaultFileName="tableauxEntrepreneur.pdf";
+        QString filePath = QFileDialog::getSaveFileName(this, tr("Save PDF"), "", tr("PDF Files (*.pdf)"));
+
+        if (!filePath.isEmpty()) {
+            QFile file(filePath);
+            if (!file.open(QIODevice::WriteOnly)) {
+                QMessageBox::warning(this, tr("Error"), tr("Could not create file."));
+                return;
+            }
+            QPrinter printer(QPrinter::PrinterResolution);
+            printer.setOutputFormat(QPrinter::PdfFormat);
+            printer.setPaperSize(QPrinter::A4);
+            printer.setOutputFileName(filePath);
+
+            QPainter painter;
+            if (!painter.begin(&printer)) {
+                QMessageBox::warning(this, tr("Error"), tr("Could not create painter."));
+                return;
+            }
+            int x= 100;
+            int y=100;
+            int cw= 100;
+            int rowHeight = 20;
+            QStringList h;
+            for (int i = 0; i<h.size(); ++i) {
+                painter.drawText(x+i * cw,y,h.at(i));
+            }
+
+            // Draw table data
+            int nl= ui->tableView->model()->rowCount();
+            int nc= ui->tableView->model()->columnCount();
+            for (int i=0;i<nl; ++i) {
+                for (int j=0; j<nc; ++j) {
+                    QString data = ui->tableView->model()->index(i,j).data(Qt::DisplayRole).toString();
+                    painter.drawText(x+j*cw,y+(i+1)*rowHeight, data);
+                }
+            }
+
+            painter.end();
+
+            QMessageBox::information(this, tr("Success"), tr("PDF file saved successfully."));
+        }
+    }
+
 void MainWindow::handleItemClicked(const QModelIndex &index)
 {
     selectedIndex = index;
