@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include"equipments.h"
+#include "sponsors.h"
 #include <QtSql>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -23,8 +24,6 @@
 #include <QtCharts/QAbstractSeries>
 #include <QtCharts/QPieSlice>
 #include <QtCharts>
-#include"sponsors.h"
-
 
 
 QT_BEGIN_NAMESPACE
@@ -42,7 +41,6 @@ public:
 public slots:
     void clear_chart_widget() ;
     void chart_render() ;
-    void bar_code(QString) ;
 
 
 private slots:
@@ -57,8 +55,6 @@ private slots:
 
     void on_add_equip_clicked();
 
-    void on_tableView_activated(const QModelIndex &index);
-
     void on_back_2_clicked();
 
     void on_modify_clicked();
@@ -71,27 +67,23 @@ private slots:
 
     void on_tri_clicked();
 
-    void on_tri_type_clicked();
-
-    void on_tri_qnt_clicked();
-
     void on_pdf_clicked();
 
 
     void on_pushButton_clicked();
 
-    void on_add_sponsors_clicked();
+    void on_tri_za_clicked();
 
-    void on_modifier_clicked();
+    void on_tri_az_clicked();
 
-    void on_supprimer_clicked();
+    void on_tableView_activated(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
     Equipments * e ;
-    int i ;
     sponsors s;
     sponsors Stmp;
+    int i ;
 };
 #endif // MAINWINDOW_H
 

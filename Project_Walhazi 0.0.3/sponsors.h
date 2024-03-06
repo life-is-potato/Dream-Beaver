@@ -37,8 +37,10 @@ public:
     bool ajouter();
     bool modifier(int);
     bool supprimer(int);
-    QSqlQueryModel * affichage ();
-    QStandardItemModel * afficher();
+    QSqlQueryModel * afficher();
+    QStandardItemModel * search_element(QString str);
+    QSqlQueryModel * afficheA_Z();
+    QSqlQueryModel * afficheZ_A();
 
 
 private:

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1113</width>
-    <height>707</height>
+    <width>1174</width>
+    <height>710</height>
    </rect>
   </property>
   <property name="cursor">
@@ -179,14 +179,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 44px 10px 50px;
-	background: url(:/home.svg) no-repeat;
+	background: url(:/icons/tsawer/home.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #home::hover {
-	background: url(:/home (1).svg) no-repeat;
+	background: url(:/icons/tsawer/home_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 44px 10px 50px;
 	background-origin: content; 
@@ -226,14 +226,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 30px 10px 50px;
-	background: url(:/project1.svg) no-repeat;
+	background: url(:/icons/tsawer/project.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #project::hover {
-	background: url(:/project2.svg) no-repeat;
+	background: url(:/icons/tsawer/project_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 30px 10px 50px;
 	background-origin: content; 
@@ -273,14 +273,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 10px 10px 50px;
-	background: url(:/equip2.svg) no-repeat;
+	background: url(:/icons/tsawer/equip.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #equipments::hover {
-	background: url(:/equip1.svg) no-repeat;
+	background: url(:/icons/tsawer/equip_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	border-radius:10px;	
 	padding: 10px 10px 10px 50px;
@@ -364,14 +364,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 30px 10px 50px;
-	background: url(:/settings1.svg) no-repeat;
+	background: url(:/icons/tsawer/settings.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #settings::hover {
-	background: url(:/settings2.svg) no-repeat;
+	background: url(:/icons/tsawer/settings_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 30px 10px 50px;
 	background-origin: content; 
@@ -411,14 +411,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 31px 10px 50px;
-	background: url(:/log-out1.svg) no-repeat;
+	background: url(:/icons/tsawer/log-out.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #logout::hover {
-	background: url(:/log-out2.svg) no-repeat;
+	background: url(:/icons/tsawer/log-out_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 31px 10px 50px;
 	background-origin: content; 
@@ -458,14 +458,14 @@ font-weight:bold;
 	background-color:transparent ; 
 	border-radius:10px;
 	padding: 10px 25px 10px 50px;
-	background: url(:/info2.svg) no-repeat;
+	background: url(:/icons/tsawer/info.svg) no-repeat;
 	color:#BFC9D3 ; 
 	font-size:13px;
 	background-origin: content; 
 }
 
 #About_us::hover {
-	background: url(:/info1.svg) no-repeat;
+	background: url(:/icons/tsawer/info_hover.svg) no-repeat;
 	background-color:#2A3E46 ; 
 	padding: 10px 25px 10px 50px;
 	background-origin: content; 
@@ -498,7 +498,7 @@ font-weight:bold;
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/logo.png</pixmap>
+        <pixmap resource="Resources.qrc">:/icons/tsawer/logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -551,6 +551,30 @@ border-radius:20px ; </string>
 }
 </string>
           </property>
+         </widget>
+         <widget class="QPushButton" name="search_button">
+          <property name="geometry">
+           <rect>
+            <x>580</x>
+            <y>10</y>
+            <width>41</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {	
+	background-color: transparent ;
+	border-radius:20px ; 
+	background:url(:/icons/tsawer/search.svg) no-repeat  center center; 
+} 
+
+QPushButton::hover {
+		background:url(:/icons/tsawer/search_hover.svg) no-repeat  center center; 
+}</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -592,34 +616,7 @@ border-radius:20px ; </string>
 }</string>
           </property>
           <property name="text">
-           <string>Fatma Hajlawi</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="search_button">
-          <property name="geometry">
-           <rect>
-            <x>570</x>
-            <y>10</y>
-            <width>41</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {	
-	background-color: transparent ;
-	border-radius:20px ; 
-	background:url(:/search1.svg) no-repeat  center center; 
-} 
-
-QPushButton::hover {
-		background:url(:/search2.svg) no-repeat  center center; 
-}</string>
-          </property>
-          <property name="text">
-           <string/>
+           <string>fatma hajlaoui</string>
           </property>
          </widget>
         </widget>
@@ -647,12 +644,163 @@ QPushButton::hover {
          <widget class="QWidget" name="page_2">
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
+            <widget class="QWidget" name="others" native="true">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>285</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#F7F6FC   ; 
+border-radius:20px ; 
+</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QWidget" name="widget_2" native="true">
+                <property name="styleSheet">
+                 <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QWidget" name="donut" native="true">
+                <property name="maximumSize">
+                 <size>
+                  <width>320</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <item>
+                    <widget class="QLabel" name="username_2">
+                     <property name="styleSheet">
+                      <string notr="true">#username {
+	background-color:transparent ; 
+	color:black ; 
+	font-size:13px ; 
+}</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
             <widget class="QWidget" name="table" native="true">
              <property name="styleSheet">
               <string notr="true">background-color:white ; 
 border-radius:20px ; 
 </string>
              </property>
+             <widget class="QTableView" name="tableView">
+              <property name="geometry">
+               <rect>
+                <x>40</x>
+                <y>80</y>
+                <width>731</width>
+                <height>171</height>
+               </rect>
+              </property>
+              <property name="cursor" stdset="0">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QTableView {
+    background-color : white ; 
+    color: black;
+    font: 12px;
+}
+QHeaderView::section {
+    background-color: #0F141E;
+    color: white;
+    height: 30px;
+    font: 15px;
+}
+QHeaderView::section:first {
+    border-top-left-radius: 5px;
+}
+QHeaderView::section:last {
+    border-top-right-radius: 5px;
+}
+QScrollBar:vertical {
+    background: #dee2e6;
+}
+ QScrollBar::handle:vertical {
+    background: #dee2e6;
+ }
+QScrollBar:horizontal {
+    background: #dee2e6;
+}
+ QScrollBar::handle:horizontal {
+    background: #dee2e6;
+ }</string>
+              </property>
+              <property name="verticalScrollBarPolicy">
+               <enum>Qt::ScrollBarAlwaysOff</enum>
+              </property>
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAlwaysOff</enum>
+              </property>
+              <property name="sizeAdjustPolicy">
+               <enum>QAbstractScrollArea::AdjustToContents</enum>
+              </property>
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="showGrid">
+               <bool>true</bool>
+              </property>
+              <property name="gridStyle">
+               <enum>Qt::SolidLine</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>146</number>
+              </attribute>
+             </widget>
+             <widget class="QPushButton" name="add_equipment">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>20</y>
+                <width>21</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">#add_equipment {
+	image: url(:/icons/tsawer/plus.svg);
+}
+#add_equipment::hover {
+	image:url(:/icons/tsawer/plus_hover.svg);
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
              <widget class="QLineEdit" name="search_bar_2">
               <property name="geometry">
                <rect>
@@ -694,254 +842,126 @@ border-radius:20px ;
 	background-color: transparent ;
 	border-radius:20px ; 
 	
-	image: url(:/search1.svg);
+	image: url(:/icons/tsawer/search.svg) ; 
 } 
-
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="tri">
+              <property name="geometry">
+               <rect>
+                <x>80</x>
+                <y>20</y>
+                <width>21</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	image: url(:/icons/tsawer/filter.svg);
+}
 QPushButton::hover {
-		
-	image: url(:/search2.svg);
+	image: url(:/icons/tsawer/filter_hover.svg);
 }</string>
               </property>
               <property name="text">
                <string/>
               </property>
              </widget>
-             <widget class="QWidget" name="table_2" native="true">
+             <widget class="QWidget" name="tri_bar" native="true">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="geometry">
                <rect>
-                <x>810</x>
-                <y>110</y>
-                <width>814</width>
-                <height>291</height>
+                <x>110</x>
+                <y>15</y>
+                <width>251</width>
+                <height>31</height>
                </rect>
               </property>
               <property name="styleSheet">
-               <string notr="true">background-color:white ; 
-border-radius:20px ; 
-</string>
-              </property>
-              <widget class="QTableView" name="tableView_2">
-               <property name="geometry">
-                <rect>
-                 <x>40</x>
-                 <y>80</y>
-                 <width>731</width>
-                 <height>171</height>
-                </rect>
-               </property>
-               <property name="cursor" stdset="0">
-                <cursorShape>PointingHandCursor</cursorShape>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QTableView {
-    color: black;
-    gridline-color: black;
-    border-color: rgb(242, 128, 133);
-    font: 10px;
-	selection-background-color:#4AC7EA ;
-}
-QHeaderView::section {
-    background-color: #0F141E;
-    color: white;
-    height: 35px;
-    font: 14px;
-}
-</string>
-               </property>
-               <property name="verticalScrollBarPolicy">
-                <enum>Qt::ScrollBarAlwaysOff</enum>
-               </property>
-               <property name="horizontalScrollBarPolicy">
-                <enum>Qt::ScrollBarAlwaysOff</enum>
-               </property>
-               <property name="sizeAdjustPolicy">
-                <enum>QAbstractScrollArea::AdjustToContents</enum>
-               </property>
-               <property name="editTriggers">
-                <set>QAbstractItemView::NoEditTriggers</set>
-               </property>
-               <property name="showGrid">
-                <bool>true</bool>
-               </property>
-               <property name="gridStyle">
-                <enum>Qt::SolidLine</enum>
-               </property>
-               <property name="sortingEnabled">
-                <bool>true</bool>
-               </property>
-               <attribute name="horizontalHeaderDefaultSectionSize">
-                <number>143</number>
-               </attribute>
-              </widget>
-              <widget class="QLineEdit" name="search_bar_3">
-               <property name="geometry">
-                <rect>
-                 <x>540</x>
-                 <y>15</y>
-                 <width>191</width>
-                 <height>31</height>
-                </rect>
-               </property>
-               <property name="cursor">
-                <cursorShape>IBeamCursor</cursorShape>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit {
- 	background-color:transparent ;
-	border-radius:15px ; 
-	border:1px solid #BFC9D3; 
-	padding : 0 40px 0 10px ; 
-} </string>
-               </property>
-               <property name="placeholderText">
-                <string>search by Id/Name</string>
-               </property>
-              </widget>
-              <widget class="QPushButton" name="search_button_3">
-               <property name="geometry">
-                <rect>
-                 <x>700</x>
-                 <y>15</y>
-                 <width>21</width>
-                 <height>31</height>
-                </rect>
-               </property>
-               <property name="cursor">
-                <cursorShape>PointingHandCursor</cursorShape>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {	
-	background-color: transparent ;
-	border-radius:20px ; 
-	
-	image: url(:/search1.svg);
-} 
-
-QPushButton::hover {
-		
-	image: url(:/search2.svg);
-}</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-              <widget class="QWidget" name="tri_bar_2" native="true">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="geometry">
-                <rect>
-                 <x>10</x>
-                 <y>160</y>
-                 <width>461</width>
-                 <height>31</height>
-                </rect>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QWidget {
+               <string notr="true">QWidget {
  	background-color:#0F141E ;
 	border-radius:10px ; 
 	padding : 0 40px 0 10px ; 
 }</string>
+              </property>
+              <widget class="QRadioButton" name="tri_az">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>5</y>
+                 <width>101</width>
+                 <height>20</height>
+                </rect>
                </property>
-               <widget class="QRadioButton" name="tri_type_2">
-                <property name="geometry">
-                 <rect>
-                  <x>10</x>
-                  <y>5</y>
-                  <width>101</width>
-                  <height>20</height>
-                 </rect>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QRadioButton{
+               <property name="styleSheet">
+                <string notr="true">QRadioButton{
 	background-color:transparent ; 
 	color:white ; 
 	border:0px ; 
 	font-weight :bold ; 
 }</string>
-                </property>
-                <property name="text">
-                 <string>Id </string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-               </widget>
-               <widget class="QRadioButton" name="tri_qnt_4">
-                <property name="geometry">
-                 <rect>
-                  <x>130</x>
-                  <y>5</y>
-                  <width>121</width>
-                  <height>21</height>
-                 </rect>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QRadioButton{
+               </property>
+               <property name="text">
+                <string>A_Z</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+              <widget class="QRadioButton" name="tri_za">
+               <property name="geometry">
+                <rect>
+                 <x>130</x>
+                 <y>5</y>
+                 <width>121</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QRadioButton{
 	background-color:transparent ; 
 	color:white ; 
 	border:0px ; 
 	font-weight :bold ; 
 }</string>
-                </property>
-                <property name="text">
-                 <string>Quantity</string>
-                </property>
-               </widget>
-               <widget class="QRadioButton" name="tri_qnt_5">
-                <property name="geometry">
-                 <rect>
-                  <x>330</x>
-                  <y>0</y>
-                  <width>121</width>
-                  <height>21</height>
-                 </rect>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QRadioButton{
-	background-color:transparent ; 
-	color:white ; 
-	border:0px ; 
-	font-weight :bold ; 
-}</string>
-                </property>
-                <property name="text">
-                 <string>Quantity</string>
-                </property>
-               </widget>
-               <widget class="QRadioButton" name="tri_qnt_6">
-                <property name="geometry">
-                 <rect>
-                  <x>220</x>
-                  <y>6</y>
-                  <width>121</width>
-                  <height>21</height>
-                 </rect>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">QRadioButton{
-	background-color:transparent ; 
-	color:white ; 
-	border:0px ; 
-	font-weight :bold ; 
-}</string>
-                </property>
-                <property name="text">
-                 <string>Quantity</string>
-                </property>
-               </widget>
+               </property>
+               <property name="text">
+                <string>Z_A</string>
+               </property>
               </widget>
              </widget>
-             <widget class="QTableView" name="tableView">
+             <widget class="QPushButton" name="pdf">
               <property name="geometry">
                <rect>
-                <x>60</x>
-                <y>230</y>
-                <width>651</width>
-                <height>192</height>
+                <x>50</x>
+                <y>20</y>
+                <width>21</width>
+                <height>21</height>
                </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	image: url(:/icons/tsawer/download.svg);
+}
+QPushButton::hover {
+	
+	image: url(:/icons/tsawer/download_hover.svg);
+}</string>
+              </property>
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </widget>
@@ -985,10 +1005,10 @@ QPushButton::hover {
 }</string>
            </property>
            <property name="text">
-            <string>Add Sponsors</string>
+            <string>Add Equipment</string>
            </property>
           </widget>
-          <widget class="QLineEdit" name="nom">
+          <widget class="QLineEdit" name="name">
            <property name="geometry">
             <rect>
              <x>430</x>
@@ -1041,7 +1061,7 @@ font-weight:bold ; </string>
             <string>Name</string>
            </property>
           </widget>
-          <widget class="QLineEdit" name="Email">
+          <widget class="QLineEdit" name="type">
            <property name="geometry">
             <rect>
              <x>180</x>
@@ -1074,10 +1094,10 @@ font-weight:bold ; </string>
 font-weight:bold ; </string>
            </property>
            <property name="text">
-            <string>E-mail</string>
+            <string>Email</string>
            </property>
           </widget>
-          <widget class="QLineEdit" name="num">
+          <widget class="QLineEdit" name="qnt">
            <property name="geometry">
             <rect>
              <x>430</x>
@@ -1102,7 +1122,7 @@ font-weight:bold ; </string>
             <rect>
              <x>430</x>
              <y>200</y>
-             <width>151</width>
+             <width>141</width>
              <height>21</height>
             </rect>
            </property>
@@ -1111,10 +1131,27 @@ font-weight:bold ; </string>
 font-weight:bold ; </string>
            </property>
            <property name="text">
-            <string>Numero de telephone</string>
+            <string>num de telephone </string>
            </property>
           </widget>
-          <widget class="QPushButton" name="add_sponsors">
+          <widget class="QLabel" name="label_7">
+           <property name="geometry">
+            <rect>
+             <x>180</x>
+             <y>290</y>
+             <width>141</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+           </property>
+           <property name="text">
+            <string>Type (phy/moral)</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="add_equip">
            <property name="geometry">
             <rect>
              <x>310</x>
@@ -1141,7 +1178,7 @@ font-weight:bold ; </string>
 }</string>
            </property>
            <property name="text">
-            <string>add sponsors</string>
+            <string>Add Equipment</string>
            </property>
           </widget>
           <widget class="QPushButton" name="back">
@@ -1187,54 +1224,36 @@ font-weight:bold ; </string>
 	border-radius :14px ; 
 }</string>
            </property>
-           <widget class="QLineEdit" name="type">
+           <widget class="QLineEdit" name="lineEdit_2">
             <property name="geometry">
              <rect>
               <x>20</x>
-              <y>340</y>
+              <y>310</y>
               <width>221</width>
               <height>41</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">#type {
-	background-color:white ; 
+             <string notr="true">	background-color:white ; 
 	border-radius:10px ; 
 	font-size:13px ; 
 	padding-left : 15px ; 
-	border:1px solid #BFC9D3 ; 
-}</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_7">
-            <property name="geometry">
-             <rect>
-              <x>40</x>
-              <y>300</y>
-              <width>161</width>
-              <height>21</height>
-             </rect>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font-size:13px;
-font-weight:bold ; </string>
-            </property>
-            <property name="text">
-             <string>type(moral/phy)</string>
+	border:1px solid #BFC9D3 ; </string>
             </property>
            </widget>
           </widget>
           <zorder>add_container</zorder>
           <zorder>ID</zorder>
           <zorder>title1</zorder>
-          <zorder>nom</zorder>
+          <zorder>name</zorder>
           <zorder>label_2</zorder>
           <zorder>label_3</zorder>
-          <zorder>Email</zorder>
+          <zorder>type</zorder>
           <zorder>label_4</zorder>
-          <zorder>num</zorder>
+          <zorder>qnt</zorder>
           <zorder>label_5</zorder>
-          <zorder>add_sponsors</zorder>
+          <zorder>label_7</zorder>
+          <zorder>add_equip</zorder>
           <zorder>back</zorder>
          </widget>
          <widget class="QWidget" name="page_3">
@@ -1243,7 +1262,7 @@ font-weight:bold ; </string>
             <rect>
              <x>310</x>
              <y>40</y>
-             <width>201</width>
+             <width>221</width>
              <height>31</height>
             </rect>
            </property>
@@ -1255,7 +1274,7 @@ font-weight:bold ; </string>
 }</string>
            </property>
            <property name="text">
-            <string>Sponsors</string>
+            <string>Modify Equipmet</string>
            </property>
           </widget>
           <widget class="QLabel" name="label_8">
@@ -1275,11 +1294,30 @@ font-weight:bold ; </string>
             <string>ID</string>
            </property>
           </widget>
-          <widget class="QLineEdit" name="ID_3">
+          <widget class="QLineEdit" name="name_2">
            <property name="geometry">
             <rect>
              <x>430</x>
              <y>140</y>
+             <width>221</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+</string>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="qnt_2">
+           <property name="geometry">
+            <rect>
+             <x>430</x>
+             <y>230</y>
              <width>221</width>
              <height>41</height>
             </rect>
@@ -1308,7 +1346,7 @@ font-weight:bold ; </string>
 font-weight:bold ; </string>
            </property>
            <property name="text">
-            <string>email</string>
+            <string>Email</string>
            </property>
           </widget>
           <widget class="QLabel" name="label_10">
@@ -1316,7 +1354,7 @@ font-weight:bold ; </string>
             <rect>
              <x>180</x>
              <y>290</y>
-             <width>81</width>
+             <width>131</width>
              <height>21</height>
             </rect>
            </property>
@@ -1325,36 +1363,14 @@ font-weight:bold ; </string>
 font-weight:bold ; </string>
            </property>
            <property name="text">
-            <string>type</string>
-           </property>
-          </widget>
-          <widget class="QLineEdit" name="ID_2">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>180</x>
-             <y>140</y>
-             <width>221</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">
-	background-color:white ; 
-	border-radius:10px ; 
-	font-size:13px ; 
-	padding-left : 15px ; 
-	border:1px solid #BFC9D3 ; 
-</string>
+            <string>Type (phy/moral)</string>
            </property>
           </widget>
           <widget class="QWidget" name="add_container_2" native="true">
            <property name="geometry">
             <rect>
-             <x>150</x>
-             <y>0</y>
+             <x>160</x>
+             <y>20</y>
              <width>511</width>
              <height>561</height>
             </rect>
@@ -1364,7 +1380,7 @@ font-weight:bold ; </string>
 border-radius :14px ; 
 </string>
            </property>
-           <widget class="QPushButton" name="modifier">
+           <widget class="QPushButton" name="modify">
             <property name="geometry">
              <rect>
               <x>50</x>
@@ -1394,7 +1410,7 @@ QPushButton::hover {
              <string>Modify</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="supprimer">
+           <widget class="QPushButton" name="delete_2">
             <property name="geometry">
              <rect>
               <x>260</x>
@@ -1424,33 +1440,53 @@ QPushButton::hover {
              <string>Delete</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="qnt_3">
+           <widget class="QPushButton" name="pushButton">
+            <property name="geometry">
+             <rect>
+              <x>480</x>
+              <y>10</y>
+              <width>21</width>
+              <height>21</height>
+             </rect>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
+	image: url(:/icons/tsawer/code.svg);
+ }
+
+QPushButton::hover {
+	image: url(:/icons/tsawer/code_hover.svg);
+}</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit">
             <property name="geometry">
              <rect>
               <x>20</x>
-              <y>330</y>
+              <y>310</y>
               <width>221</width>
               <height>41</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">
-	background-color:white ; 
+             <string notr="true">	background-color:white ; 
 	border-radius:10px ; 
 	font-size:13px ; 
 	padding-left : 15px ; 
-	border:1px solid #BFC9D3 ; 
-</string>
+	border:1px solid #BFC9D3 ; </string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="ID_4">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
+           <widget class="QLineEdit" name="ID_2">
             <property name="geometry">
              <rect>
-              <x>280</x>
-              <y>230</y>
+              <x>30</x>
+              <y>120</y>
               <width>221</width>
               <height>41</height>
              </rect>
@@ -1466,7 +1502,7 @@ QPushButton::hover {
             </property>
            </widget>
           </widget>
-          <widget class="QLineEdit" name="EMAIL_2">
+          <widget class="QLineEdit" name="type_2">
            <property name="geometry">
             <rect>
              <x>180</x>
@@ -1535,7 +1571,7 @@ font-weight:bold ; </string>
             <rect>
              <x>430</x>
              <y>200</y>
-             <width>161</width>
+             <width>151</width>
              <height>21</height>
             </rect>
            </property>
@@ -1544,17 +1580,17 @@ font-weight:bold ; </string>
 font-weight:bold ; </string>
            </property>
            <property name="text">
-            <string>Numero de telephone</string>
+            <string>num de telephone</string>
            </property>
           </widget>
           <zorder>add_container_2</zorder>
           <zorder>title1_2</zorder>
           <zorder>label_8</zorder>
-          <zorder>ID_3</zorder>
+          <zorder>name_2</zorder>
+          <zorder>qnt_2</zorder>
           <zorder>label_9</zorder>
           <zorder>label_10</zorder>
-          <zorder>ID_2</zorder>
-          <zorder>EMAIL_2</zorder>
+          <zorder>type_2</zorder>
           <zorder>back_2</zorder>
           <zorder>label_11</zorder>
           <zorder>label_13</zorder>
@@ -1568,7 +1604,7 @@ font-weight:bold ; </string>
   </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="Resources.qrc"/>
  </resources>
  <connections/>
 </ui>
