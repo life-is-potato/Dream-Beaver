@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/">
+        <file>home (1).svg</file>
+        <file>home.svg</file>
+        <file>project1.svg</file>
+        <file>project2.svg</file>
+        <file>equip1.svg</file>
+        <file>equip2.svg</file>
+        <file>settings2.svg</file>
+        <file>settings1.svg</file>
+        <file>log-out1.svg</file>
+        <file>log-out2.svg</file>
+        <file>search1.svg</file>
+        <file>search2.svg</file>
+        <file>info1.svg</file>
+        <file>info2.svg</file>
+        <file>pdp.jpg</file>
+        <file>arrow-left (1).svg</file>
+        <file>arrow-left.svg</file>
+        <file>plus (1).svg</file>
+        <file>plus.svg</file>
+        <file>download (1).svg</file>
+        <file>download.svg</file>
+        <file>filter (1).svg</file>
+        <file>filter.svg</file>
+        <file>logo.png</file>
+        <file>book1.svg</file>
+        <file>book2.svg</file>
+        <file>clipboard1.svg</file>
+        <file>clipboard2.svg</file>
+        <file>user1.svg</file>
+        <file>user2.svg</file>
+    </qresource>
+</RCC>
