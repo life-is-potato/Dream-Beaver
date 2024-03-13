@@ -14,7 +14,7 @@ QStandardItemModel * Equipments::afficher() {
 
     //l query mta walhezi  :
     QSqlQuery query ;
-    query.exec("SELECT * FROM EQUIPEMENTS ") ;
+    query.exec("SELECT ID,NOM,TYPE,QNT_STOCK,DISPONIBILITE FROM EQUIPEMENTS ") ;
     // (query.next()) ==> tt3ada ll query li ba3dha ;
 
     while (query.next()) {

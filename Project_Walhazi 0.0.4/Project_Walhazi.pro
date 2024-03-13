@@ -21,6 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     barcodeprinter.cpp \
     databaseconnection.cpp \
+    entreprneur.cpp \
     equipments.cpp \
     main.cpp \
     mainwindow.cpp
@@ -28,6 +29,7 @@ SOURCES += \
 HEADERS += \
     barcodeprinter.h \
     databaseconnection.h \
+    entreprneur.h \
     equipments.h \
     mainwindow.h
 

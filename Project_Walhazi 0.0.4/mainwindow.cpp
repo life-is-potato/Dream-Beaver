@@ -8,10 +8,23 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tri_bar->hide() ;
-    chart_render() ;
+    ui->tabs->setCurrentIndex(0) ;
+
+    QRegExp regex1("^[a-zA-Z]*$");
+    QRegExp regex2("^[0-9]*$");
+
+    QValidator *validator1 = new QRegExpValidator(regex1, ui->name);
+    QValidator *validator2 = new QRegExpValidator(regex2, ui->qnt);
+
+    ui->name->setValidator(validator1);
+    ui->qnt->setValidator(validator2);
+    ui->name_2->setValidator(validator1);
+    ui->qnt_2->setValidator(validator2);
+    ui->ID->setMaxLength(8) ;
+    ui->ID->setValidator(validator2) ;
+
 }
+
 
 
 MainWindow::~MainWindow()
@@ -22,64 +35,67 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_equipments_clicked()
 {
-   ui->stackedWidget->setCurrentIndex(0) ;
+   ui->tabs->setCurrentIndex(1) ;
+   ui->tri_bar->hide() ;
+   ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+   ui->equipments_widget->setCurrentIndex(0) ;
    ui->tableView->setModel(e->afficher());
    clear_chart_widget() ;
    chart_render() ;
     }
-void MainWindow::on_equipments_clicked(bool checked)
-{
-        if (! checked) {
-           ui->equipments->setStyleSheet("background: url(:/equip1.svg) no-repeat;"
-                                         "background-color:#2A3E46 ;"
-                                         "border-radius:10px;"
-                                         "padding: 10px 10px 10px 50px;"
-                                         "background-origin: content;"
-                                         "font-size:13px;"
-                                         "color : #4AC7EA ;" );
-       }
-       else {
-           ui->equipments->setStyleSheet("background-color:transparent ;"
-                                         "border-radius:10px;"
-                                         "padding: 10px 10px 10px 50px;"
-                                         "background: url(:/equip2.svg) no-repeat;"
-                                         "color:#BFC9D3 ;"
-                                         "font-size:13px;"
-                                         "background-origin: content;");
-       }
-}
 
 void MainWindow::on_add_equipment_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(1) ;
+    ui->equipments_widget->setCurrentIndex(1) ;
 }
 
 void MainWindow::on_back_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0) ;
+    ui->equipments_widget->setCurrentIndex(0) ;
 }
 
 void MainWindow::on_add_equip_clicked()
 {
     int id = ui->ID->text().toInt();
     QString name = ui->name->text() ;
-    int type = ui->type->text().toInt() ;
+    int type = ui->type->currentText().toInt() ;
     int qnt = ui->qnt->text().toInt() ;
-    QString disp ;
     QString desc = ui->desc->toPlainText() ;
-    if ((ui->checkBox) && !(ui->checkBox_2)){
+    int flag = 0 ;
+
+    if (ui->ID->text().length() != 8 ) {
+        flag = 1 ;
+        QMessageBox::critical(nullptr,"erreur","ID is not valid ! ") ;
+    }
+
+    if (!isAlpha(name)) {
+        QMessageBox::critical(nullptr,"erreur","name is not valid !") ;
+        flag = 1 ;
+    }
+
+    if (!isInteger(qnt)) {
+        QMessageBox::critical(nullptr,"erreur","quantité is not valid ! ") ;
+        flag = 1 ;
+    }
+
+    QString disp ;
+
+    if ((ui->checkBox->isChecked()) && !(ui->checkBox_2->isChecked())){
         disp = "Disponible" ;
     }
     else {
         disp = "Non disponible" ;
     }
+
+
+
+if (flag == 0 ){
     if (e->Add_element(id,name,type,qnt,disp,desc)) {
            QMessageBox::information(nullptr,"okay","jwk mrgl") ;
            ui->ID->clear();
            ui->name->clear();
            ui->desc->clear();
            ui->qnt->clear();
-           ui->type->clear();
            ui->checkBox->clearMask();
            ui->checkBox_2->clearMask();
            ui->tableView->setModel(e->afficher());
@@ -91,11 +107,10 @@ void MainWindow::on_add_equip_clicked()
            p->configurePrinter();
            p->printBarcode(s);
 
-           ui->stackedWidget->setCurrentIndex(0);
-    }
-    else {
-           QMessageBox::critical(nullptr,"zid thabet","bhim") ;
-    }
+           ui->equipments_widget->setCurrentIndex(0);
+           }
+}
+
 }
 
 void MainWindow::on_tableView_activated(const QModelIndex &index)
@@ -108,7 +123,7 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
        if (query.exec() && query.next()) {
            ui->ID_2->setText(cinValue);
            ui->name_2->setText(query.value(1).toString());
-           ui->type_2->setText(query.value(2).toString());
+           ui->type_2->setCurrentText(query.value(2).toString());
            ui->desc_2->setText(query.value(3).toString());
            if (query.value(4).toString() == "disponible" ) {
                 ui->checkBox_4->setCheckState(Qt::Checked);
@@ -119,21 +134,21 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
                 ui->checkBox_3->setCheckState(Qt::Checked);
            }
            ui->qnt_2->setText(query.value(5).toString());
-           ui->stackedWidget->setCurrentIndex(2);
+           ui->equipments_widget->setCurrentIndex(2);
        }
 }
 
 
 void MainWindow::on_back_2_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    ui->equipments_widget->setCurrentIndex(0);
 }
 
 void MainWindow::on_modify_clicked()
 {
     int id = ui->ID_2->text().toInt();
     QString name = ui->name_2->text() ;
-    int type = ui->type_2->text().toInt() ;
+    int type = ui->type_2->currentText().toInt() ;
     int qnt = ui->qnt_2->text().toInt() ;
     QString disp ;
     if ((ui->checkBox_4->isChecked()) && !(ui->checkBox_3->isChecked())){
@@ -148,7 +163,7 @@ void MainWindow::on_modify_clicked()
                    QMessageBox::information(nullptr,"okay","jwk mrgl") ;
                    ui->tableView->setModel(e->afficher());
                    chart_render() ;
-                   ui->stackedWidget->setCurrentIndex(0);
+                   ui->equipments_widget->setCurrentIndex(0);
             }
             else {
                    QMessageBox::critical(nullptr,"zid thabet","8alet") ;
@@ -163,7 +178,7 @@ void MainWindow::on_delete_2_clicked()
     if (e->Delete_element(id)) {
            QMessageBox::information(nullptr,"okay","jwk mrgl") ;
            ui->tableView->setModel(e->afficher());
-           ui->stackedWidget->setCurrentIndex(0);
+           ui->equipments_widget->setCurrentIndex(0);
     }
     else {
            QMessageBox::critical(nullptr,"zid thabet","8alet") ;
@@ -358,4 +373,49 @@ void MainWindow::on_pushButton_clicked()
 
         qDebug() << "Image downloaded mrgl";
     }
+}
+
+void MainWindow::on_entreperneurs_clicked()
+{
+    ui->tabs->setCurrentIndex(2) ;
+    ui->entreprneur->setCurrentIndex(0) ;
+    ui->tableView_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_2->setModel(a->afficher()) ;
+}
+
+
+bool MainWindow::isAlpha(QString str ){
+    for (QChar c : str) {
+           if (!c.isLetter()) {
+               return false;
+           }
+       }
+       return true;
+}
+
+bool MainWindow::isInteger(int x) {
+    QString str = QString::number(x) ;
+    for (QChar c : str) {
+            if (!c.isDigit()) {
+                return false;
+            }
+        }
+        return true;
+}
+
+
+
+void MainWindow::on_project_clicked()
+{
+    ui->tabs->setCurrentIndex(0) ;
+}
+
+void MainWindow::on_formation_clicked()
+{
+    ui->tabs->setCurrentIndex(3) ;
+}
+
+void MainWindow::on_adds_clicked()
+{
+    ui->tabs->setCurrentIndex(4) ;
 }

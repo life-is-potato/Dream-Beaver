@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include"equipments.h"
+#include"entreprneur.h"
 #include <QtSql>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -40,13 +41,13 @@ public:
 public slots:
     void clear_chart_widget() ;
     void chart_render() ;
+    bool isAlpha(const QString str) ;
+    bool isInteger(const int x) ;
 
 
 private slots:
 
     void on_equipments_clicked();
-
-    void on_equipments_clicked(bool checked);
 
     void on_add_equipment_clicked();
 
@@ -74,12 +75,22 @@ private slots:
 
     void on_pdf_clicked();
 
-
     void on_pushButton_clicked();
+
+    void on_entreperneurs_clicked();
+
+
+
+    void on_project_clicked();
+
+    void on_formation_clicked();
+
+    void on_adds_clicked();
 
 private:
     Ui::MainWindow *ui;
     Equipments * e ;
+    entreprneur * a ;
     int i ;
 };
 #endif // MAINWINDOW_H
