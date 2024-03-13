@@ -1,7 +1,7 @@
 
 QT += core gui sql
 QT += printsupport
-
+QT += charts
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -20,15 +20,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     connection.cpp \
     costumer.cpp \
+    equipments.cpp \
+    formation.cpp \
     login.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sponsors.cpp
 
 HEADERS += \
     connection.h \
     costumer.h \
+    equipments.h \
+    formation.h \
     login.h \
-    mainwindow.h
+    mainwindow.h \
+    sponsors.h
 
 FORMS += \
     login.ui \

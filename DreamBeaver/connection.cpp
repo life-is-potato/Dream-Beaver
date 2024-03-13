@@ -1,6 +1,6 @@
 #include "connection.h"
 #include <QDebug>
-
+#include <QMessageBox>
 Connection::Connection()
 {
 
@@ -15,8 +15,9 @@ bool Connection::createconnect()
     db.setPassword("mahmoud");
 
     if (!db.open()) {
-       return false  ;
+        QMessageBox::critical(nullptr, "Database Error", "Error opening database: " + db.lastError().text());
+        return false;
     } else {
-        return true ;
+        return true;
     }
 }
