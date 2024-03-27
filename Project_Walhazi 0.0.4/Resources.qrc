@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>tsawer/arrow-left.svg</file>
+        <file>tsawer/arrow-left_hover.svg</file>
+        <file>tsawer/code.svg</file>
+        <file>tsawer/code_hover.svg</file>
+        <file>tsawer/download.svg</file>
+        <file>tsawer/download_hover.svg</file>
+        <file>tsawer/equip.svg</file>
+        <file>tsawer/equip_hover.svg</file>
+        <file>tsawer/filter.svg</file>
+        <file>tsawer/filter_hover.svg</file>
+        <file>tsawer/home.svg</file>
+        <file>tsawer/home_hover.svg</file>
+        <file>tsawer/info.svg</file>
+        <file>tsawer/info_hover.svg</file>
+        <file>tsawer/logo.png</file>
+        <file>tsawer/log-out.svg</file>
+        <file>tsawer/log-out_hover.svg</file>
+        <file>tsawer/plus.svg</file>
+        <file>tsawer/plus_hover.svg</file>
+        <file>tsawer/project.svg</file>
+        <file>tsawer/project_hover.svg</file>
+        <file>tsawer/search.svg</file>
+        <file>tsawer/search_hover.svg</file>
+        <file>tsawer/settings.svg</file>
+        <file>tsawer/settings_hover.svg</file>
+        <file>tsawer/entreperneur_hover.svg</file>
+        <file>tsawer/entreperneur.svg</file>
+        <file>tsawer/formation.svg</file>
+        <file>tsawer/formation_hover.svg</file>
+        <file>tsawer/adds.svg</file>
+        <file>tsawer/adds_hover.svg</file>
+        <file>tsawer/plus-circle.svg</file>
+    </qresource>
+</RCC>
