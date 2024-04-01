@@ -13,11 +13,8 @@ QStandardItemModel * entreprneur::afficher() {
     model->setHeaderData(4,Qt::Horizontal,"Numero") ;
     model->setHeaderData(4,Qt::Horizontal,"email") ;
 
-    //l query mta walhezi  :
     QSqlQuery query ;
     query.exec("SELECT * FROM ENTREPRENEURS ") ;
-    // (query.next()) ==> tt3ada ll query li ba3dha ;
-
     while (query.next()) {
         rows = model->rowCount() ;
         model->insertRow(rows) ;
@@ -28,7 +25,7 @@ QStandardItemModel * entreprneur::afficher() {
     return model ;
 }
 
-bool entreprneur::Add_element(int cin , QString name , int prenom , int ddn , QString numero, QString email) {
+bool entreprneur::Add_element(int cin , QString name , QString prenom , QString ddn , int numero, QString email) {
 
     QSqlQuery q ;
 
@@ -44,10 +41,10 @@ bool entreprneur::Add_element(int cin , QString name , int prenom , int ddn , QS
 }
 
 
-bool entreprneur::Modify_element(int cin , QString name , int prenom , int ddn , QString numero, QString email) {
+bool entreprneur::Modify_element(int cin , QString name , QString prenom , QString ddn , int numero, QString email) {
 
     QSqlQuery q ;
-    q.prepare("UPDATE ENTREPRENEURS SET  NOM = :v2, TYPE =:v3 , QNT_STOCK = :v4, DISPONIBILITE = :v5, DESCRIPTION = :v6 WHERE ID = :v1 ") ;
+    q.prepare("UPDATE ENTREPRENEURS SET  NOM = :v2, PRENOM =:v3 , DDN = :v4, NUMERO = :v5, EMAIL = :v6  WHERE CIN = :v1 ") ;
     q.bindValue(":v1",cin) ;
     q.bindValue(":v2",name) ;
     q.bindValue(":v3",prenom) ;
@@ -60,8 +57,8 @@ bool entreprneur::Modify_element(int cin , QString name , int prenom , int ddn ,
 
 bool entreprneur::Delete_element(int x ) {
       QSqlQuery q ;
-      q.prepare("DELETE FROM EQUIPEMENTS WHERE ID = :id ") ;
-      q.bindValue(":id",x) ;
+      q.prepare("DELETE FROM ENTREPRENEURS WHERE CIN = :cin ") ;
+      q.bindValue(":cin",x) ;
       return q.exec() ;
 }
 

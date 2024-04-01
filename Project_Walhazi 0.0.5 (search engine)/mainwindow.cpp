@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tabs->setCurrentIndex(0) ;
+    ui->projects->setCurrentIndex(0) ;
+    ui->tableView_3->setModel(p->afficher()) ;
+    ui->tableView_3->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     QRegExp regex1("^[a-zA-Z]*$");
     QRegExp regex2("^[0-9]*$");
@@ -23,7 +26,34 @@ MainWindow::MainWindow(QWidget *parent)
     ui->ID->setMaxLength(8) ;
     ui->ID->setValidator(validator2) ;
 
+
+
+    //api testing :
+
+/*
+    QNetworkAccessManager manager;
+      QUrl url("https://www.googleapis.com/customsearch/v1?key=AIzaSyDlJTLRZ76Hw_tyGgHQI538SN1S9PN1yl4&cx=064b3bbe8996a4a8d&q=jasser");
+      QNetworkRequest request(url);
+
+      QNetworkReply *reply = manager.get(request);
+      QEventLoop loop;
+      QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+      loop.exec();
+
+      if (reply->error() == QNetworkReply::NoError) {
+          QByteArray response = reply->readAll();
+          QJsonDocument jsonResponse = QJsonDocument::fromJson(response);
+          QJsonObject jsonObject = jsonResponse.object();
+          // Parse and handle the JSON response
+          qDebug() << jsonObject;
+      } else {
+          qDebug() << "Error: " << reply->errorString();
+      }
+*/
+
 }
+
+
 
 
 
@@ -408,14 +438,325 @@ bool MainWindow::isInteger(int x) {
 void MainWindow::on_project_clicked()
 {
     ui->tabs->setCurrentIndex(0) ;
+    ui->projects->setCurrentIndex(0) ;
+    ui->tableView_3->setModel(p->afficher()) ;
 }
 
 void MainWindow::on_formation_clicked()
 {
     ui->tabs->setCurrentIndex(3) ;
+    ui->formation_widget->setCurrentIndex(0) ;
+    ui->tableView_4->setModel(f->afficher()) ;
+    ui->tableView_4->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 void MainWindow::on_adds_clicked()
 {
-    ui->tabs->setCurrentIndex(4) ;
+    ui->tabs->setCurrentIndex(4);
+    ui->pub_widget->setCurrentIndex(0) ;
+    ui->tableView_5->setModel(pu->afficher()) ;
+    ui->tableView_5->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
+
+
+
+void MainWindow::on_add_project_clicked()
+{
+      ui->projects->setCurrentIndex(1) ;
+}
+
+void MainWindow::on_add_projet_clicked()
+{
+    int id = ui->ID_projet->text().toInt();
+    QString name = ui->name_projet->text() ;
+    int budget = ui->budget_projet->text().toInt() ;
+    int client = ui->client_projet->text().toInt() ;
+    QString desc = ui->desc_projet->toPlainText() ;
+
+    p->Add_element(id,name,budget,client,desc) ;
+}
+
+
+
+void MainWindow::on_tableView_3_activated(const QModelIndex &index)
+{
+    ui->projects->setCurrentIndex(2) ;
+    int row = index.row();
+    QString idValue = ui->tableView_3->model()->data(ui->tableView_3->model()->index(row, 0)).toString();
+    QString clientid = ui->tableView_3->model()->data(ui->tableView_3->model()->index(row, 3)).toString();
+    ui->ID_projet_2->setText(idValue) ;
+    ui->client_project_2->setText(clientid) ;
+}
+
+void MainWindow::on_modify_project_clicked()
+{
+    int id = ui->ID_projet_2->text().toInt() ;
+    QString name = ui->name_projet_2->text() ;
+    int budget = ui->budget_project_2->text().toInt() ;
+    int client = ui->client_project_2->text().toInt() ;
+    QString desc = ui->desc_project_2->toPlainText() ;
+
+    p->Modify_element(id,name,budget,client,desc) ;
+    ui->projects->setCurrentIndex(0) ;
+    ui->tableView_3->setModel(p->afficher()) ;
+}
+
+void MainWindow::on_delete__project_clicked()
+{
+    int id = ui->ID_projet_2->text().toInt() ;
+    p->Delete_element(id) ;
+    ui->projects->setCurrentIndex(0) ;
+    ui->tableView_3->setModel(p->afficher()) ;
+}
+
+void MainWindow::on_add_equipment_2_clicked()
+{
+    ui->entreprneur->setCurrentIndex(1) ;
+}
+
+void MainWindow::on_add_entr_clicked()
+{
+    int cin = ui->CIN_entr->text().toInt() ;
+    QString name = ui->name_entr->text() ;
+    QString surname = ui->surname_entr->text();
+    QString dob = ui->dob_entr->text() ;
+    int number = ui->number_entr->text().toInt() ;
+    QString email = ui->email_entr->text() ;
+
+    a->Add_element(cin , name , surname , dob , number , email ) ;
+    ui->entreprneur->setCurrentIndex(0) ;
+    ui->tableView_2->setModel(a->afficher()) ;
+
+}
+
+void MainWindow::on_tableView_2_activated(const QModelIndex &index)
+{
+    ui->entreprneur->setCurrentIndex(2) ;
+    int row = index.row();
+    QString idValue = ui->tableView_2->model()->data(ui->tableView_2->model()->index(row, 0)).toString();
+    ui->CIN_entr_2->setText(idValue) ;
+}
+
+void MainWindow::on_modify_project_2_clicked()
+{
+    int cin = ui->CIN_entr_2->text().toInt() ;
+    QString name = ui->name_entr_2->text() ;
+    QString surname = ui->surname_entr_2->text();
+    QString dob = ui->dob_entr_2->text() ;
+    int number = ui->number_entr_2->text().toInt() ;
+    QString email = ui->email_entr_2->text() ;
+
+    a->Modify_element(cin , name , surname , dob , number , email) ;
+    ui->entreprneur->setCurrentIndex(0) ;
+    ui->tableView_2->setModel(a->afficher()) ;
+}
+
+void MainWindow::on_delete__project_2_clicked()
+{
+    int cin = ui->CIN_entr_2->text().toInt() ;
+    a->Delete_element(cin) ;
+    ui->entreprneur->setCurrentIndex(0) ;
+    ui->tableView_2->setModel(a->afficher()) ;
+}
+
+void MainWindow::on_add_equipment_4_clicked()
+{
+    ui->formation_widget->setCurrentIndex(1) ;
+}
+
+
+
+void MainWindow::on_add_entr_2_clicked()
+{
+    int id = ui->id_formation->text().toInt() ;
+    int type = ui->type_formation->text().toInt() ;
+    QString INSTRUCTEUR = ui->instructor_formation->text() ;
+    QString dd = ui->date_d_formation->text() ;
+    QString df = ui->date_f_formation->text() ;
+    int NB_PARTICIPANTS = ui->nb_participants_formation->text().toInt() ;
+    QString DESCRIPTION = ui->desc_formation->toPlainText() ;
+
+    f->Add_element(id,type,INSTRUCTEUR,dd,df,NB_PARTICIPANTS,DESCRIPTION) ;
+    ui->formation_widget->setCurrentIndex(0) ;
+    ui->tableView_4->setModel(f->afficher()) ;
+}
+
+void MainWindow::on_tableView_4_activated(const QModelIndex &index)
+{
+    ui->formation_widget->setCurrentIndex(2) ;
+    int row = index.row();
+    QString idValue = ui->tableView_4->model()->data(ui->tableView_4->model()->index(row, 0)).toString();
+    QString type = ui->tableView_4->model()->data(ui->tableView_4->model()->index(row, 1)).toString();
+    QString inst = ui->tableView_4->model()->data(ui->tableView_4->model()->index(row, 2)).toString();
+    QString nb_p = ui->tableView_4->model()->data(ui->tableView_4->model()->index(row, 5)).toString();
+    ui->id_formation_2->setText(idValue) ;
+    ui->type_formation_2->setText(type) ;
+    ui->instructor_formation_2->setText(inst) ;
+    ui->nb_participants_formation_2->setText(nb_p) ;
+}
+
+void MainWindow::on_modify_project_3_clicked()
+{
+    int id = ui->id_formation_2->text().toInt() ;
+    int type = ui->type_formation_2->text().toInt() ;
+    QString INSTRUCTEUR = ui->instructor_formation_2->text() ;
+    QString dd = ui->date_d_formation_2->text() ;
+    QString df = ui->date_f_formation_2->text() ;
+    int NB_PARTICIPANTS = ui->nb_participants_formation_2->text().toInt() ;
+    QString DESCRIPTION = ui->desc_formation_2->toPlainText() ;
+    f->Modify_element(id,type,INSTRUCTEUR,dd,df,NB_PARTICIPANTS,DESCRIPTION) ;
+    ui->formation_widget->setCurrentIndex(0) ;
+    ui->tableView_4->setModel(f->afficher()) ;
+}
+
+void MainWindow::on_delete__project_3_clicked()
+{
+    int id = ui->id_formation_2->text().toInt() ;
+    f->Delete_element(id) ;
+    ui->formation_widget->setCurrentIndex(0) ;
+    ui->tableView_4->setModel(f->afficher()) ;
+}
+
+void MainWindow::on_add_equipment_5_clicked()
+{
+    ui->pub_widget->setCurrentIndex(1) ;
+}
+
+
+void MainWindow::on_add_entr_3_clicked()
+{
+    int id = ui->id_pub->text().toInt() ;
+    QString name = ui->name_pub->text() ;
+    int type = ui->type_pub->text().toInt() ;
+    int cout = ui->cout_pub->text().toInt() ;
+    QString dd = ui->date_d_pub->date().toString("yyyy/MM/dd") ;
+    QString df = ui->date_f_pub->date().toString("yyyy/MM/dd") ;
+    int prjt_id = ui->prj_id_pub->text().toInt() ;
+
+    pu->Add_element(id,name,type,cout,dd,df,prjt_id) ;
+}
+
+void MainWindow::on_tableView_5_activated(const QModelIndex &index)
+{
+    ui->pub_widget->setCurrentIndex(2) ;
+    int row = index.row();
+    QString idValue = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 0)).toString();
+    QString name = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 1)).toString();
+    QString type = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 2)).toString();
+    QString cout = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 3)).toString();
+    QString dd = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 4)).toString();
+    QString df = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 5)).toString();
+    QString id_prj = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 6)).toString();
+
+    ui->id_pub_2->setText(idValue) ;
+    ui->name_pub_2->setText(name) ;
+    ui->type_pub_2->setText(type) ;
+    ui->cout_pub_2->setText(cout) ;
+
+    QDate ddDate = QDate::fromString(dd, "yyyy/MM/dd");
+    QDate dfDate = QDate::fromString(df, "yyyy/MM/dd");
+    qDebug() << df ;
+    if (ddDate.isValid() && dfDate.isValid()) {
+        ui->date_d_pub_2->setDate(ddDate);
+        ui->date_f_pub_2->setDate(dfDate);
+    } else {
+        // Handle invalid date scenarios (e.g., display an error message)
+        qDebug() << "Invalid date format or value!";
+    }
+    ui->prj_id_pub_2->setText(id_prj) ;
+}
+
+void MainWindow::on_modify_pub_clicked()
+{
+    int id = ui->id_pub_2->text().toInt() ;
+    QString name = ui->name_pub_2->text() ;
+    int type = ui->type_pub_2->text().toInt() ;
+    int cout = ui->cout_pub_2->text().toInt() ;
+    QString dd = ui->date_d_pub_2->text() ;
+    QString df = ui->date_f_pub_2->text() ;
+    int prjt_id = ui->prj_id_pub_2->text().toInt() ;
+
+    pu->Modify_element(id,name,type,cout,dd,df,prjt_id) ;
+    ui->pub_widget->setCurrentIndex(0) ;
+    ui->tableView_5->setModel(pu->afficher());
+}
+
+void MainWindow::on_delete__pub_clicked()
+{
+   int id = ui->id_pub_2->text().toInt() ;
+   pu->Delete_element(id) ;
+   ui->pub_widget->setCurrentIndex(0) ;
+   ui->tableView_5->setModel(pu->afficher());
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    ui->equipments_widget->setCurrentIndex(3) ;
+}
+
+void MainWindow::on_search_button_clicked()
+{
+    // request :
+    QString query = ui->search_bar->text();
+       QString target_path = "C:\\Users\\jasse\\OneDrive\\Desktop\\under_ground\\target.txt";
+       QFile target(target_path);
+       if (target.open(QIODevice::WriteOnly | QIODevice::Text))
+       {
+           QTextStream out(&target);
+           out << query;
+           target.close();
+        }
+
+
+       //result :
+       //result :
+       //result :
+       QString result_path = "C:\\Users\\jasse\\OneDrive\\Desktop\\under_ground\\results.txt";
+       QFile result(result_path);
+       if (!result.open(QIODevice::ReadOnly | QIODevice::Text)) {
+           // Error handling if file cannot be opened
+           qDebug() << "Could not open file for reading";
+           return;
+       }
+
+       // Wait until the file is not empty
+       while (result.size() == 0) {
+           QCoreApplication::processEvents(); // Allow processing of events to prevent freezing the UI
+       }
+
+       // Create a model to store the data
+       QStandardItemModel* model = new QStandardItemModel();
+       model->setColumnCount(1);
+       model->setHeaderData(0, Qt::Horizontal, "Sites");
+
+       // Read the file line by line
+       QTextStream in(&result);
+       int row = 0;
+       while (!in.atEnd()) {
+           QString line = in.readLine();
+           QStringList fields = line.split(","); // Assuming CSV format, adjust as needed
+
+           // Add data to the model
+           for (int i = 0; i < fields.size(); ++i) {
+               QString field = fields.at(i);
+               QStandardItem* item = new QStandardItem(field);
+               model->setItem(row, i, item);
+           }
+
+           row++;
+       }
+       result.close();
+
+       // Close the file
+       result.open(QIODevice::WriteOnly | QIODevice::Truncate);
+       result.close();
+
+       // Set the model to the table view
+       ui->tableView_6->setModel(model);
+
+       // Adjust column widths
+       ui->tableView_6->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+
+
 }

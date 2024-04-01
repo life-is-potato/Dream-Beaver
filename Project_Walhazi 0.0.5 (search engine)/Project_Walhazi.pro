@@ -1,6 +1,7 @@
 QT       += core gui sql
 QT       += charts
 QT       += widgets printsupport
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,15 +24,23 @@ SOURCES += \
     databaseconnection.cpp \
     entreprneur.cpp \
     equipments.cpp \
+    formation.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    project.cpp \
+    pub.cpp \
+    search_engine.cpp
 
 HEADERS += \
     barcodeprinter.h \
     databaseconnection.h \
     entreprneur.h \
     equipments.h \
-    mainwindow.h
+    formation.h \
+    mainwindow.h \
+    project.h \
+    pub.h \
+    search_engine.h
 
 FORMS += \
     mainwindow.ui

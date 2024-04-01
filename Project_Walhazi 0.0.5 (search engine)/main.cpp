@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     MainWindow w;
     DataBaseConnection fab_lab ;
 
+
     if(fab_lab.connect()){
          w.show() ;
     }

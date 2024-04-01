@@ -4,7 +4,7 @@
 #include<QString>
 #include <QMainWindow>
 #include <QStandardItemModel>
-#include "databaseconnection.h"
+
 class entreprneur
 {
 private:
@@ -59,8 +59,8 @@ public:
     }
 
     QStandardItemModel * afficher() ;
-    bool Add_element(int , QString , int , int , QString , QString ) ;
-    bool Modify_element(int , QString , int , int , QString , QString ) ;
+    bool Add_element(int , QString , QString , QString , int , QString ) ;
+    bool Modify_element(int , QString , QString , QString , int , QString ) ;
     bool Delete_element(int) ;
 
 };

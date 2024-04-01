@@ -3,6 +3,10 @@
 #include <QMainWindow>
 #include"equipments.h"
 #include"entreprneur.h"
+#include"pub.h"
+#include"formation.h"
+#include"project.h"
+#include"search_engine.h"
 #include <QtSql>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -79,18 +83,66 @@ private slots:
 
     void on_entreperneurs_clicked();
 
-
-
     void on_project_clicked();
 
     void on_formation_clicked();
 
     void on_adds_clicked();
 
+    void on_add_project_clicked();
+
+    void on_add_projet_clicked();
+
+
+
+    void on_tableView_3_activated(const QModelIndex &index);
+
+    void on_modify_project_clicked();
+
+    void on_delete__project_clicked();
+
+    void on_add_equipment_2_clicked();
+
+    void on_add_entr_clicked();
+
+    void on_tableView_2_activated(const QModelIndex &index);
+
+    void on_modify_project_2_clicked();
+
+    void on_delete__project_2_clicked();
+
+    void on_add_equipment_4_clicked();
+
+    void on_add_entr_2_clicked();
+
+    void on_tableView_4_activated(const QModelIndex &index);
+
+    void on_modify_project_3_clicked();
+
+    void on_delete__project_3_clicked();
+
+    void on_add_equipment_5_clicked();
+
+    void on_add_entr_3_clicked();
+
+    void on_tableView_5_activated(const QModelIndex &index);
+
+    void on_modify_pub_clicked();
+
+    void on_delete__pub_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_search_button_clicked();
+
 private:
     Ui::MainWindow *ui;
     Equipments * e ;
     entreprneur * a ;
+    project *p ;
+    search_engine *sea ;
+    pub *pu ;
+    formation * f ;
     int i ;
 };
 #endif // MAINWINDOW_H
