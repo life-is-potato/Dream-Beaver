@@ -32,5 +32,7 @@
         <file>tsawer/adds.svg</file>
         <file>tsawer/adds_hover.svg</file>
         <file>tsawer/FindMyGear-removebg-preview.png</file>
+        <file>tsawer/sponsors.svg</file>
+        <file>tsawer/sponsors_hover.svg</file>
     </qresource>
 </RCC>

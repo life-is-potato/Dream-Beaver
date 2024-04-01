@@ -757,6 +757,76 @@ void MainWindow::on_search_button_clicked()
        // Adjust column widths
        ui->tableView_6->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
 
+}
+
+void MainWindow::on_sponsors_clicked()
+{
+    ui->tabs->setCurrentIndex(5);
+    ui->sponsors_widget->setCurrentIndex(0);
+    ui->tableView_7->setModel(s->afficher()) ;
+    ui->tableView_7->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
+
+void MainWindow::on_add_equipment_6_clicked()
+{
+    ui->sponsors_widget->setCurrentIndex(1);
+}
+
+void MainWindow::on_add_sponsor_clicked()
+{
+        int id = ui->id_sponsor->text().toInt() ;
+        QString name = ui->name_sponsor->text() ;
+        QString email = ui->email_sponsor->text() ;
+        int number = ui->number_sponsor->text().toInt();
+        QString typer = ui->type_sponsor->text() ;
+
+        s->Add_element(id,name,email,number,typer);
+        ui->tabs->setCurrentIndex(5);
+        ui->sponsors_widget->setCurrentIndex(0);
+        ui->tableView_7->setModel(s->afficher()) ;
+}
+
+void MainWindow::on_tableView_7_activated(const QModelIndex &index)
+{
+    ui->sponsors_widget->setCurrentIndex(2) ;
+
+    int row = index.row();
+
+    QString id = ui->tableView_7->model()->data(ui->tableView_7->model()->index(row, 0)).toString();
+    QString name = ui->tableView_7->model()->data(ui->tableView_7->model()->index(row, 1)).toString();
+    QString email = ui->tableView_7->model()->data(ui->tableView_7->model()->index(row, 2)).toString();
+    QString number = ui->tableView_7->model()->data(ui->tableView_7->model()->index(row, 3)).toString();
+    QString type = ui->tableView_7->model()->data(ui->tableView_7->model()->index(row, 4)).toString();
 
 
+    ui->id_sponsor_2->setText(id) ;
+    ui->name_sponsor_2->setText(name) ;
+    ui->email_sponsor_2->setText(email) ;
+    ui->number_sponsor_2->setText(number) ;
+    ui->type_sponsor_2->setText(type) ;
+
+}
+
+void MainWindow::on_modify_sponsor_clicked()
+{
+    int id = ui->id_sponsor_2->text().toInt() ;
+    QString name = ui->name_sponsor_2->text() ;
+    QString email = ui->email_sponsor_2->text() ;
+    int number = ui->number_sponsor_2->text().toInt();
+    QString typer = ui->type_sponsor_2->text() ;
+
+    s->Modify_element(id,name,email,number,typer);
+    ui->tabs->setCurrentIndex(5);
+    ui->sponsors_widget->setCurrentIndex(0);
+    ui->tableView_7->setModel(s->afficher()) ;
+
+}
+
+void MainWindow::on_delete_sponsor_clicked()
+{
+    int id = ui->id_sponsor_2->text().toInt() ;
+    s->Delete_element(id);
+    ui->tabs->setCurrentIndex(5);
+    ui->sponsors_widget->setCurrentIndex(0);
+    ui->tableView_7->setModel(s->afficher()) ;
 }

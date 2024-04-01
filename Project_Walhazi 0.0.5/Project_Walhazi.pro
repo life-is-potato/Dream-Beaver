@@ -29,7 +29,8 @@ SOURCES += \
     mainwindow.cpp \
     project.cpp \
     pub.cpp \
-    search_engine.cpp
+    search_engine.cpp \
+    sponsors.cpp
 
 HEADERS += \
     barcodeprinter.h \
@@ -40,7 +41,8 @@ HEADERS += \
     mainwindow.h \
     project.h \
     pub.h \
-    search_engine.h
+    search_engine.h \
+    sponsors.h
 
 FORMS += \
     mainwindow.ui

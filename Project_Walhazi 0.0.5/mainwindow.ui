@@ -88,7 +88,7 @@ color: rgb(49, 58, 77);</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>450</y>
+         <y>460</y>
          <width>251</width>
          <height>21</height>
         </rect>
@@ -604,6 +604,55 @@ font-weight:bold;
         </size>
        </property>
       </widget>
+      <widget class="QPushButton" name="sponsors">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>400</y>
+         <width>221</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>1000</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#sponsors {
+	background-color:transparent ; 
+	border-radius:10px;
+	padding: 10px 26px 10px 50px;
+	background:  url(:/icons/tsawer/sponsors.svg)  no-repeat;
+	color:#BFC9D3 ; 
+	font-size:13px;
+	background-origin: content; 
+}
+
+#sponsors::hover {
+	background:  url(:/icons/tsawer/sponsors_hover.svg) no-repeat;
+	background-color:#2A3E46 ; 
+	border-radius:10px;	
+	padding: 10px 26px 10px 50px;
+	background-origin: content; 
+	font-size:13px;
+	color : #4AC7EA ; 
+}</string>
+       </property>
+       <property name="text">
+        <string>Sponsors</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
      </widget>
     </item>
     <item>
@@ -684,7 +733,7 @@ border-radius:20px ; </string>
           </size>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>5</number>
          </property>
          <widget class="QWidget" name="projects_tab">
           <layout class="QHBoxLayout" name="horizontalLayout_13">
@@ -1503,7 +1552,7 @@ font-weight:bold ; </string>
 }  </string>
              </property>
              <property name="currentIndex">
-              <number>3</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_3">
               <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -4589,7 +4638,7 @@ font-weight:bold ; </string>
 }  </string>
               </property>
               <property name="currentIndex">
-               <number>2</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page_15">
                <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -5475,6 +5524,802 @@ font-weight:bold ; </string>
                  </property>
                 </widget>
                 <widget class="QLabel" name="label_81">
+                 <property name="geometry">
+                  <rect>
+                   <x>30</x>
+                   <y>100</y>
+                   <width>21</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>ID</string>
+                 </property>
+                </widget>
+               </widget>
+              </widget>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_2">
+          <layout class="QHBoxLayout" name="horizontalLayout_25">
+           <item>
+            <widget class="QGroupBox" name="sponsors_group_box">
+             <property name="styleSheet">
+              <string notr="true">border: 0 px ; </string>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <widget class="QStackedWidget" name="sponsors_widget">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>10</y>
+                <width>814</width>
+                <height>582</height>
+               </rect>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>600</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>ArrowCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">#stackedWidget {
+	background-color: #F7F6FC;
+	border-radius:1px ; 
+}  </string>
+              </property>
+              <property name="currentIndex">
+               <number>2</number>
+              </property>
+              <widget class="QWidget" name="page_18">
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <widget class="QWidget" name="others_6" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>285</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color:#F7F6FC   ; 
+border-radius:20px ; 
+</string>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_22">
+                   <item>
+                    <widget class="QWidget" name="donut_6" native="true">
+                     <property name="maximumSize">
+                      <size>
+                       <width>320</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_23">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_24">
+                        <item>
+                         <widget class="QLabel" name="username_7">
+                          <property name="styleSheet">
+                           <string notr="true">#username {
+	background-color:transparent ; 
+	color:black ; 
+	font-size:13px ; 
+}</string>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QWidget" name="widget_7" native="true">
+                     <property name="styleSheet">
+                      <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QWidget" name="table_6" native="true">
+                  <property name="styleSheet">
+                   <string notr="true">background-color:white ; 
+border-radius:20px ; 
+</string>
+                  </property>
+                  <widget class="QTableView" name="tableView_7">
+                   <property name="geometry">
+                    <rect>
+                     <x>100</x>
+                     <y>80</y>
+                     <width>611</width>
+                     <height>171</height>
+                    </rect>
+                   </property>
+                   <property name="cursor" stdset="0">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QTableView {
+    background-color : white ; 
+    color: black;
+    font: 12px;
+}
+QHeaderView::section {
+    background-color: #0F141E;
+    color: white;
+    height: 30px;
+    font: 15px;
+}
+QHeaderView::section:first {
+    border-top-left-radius: 5px;
+}
+QHeaderView::section:second {
+    border: 1px solid ;
+}
+QHeaderView::section:last {
+    border-top-right-radius: 5px;
+}
+QScrollBar:vertical {
+    background: #dee2e6;
+}
+ QScrollBar::handle:vertical {
+    background: #dee2e6;
+ }
+QScrollBar:horizontal {
+    background: #dee2e6;
+}
+ QScrollBar::handle:horizontal {
+    background: #dee2e6;
+ }</string>
+                   </property>
+                   <property name="verticalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                   </property>
+                   <property name="horizontalScrollBarPolicy">
+                    <enum>Qt::ScrollBarAlwaysOff</enum>
+                   </property>
+                   <property name="sizeAdjustPolicy">
+                    <enum>QAbstractScrollArea::AdjustToContents</enum>
+                   </property>
+                   <property name="editTriggers">
+                    <set>QAbstractItemView::NoEditTriggers</set>
+                   </property>
+                   <property name="showGrid">
+                    <bool>true</bool>
+                   </property>
+                   <property name="gridStyle">
+                    <enum>Qt::SolidLine</enum>
+                   </property>
+                   <property name="sortingEnabled">
+                    <bool>true</bool>
+                   </property>
+                   <attribute name="horizontalHeaderDefaultSectionSize">
+                    <number>110</number>
+                   </attribute>
+                  </widget>
+                  <widget class="QPushButton" name="add_equipment_6">
+                   <property name="geometry">
+                    <rect>
+                     <x>20</x>
+                     <y>20</y>
+                     <width>21</width>
+                     <height>21</height>
+                    </rect>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">#add_equipment_6 {
+	image: url(:/icons/tsawer/plus.svg);
+}
+#add_equipment_6::hover {
+	image: url(:/icons/tsawer/plus_hover.svg);
+}</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                  <widget class="QLineEdit" name="search_bar_7">
+                   <property name="geometry">
+                    <rect>
+                     <x>540</x>
+                     <y>15</y>
+                     <width>191</width>
+                     <height>31</height>
+                    </rect>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>IBeamCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QLineEdit {
+ 	background-color:transparent ;
+	border-radius:15px ; 
+	border:1px solid #BFC9D3; 
+	padding : 0 40px 0 10px ; 
+} </string>
+                   </property>
+                   <property name="placeholderText">
+                    <string>search by Id/Name</string>
+                   </property>
+                  </widget>
+                  <widget class="QPushButton" name="search_button_7">
+                   <property name="geometry">
+                    <rect>
+                     <x>700</x>
+                     <y>15</y>
+                     <width>21</width>
+                     <height>31</height>
+                    </rect>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton {	
+	background-color: transparent ;
+	border-radius:20px ; 
+	
+	image: url(:/icons/tsawer/search.svg) ; 
+} 
+</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="page_19">
+               <widget class="QGroupBox" name="groupBox_11">
+                <property name="geometry">
+                 <rect>
+                  <x>170</x>
+                  <y>0</y>
+                  <width>511</width>
+                  <height>561</height>
+                 </rect>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color :white ; 
+border-radius :14px ; 
+border: 0 px ; 	</string>
+                </property>
+                <property name="title">
+                 <string/>
+                </property>
+                <widget class="QLabel" name="title1_14">
+                 <property name="geometry">
+                  <rect>
+                   <x>160</x>
+                   <y>30</y>
+                   <width>211</width>
+                   <height>31</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+	font-size: 25px ; 
+	font-weight:bold ; 
+	
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Add a Sponsor</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_82">
+                 <property name="geometry">
+                  <rect>
+                   <x>30</x>
+                   <y>90</y>
+                   <width>21</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>ID</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_83">
+                 <property name="geometry">
+                  <rect>
+                   <x>280</x>
+                   <y>90</y>
+                   <width>41</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Name</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="id_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>20</x>
+                   <y>120</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="name_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>270</x>
+                   <y>120</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_84">
+                 <property name="geometry">
+                  <rect>
+                   <x>30</x>
+                   <y>180</y>
+                   <width>101</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Email</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="add_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>150</x>
+                   <y>470</y>
+                   <width>201</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+	background-color:#0F141E ; 
+	border-radius:10px ; 
+	color : white ; 
+	font-size:14px ; 
+	font-weight:bold; 
+}
+
+QPushButton::hover {
+	background-color:#4AC7EA ; 
+	color:white ; 
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Add Formation</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="email_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>20</x>
+                   <y>210</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="number_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>270</x>
+                   <y>210</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_86">
+                 <property name="geometry">
+                  <rect>
+                   <x>270</x>
+                   <y>180</y>
+                   <width>141</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Number</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_88">
+                 <property name="geometry">
+                  <rect>
+                   <x>30</x>
+                   <y>280</y>
+                   <width>101</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Type</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="type_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>20</x>
+                   <y>310</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+
+}</string>
+                 </property>
+                </widget>
+               </widget>
+              </widget>
+              <widget class="QWidget" name="page_20">
+               <widget class="QGroupBox" name="groupBox_12">
+                <property name="geometry">
+                 <rect>
+                  <x>160</x>
+                  <y>0</y>
+                  <width>511</width>
+                  <height>571</height>
+                 </rect>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color :white ; 
+border-radius :14px ; </string>
+                </property>
+                <property name="title">
+                 <string/>
+                </property>
+                <widget class="QLabel" name="title1_15">
+                 <property name="geometry">
+                  <rect>
+                   <x>150</x>
+                   <y>30</y>
+                   <width>251</width>
+                   <height>31</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+	font-size: 25px ; 
+	font-weight:bold ; 
+	
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Modify a Sponsor</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="modify_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>50</x>
+                   <y>490</y>
+                   <width>201</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+	background-color:#0F141E ; 
+	border-radius:10px ; 
+	color : white ; 
+	font-size:14px ; 
+	font-weight:bold; 
+}
+
+QPushButton::hover {
+	background-color:#4AC7EA ; 
+	color:white ; 
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Modify</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="delete_sponsor">
+                 <property name="geometry">
+                  <rect>
+                   <x>260</x>
+                   <y>490</y>
+                   <width>201</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+	background-color:#0F141E ; 
+	border-radius:10px ; 
+	color : white ; 
+	font-size:14px ; 
+	font-weight:bold; 
+}
+
+QPushButton::hover {
+	background-color:#D60002 ; 
+	color:white ; 
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Delete</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="name_sponsor_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>270</x>
+                   <y>130</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="type_sponsor_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>20</x>
+                   <y>310</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_90">
+                 <property name="geometry">
+                  <rect>
+                   <x>30</x>
+                   <y>190</y>
+                   <width>101</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Email</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_91">
+                 <property name="geometry">
+                  <rect>
+                   <x>270</x>
+                   <y>190</y>
+                   <width>141</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Number</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="email_sponsor_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>20</x>
+                   <y>220</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_92">
+                 <property name="geometry">
+                  <rect>
+                   <x>30</x>
+                   <y>280</y>
+                   <width>101</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Type</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="id_sponsor_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>20</x>
+                   <y>130</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+}</string>
+                 </property>
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_93">
+                 <property name="geometry">
+                  <rect>
+                   <x>280</x>
+                   <y>100</y>
+                   <width>41</width>
+                   <height>21</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font-size:13px;
+font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>Name</string>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="number_sponsor_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>270</x>
+                   <y>220</y>
+                   <width>221</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit {
+	background-color:white ; 
+	border-radius:10px ; 
+	font-size:13px ; 
+	padding-left : 15px ; 
+	border:1px solid #BFC9D3 ; 
+
+}</string>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="label_95">
                  <property name="geometry">
                   <rect>
                    <x>30</x>

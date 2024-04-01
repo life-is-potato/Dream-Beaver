@@ -7,6 +7,7 @@
 #include"formation.h"
 #include"project.h"
 #include"search_engine.h"
+#include"sponsors.h"
 #include <QtSql>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -93,8 +94,6 @@ private slots:
 
     void on_add_projet_clicked();
 
-
-
     void on_tableView_3_activated(const QModelIndex &index);
 
     void on_modify_project_clicked();
@@ -135,12 +134,25 @@ private slots:
 
     void on_search_button_clicked();
 
+    void on_sponsors_clicked();
+
+    void on_add_equipment_6_clicked();
+
+    void on_add_sponsor_clicked();
+
+    void on_tableView_7_activated(const QModelIndex &index);
+
+    void on_modify_sponsor_clicked();
+
+    void on_delete_sponsor_clicked();
+
 private:
     Ui::MainWindow *ui;
     Equipments * e ;
     entreprneur * a ;
     project *p ;
     search_engine *sea ;
+    sponsors *s ;
     pub *pu ;
     formation * f ;
     int i ;
