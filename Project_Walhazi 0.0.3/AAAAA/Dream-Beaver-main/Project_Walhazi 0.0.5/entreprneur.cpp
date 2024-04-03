@@ -1,0 +1,64 @@
+#include "entreprneur.h"
+#include "mainwindow.h"
+
+
+QStandardItemModel * entreprneur::afficher() {
+    int rows ;
+    QStandardItemModel * model = new QStandardItemModel();
+    model->setColumnCount(5);
+    model->setHeaderData(0,Qt::Horizontal,"CIN") ;
+    model->setHeaderData(1,Qt::Horizontal,"Name") ;
+    model->setHeaderData(2,Qt::Horizontal,"Prenom") ;
+    model->setHeaderData(3,Qt::Horizontal,"Dob") ;
+    model->setHeaderData(4,Qt::Horizontal,"Numero") ;
+    model->setHeaderData(4,Qt::Horizontal,"email") ;
+
+    QSqlQuery query ;
+    query.exec("SELECT * FROM ENTREPRENEURS ") ;
+    while (query.next()) {
+        rows = model->rowCount() ;
+        model->insertRow(rows) ;
+        for(int i = 0 ; i < 6 ; i++ ){
+             model->setData(model->index(rows,i),query.value(i).toString());
+       }
+    }
+    return model ;
+}
+
+bool entreprneur::Add_element(int cin , QString name , QString prenom , QString ddn , int numero, QString email) {
+
+    QSqlQuery q ;
+
+    q.prepare("INSERT INTO ENTREPRENEURS(CIN,NOM,PRENOM,DDN,NUMERO,EMAIL) VALUES(:v1,:v2,:v3,:v4,:v5,:v6) ") ;
+    q.bindValue(":v1",cin) ;
+    q.bindValue(":v2",name) ;
+    q.bindValue(":v3",prenom) ;
+    q.bindValue(":v4",ddn) ;
+    q.bindValue(":v5",numero) ;
+    q.bindValue(":v6",email) ;
+    return q.exec() ;
+
+}
+
+
+bool entreprneur::Modify_element(int cin , QString name , QString prenom , QString ddn , int numero, QString email) {
+
+    QSqlQuery q ;
+    q.prepare("UPDATE ENTREPRENEURS SET  NOM = :v2, PRENOM =:v3 , DDN = :v4, NUMERO = :v5, EMAIL = :v6  WHERE CIN = :v1 ") ;
+    q.bindValue(":v1",cin) ;
+    q.bindValue(":v2",name) ;
+    q.bindValue(":v3",prenom) ;
+    q.bindValue(":v4",ddn) ;
+    q.bindValue(":v5",numero) ;
+    q.bindValue(":v6",email) ;
+    return q.exec() ;
+
+}
+
+bool entreprneur::Delete_element(int x ) {
+      QSqlQuery q ;
+      q.prepare("DELETE FROM ENTREPRENEURS WHERE CIN = :cin ") ;
+      q.bindValue(":cin",x) ;
+      return q.exec() ;
+}
+
