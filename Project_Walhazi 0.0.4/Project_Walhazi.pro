@@ -25,7 +25,9 @@ SOURCES += \
     equipments.cpp \
     formation.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    project.cpp \
+    sponsors.cpp
 
 HEADERS += \
     barcodeprinter.h \
@@ -33,7 +35,9 @@ HEADERS += \
     entreprneur.h \
     equipments.h \
     formation.h \
-    mainwindow.h
+    mainwindow.h \
+    project.h \
+    sponsors.h
 
 FORMS += \
     mainwindow.ui

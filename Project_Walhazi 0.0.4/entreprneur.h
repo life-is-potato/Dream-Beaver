@@ -60,6 +60,7 @@ public:
     }
 
     QStandardItemModel * afficher() ;
+    QStandardItemModel * afficherformation() ;
     bool Add_element(int cin, QString email, QDate ddn , int numero , QString nom, QString prenom) ;
     bool Modify_element(int cin, QString email, QDate ddn , int numero , QString nom, QString prenom ) ;
     bool Delete_element(int n) ;

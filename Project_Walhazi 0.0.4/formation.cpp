@@ -15,8 +15,8 @@ QStandardItemModel *Formations::afficher()
     model->setHeaderData(0, Qt::Horizontal, "ID");
     model->setHeaderData(1, Qt::Horizontal, "TYPE");
     model->setHeaderData(2, Qt::Horizontal, "INSTRUCTEUR");
-    model->setHeaderData(3, Qt::Horizontal, "DD");
-    model->setHeaderData(4, Qt::Horizontal, "DF");
+    model->setHeaderData(3, Qt::Horizontal, "DATEDEBUT");
+    model->setHeaderData(4, Qt::Horizontal, "DATEFIN");
     model->setHeaderData(5, Qt::Horizontal, "DESCRIPTION");
     model->setHeaderData(6, Qt::Horizontal, "NB_PARTICIPANTS");
 
@@ -44,8 +44,8 @@ QStandardItemModel *Formations::search_element(const QString &str)
     model->setHeaderData(0, Qt::Horizontal, "ID");
     model->setHeaderData(1, Qt::Horizontal, "TYPE");
     model->setHeaderData(2, Qt::Horizontal, "INSTRUCTEUR");
-    model->setHeaderData(3, Qt::Horizontal, "DD");
-    model->setHeaderData(4, Qt::Horizontal, "DF");
+    model->setHeaderData(3, Qt::Horizontal, "DATEDEBUT");
+    model->setHeaderData(4, Qt::Horizontal, "DATEFIN");
     model->setHeaderData(5, Qt::Horizontal, "DESCRIPTION");
     model->setHeaderData(6, Qt::Horizontal, "NB_PARTICIPANTS");
 
@@ -81,8 +81,8 @@ bool Formations::Add_element(int id, QString type, QString instructeur, QDate da
     q.bindValue(":v3", instructeur);
     q.bindValue(":v4", dateDebut);
     q.bindValue(":v5", dateFin);
-    q.bindValue(":v7", description);
-    q.bindValue(":v6", nbParticipants);
+    q.bindValue(":v6", description);
+    q.bindValue(":v7", nbParticipants);
     return q.exec();
 }
 

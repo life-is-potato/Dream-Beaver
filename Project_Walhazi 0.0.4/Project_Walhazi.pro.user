@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.0, 2024-03-28T00:22:52. -->
+<!-- Written by QtCreator 4.11.0, 2024-04-22T21:40:40. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -287,8 +287,8 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/MSI/Desktop/Dream-Beaver/Project_Walhazi 0.0.4/Project_Walhazi.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/MSI/Desktop/Dream-Beaver/Project_Walhazi 0.0.4/Project_Walhazi.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/MSI/Desktop/Dream-Beaver/Project_Walhazi 0.0.4/Project_Walhazi 0.0.4/Project_Walhazi.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/MSI/Desktop/Dream-Beaver/Project_Walhazi 0.0.4/Project_Walhazi 0.0.4/Project_Walhazi.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

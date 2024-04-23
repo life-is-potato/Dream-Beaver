@@ -1,6 +1,41 @@
 #include "entreprneur.h"
 #include "mainwindow.h"
 
+QStandardItemModel *entreprneur::afficherformation()
+{
+    int rows = 0;
+    QSqlQuery query;
+    QStandardItemModel *model = new QStandardItemModel();
+    model->setColumnCount(6);
+    model->setHeaderData(0, Qt::Horizontal, "ID");
+    model->setHeaderData(1, Qt::Horizontal, "TYPE");
+    model->setHeaderData(2, Qt::Horizontal, "INSTRUCTEUR");
+    model->setHeaderData(3, Qt::Horizontal, "DATEDEBUT");
+    model->setHeaderData(4, Qt::Horizontal, "DATEFIN");
+    model->setHeaderData(5, Qt::Horizontal, "DESCRIPTION");
+    QDateTime currentDate = QDateTime::currentDateTime();
+    query.prepare("SELECT * FROM FORMATIONS WHERE DATEDEBUT > :currentDate");
+    query.bindValue(":currentDate", currentDate.toString(Qt::ISODate));
+    if (query.exec())
+    {
+        while (query.next())
+        {
+            rows = model->rowCount();
+            model->insertRow(rows);
+
+            for (int i = 0; i < 6; i++)
+            {
+                model->setData(model->index(rows, i), query.value(i).toString());
+            }
+        }
+    }
+    else
+    {
+        qDebug() << "Query execution failed:" << query.lastError().text();
+    }
+
+    return model;
+}
 
 QStandardItemModel * entreprneur::afficher() {
     int rows ;
