@@ -42,8 +42,8 @@ public:
     }
 
     QStandardItemModel * afficher() ;
-    bool Add_element(int , QString , int , int , QString ) ;
-    bool Modify_element(int , QString , int , int , QString ) ;
+    bool Add_element(int , QString , float , int , QString ) ;
+    bool Modify_element(int , QString , float, int , QString ) ;
     bool Delete_element(int) ;
 };
 

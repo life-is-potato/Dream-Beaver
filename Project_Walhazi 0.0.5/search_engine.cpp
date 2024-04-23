@@ -3,12 +3,11 @@
 
 QNetworkReply * search_engine::search( QString query ){
     QNetworkAccessManager* manager = new QNetworkAccessManager();
-   // Get the search query from the line edit
    if (!query.isEmpty()) {
        // Construct the API URL with the search query
        QUrl apiUrl("https://www.googleapis.com/customsearch/v1?key=AIzaSyDlJTLRZ76Hw_tyGgHQI538SN1S9PN1yl4" + query);
        QNetworkRequest request(apiUrl);
-       // Send a GET request to the API
+
        return manager->get(request) ;
    }
    return nullptr ;
@@ -20,11 +19,9 @@ QStandardItemModel * search_engine::onNetworkReply(QNetworkReply *reply) {
 
         QByteArray responseData = reply->readAll();
         QJsonDocument jsonResponse = QJsonDocument::fromJson(responseData);
+        QJsonObject jsonObject = jsonResponse.object();
+        QJsonValue itemsValue = jsonObject.value("items");
 
-        if (jsonResponse.isObject()) {
-            QJsonObject jsonObject = jsonResponse.object();
-            if (jsonObject.contains("items")) {
-                QJsonValue itemsValue = jsonObject.value("items");
                 if (itemsValue.isArray()) {
                     QJsonArray items = itemsValue.toArray();
 
@@ -33,8 +30,7 @@ QStandardItemModel * search_engine::onNetworkReply(QNetworkReply *reply) {
 
                     int count = 0;
                     // Iterate through the search results
-                    for (const QJsonValue &item : items) {
-                        // Break the loop if 6 results are already added
+                    for (const QJsonValue &item : items) {                        // Break the loop if 6 results are already added
                         if (count >= 6)
                             break;
 
@@ -52,12 +48,6 @@ QStandardItemModel * search_engine::onNetworkReply(QNetworkReply *reply) {
                 } else {
                     qDebug() << "Items is not an array";
                 }
-            } else {
-                qDebug() << "No 'items' array found in JSON response";
-            }
-        } else {
-            qDebug() << "JSON response is not an object";
-        }
     } else {
         // Display an error message if network request fails
         QMessageBox::critical(nullptr, "Error", "Network Error: " + reply->errorString());

@@ -1,60 +1,52 @@
 #ifndef SPONSORS_H
 #define SPONSORS_H
 
+#include <QDialog>
 #include<QString>
-#include <QMainWindow>
-#include <QStandardItemModel>
-#include <QDate>
+#include <QSqlQueryModel>
+#include<QStandardItemModel>
 
-class sponsors
+namespace Ui {
+class sponsors;
+}
+
+class sponsors : public QDialog
 {
-private :
-    int id ;
-    QString name ;
-    QString email ;
-    int number ;
-    QString type ;
+    Q_OBJECT
 
 public:
-    int get_id() {
-        return id ;
-    }
-    QString get_name() {
-        return name ;
-    }
-    QString get_email() {
-        return  email ;
-    }
-    int get_number() {
-        return number ;
-    }
-    QString get_type() {
-        return type ;
-    }
-
-    void set_id(int x ){
-        id = x ;
-    }
-
-    void set_name(QString str ){
-        name = str ;
-    }
-
-    void set_email(QString str) {
-        email = str ;
-    }
-    void set_number(int x ){
-        number = x ;
-    }
-    void set_type(QString str) {
-        type = str ;
-    }
+    ~sponsors();
     sponsors();
+    sponsors(int, QString, QString, int, QString);
 
-    QStandardItemModel * afficher() ;
-    bool Add_element(int , QString , QString , int , QString) ;
-    bool Modify_element(int , QString , QString , int , QString) ;
-    bool Delete_element(int) ;
+    //setters
+    void setid (int );
+    void setnum (int );
+    void setnom (QString );
+    void setemail (QString );
+    void settype (QString );
+
+    //getters
+    int get_id();
+    int get_num();
+    QString get_nom();
+    QString get_email();
+    QString get_type();
+
+    //fonction
+    bool ajouter();
+    bool modifier(int);
+    bool supprimer(int);
+    QStandardItemModel * afficher();
+    QStandardItemModel * search_element(QString str);
+    QSqlQueryModel * afficheA_Z();
+    QSqlQueryModel * afficheZ_A();
+
+
+private:
+    Ui::sponsors *ui;
+    int id,num ;
+    QString nom, email,type;
 };
 
 #endif // SPONSORS_H

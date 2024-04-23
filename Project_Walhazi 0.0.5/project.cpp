@@ -25,24 +25,27 @@ QStandardItemModel * project::afficher() {
     return model ;
 }
 
-bool project::Add_element(int id , QString name , int budget , int client , QString desc) {
+bool project::Add_element(int id, QString name, float budget, int client, QString desc) {
+    QSqlQuery q;
 
-    QSqlQuery q ;
+    q.prepare("INSERT INTO PROJETS(ID, NOM, BUDGET, CLIENT, DESCRIPTION) VALUES(:v1, :v2, :v4, :v6, :v7)");
+    q.bindValue(":v1", id);
+    q.bindValue(":v2", name);
+    q.bindValue(":v4", budget);
+    q.bindValue(":v6", client);
+    q.bindValue(":v7", desc);
 
-    q.prepare("INSERT INTO PROJETS(ID,NOM,BUDGET,CLIENT,DESCRIPTION) VALUES(:v1,:v2,:v3,:v4,:v5) ") ;
-    q.bindValue(":v1",id) ;
-    q.bindValue(":v2",name) ;
-    q.bindValue(":v3",budget) ;
-    q.bindValue(":v4",client) ;
-    q.bindValue(":v5",desc) ;
+    if (!q.exec()) {
+        qDebug() << "Error executing SQL query:" << q.lastError().text();
+        return false;
+    }
 
-    return q.exec() ;
-
-
+    return true;
 }
 
 
-bool project::Modify_element(int id , QString name , int budget , int client , QString desc) {
+
+bool project::Modify_element(int id , QString name , float budget , int client , QString desc) {
 
     QSqlQuery q ;
     q.prepare("UPDATE PROJETS SET  NOM = :v2, BUDGET =:v3 , CLIENT = :v4, DESCRIPTION = :v5 WHERE ID = :v1 ") ;

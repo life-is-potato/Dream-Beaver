@@ -4,14 +4,15 @@
 #include<QString>
 #include <QMainWindow>
 #include <QStandardItemModel>
-
+#include "databaseconnection.h"
+#include "QDate"
 class entreprneur
 {
 private:
     int cin ;
     QString nom ;
     QString prenom;
-    QString ddn;
+    QDate ddn;
     int numero;
     QString email ;
 
@@ -26,7 +27,7 @@ public:
     QString get_prenom() {
         return prenom ;
     }
-    QString get_ddn() {
+    QDate get_ddn() {
         return ddn ;
     }
     int get_numero() {
@@ -46,7 +47,7 @@ public:
            prenom = str ;
     }
 
-    void set_ddn(QString date ){
+    void set_ddn(QDate date ){
         ddn = date ;
     }
 
@@ -59,10 +60,16 @@ public:
     }
 
     QStandardItemModel * afficher() ;
-    bool Add_element(int , QString , QString , QString , int , QString ) ;
-    bool Modify_element(int , QString , QString , QString , int , QString ) ;
-    bool Delete_element(int) ;
-
+    QStandardItemModel * afficherformation() ;
+    bool Add_element(int cin, QString email, QDate ddn , int numero , QString nom, QString prenom) ;
+    bool Modify_element(int cin, QString email, QDate ddn , int numero , QString nom, QString prenom ) ;
+    bool Delete_element(int n) ;
+    QStandardItemModel* recherche_projet(QString str);
+    QString getPoints(QString cin) ;
+    QString addPoints(QString cin,int p);
+    QString losePoints(QString cin,int p);
+    bool addFreeFormation(QString cin,QString idf);
+    bool isFormationValid(int formationId);
 };
 
 #endif // ENTREPRNEUR_H

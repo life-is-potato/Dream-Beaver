@@ -1,73 +1,51 @@
-#ifndef FORMATION_H
-#define FORMATION_H
+#ifndef FORMATIONS_H
+#define FORMATIONS_H
 
-#include<QString>
-#include<QDate>
-#include <QMainWindow>
+#include <QString>
+#include <QDate>
 #include <QStandardItemModel>
+#include "databaseconnection.h"
 
-class formation
+class Formations
 {
 private:
-     int id ;
-     int type ;
-     QString instructor ;
-     QDate dd ;
-     QDate df ;
-     int num_participants ;
-     QString desc ;
+    int id;
+    QString type;
+    QString instructeur;
+    QDate dateDebut;
+    QDate dateFin;
+    QString description;
+    int nbParticipants;
 
 public:
-     formation();
+    // Constructor
+    Formations();
 
-     int get_id () {
-        return id ;
-     }
-     int get_type() {
-        return type ;
-     }
-     QString get_instructor() {
-        return instructor ;
-     }
-     QDate get_dd() {
-        return dd;
-     }
-     QDate get_df() {
-        return df ;
-     }
-     int get_num_participants() {
-        return num_participants ;
-     }
-     QString get_desc() {
-        return desc ;
-     }
+    // Getters
+    int get_id() const { return id; }
+    QString get_type() const { return type; }
+    QString get_instructeur() const { return instructeur; }
+    QDate get_dateDebut() const { return dateDebut; }
+    QDate get_dateFin() const { return dateFin; }
+    QString get_description() const { return description; } // Getter pour la description
+    int get_nbParticipants() const { return nbParticipants; }
 
-     void set_id(int x ) {
-        id = x ;
-     }
-     void set_type(int x ) {
-        type = x ;
-    }
-     void set_instructor(QString str ) {
-            instructor = str ;
-     }
-     void set_dd(QDate date ){
-        dd = date ;
-     }
-     void set_df(QDate date) {
-            df = date ;
-     }
-     void set_num_participants(int x ) {
-        num_participants = x ;
-     }
-     void set_desc(QString str ) {
-        desc = str ;
-     }
+    // Setters
+    void set_id(int x) { id = x; }
+    void set_type(const QString &str) { type = str; }
+    void set_instructeur(const QString &instr) { instructeur = instr; }
+    void set_dateDebut(const QDate &date) { dateDebut = date; }
+    void set_dateFin(const QDate &date) { dateFin = date; }
+    void set_description(const QString &desc) { description = desc; } // Setter pour la description
+    void set_nbParticipants(int nb) { nbParticipants = nb; }
 
-     QStandardItemModel * afficher() ;
-     bool Add_element(int , int , QString , QString , QString, int , QString ) ;
-     bool Modify_element(int , int , QString , QString ,QString, int , QString ) ;
-     bool Delete_element(int) ;
+    // Functions
+    QStandardItemModel *afficher();
+    QStandardItemModel *search_element(const QString &str);
+    bool Add_element(int id, QString type, QString instructeur, QDate dateDebut, QDate dateFin, QString description, int nbParticipants);
+    bool Modify_element(int id, QString type, QString instructeur, QDate dateDebut, QDate dateFin, QString description, int nbParticipants);
+    bool Delete_element(int x);
+        QStandardItemModel *tri_by_type();
 };
 
-#endif // FORMATION_H
+#endif // FORMATIONS_H

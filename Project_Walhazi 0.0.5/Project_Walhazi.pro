@@ -28,7 +28,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     project.cpp \
-    pub.cpp \
     search_engine.cpp \
     sponsors.cpp
 
@@ -40,7 +39,6 @@ HEADERS += \
     formation.h \
     mainwindow.h \
     project.h \
-    pub.h \
     search_engine.h \
     sponsors.h
 

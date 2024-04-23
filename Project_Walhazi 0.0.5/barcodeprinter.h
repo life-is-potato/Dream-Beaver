@@ -1,18 +1,8 @@
 #ifndef BARCODEPRINTER_H
 #define BARCODEPRINTER_H
 
-#include <QtSql>
 #include <QObject>
 #include <QtPrintSupport>
-#include <QPrinter>
-#include <QFont>
-#include <QImage>
-#include <QByteArray>
-#include <QBuffer>
-
-
-
-
 
 #define CODE128_B_START 104
 #define CODE128_STOP 106
