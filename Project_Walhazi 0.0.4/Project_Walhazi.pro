@@ -1,6 +1,7 @@
-QT       += core gui sql
+QT       += core gui sql network
 QT       += charts
 QT       += widgets printsupport
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,15 +20,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    barcodeprinter.cpp \
     databaseconnection.cpp \
+    entreprneur.cpp \
+    equipments.cpp \
     formation.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    smtp.cpp
 
 HEADERS += \
+    barcodeprinter.h \
     databaseconnection.h \
+    entreprneur.h \
+    equipments.h \
     formation.h \
-    mainwindow.h
+    mainwindow.h \
+    smtp.h
 
 FORMS += \
     mainwindow.ui
@@ -38,11 +47,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    resources.qrc
+    Resources.qrc
 
 DISTFILES += \
-    ../../../../Downloads/clipboard1.svg \
-    ../../../../Downloads/clipboard2.svg \
-    ../../../../Downloads/user1.svg \
-    ../../../../Downloads/user2.svg \
     home (2).svg

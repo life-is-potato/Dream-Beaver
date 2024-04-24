@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
          w.show() ;
     }
     else {
-       QMessageBox::critical(nullptr,"fin","kalb") ;
+       QMessageBox::critical(nullptr,"winek","winek") ;
     }
     return a.exec();
 }
