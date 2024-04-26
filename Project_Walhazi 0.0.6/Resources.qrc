@@ -31,6 +31,7 @@
         <file>tsawer/formation_hover.svg</file>
         <file>tsawer/adds.svg</file>
         <file>tsawer/adds_hover.svg</file>
+<<<<<<<< HEAD:Project_Walhazi 0.0.6/Resources.qrc
         <file>tsawer/plus-circle.svg</file>
         <file>tsawer/metier.svg</file>
         <file>tsawer/metier_hover.svg</file>
@@ -43,5 +44,10 @@
         <file>tsawer/clock.svg</file>
         <file>tsawer/clock_hover.svg</file>
         <file>tsawer/historique.png</file>
+========
+        <file>tsawer/FindMyGear-removebg-preview.png</file>
+        <file>tsawer/sponsors.svg</file>
+        <file>tsawer/sponsors_hover.svg</file>
+>>>>>>>> 017f68f8ac2802c43806d0130038edb031543f35:Project_Walhazi 0.0.3/AAAAA/Dream-Beaver-main/Project_Walhazi 0.0.5/Resources.qrc
     </qresource>
 </RCC>

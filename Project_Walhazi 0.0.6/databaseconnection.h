@@ -10,7 +10,9 @@ private:
         QString username ;
         QString password ;
 public:
-     bool connect() ;
+     bool createconnect() ;
+     DataBaseConnection();
+
 };
 
 #endif

@@ -2,7 +2,10 @@ QT       += core gui sql
 QT       += charts
 QT       += widgets printsupport
 QT       += core gui network
+<<<<<<<< HEAD:Project_Walhazi 0.0.6/Project_Walhazi.pro
 QT       += serialport
+========
+>>>>>>>> 017f68f8ac2802c43806d0130038edb031543f35:Project_Walhazi 0.0.3/AAAAA/Dream-Beaver-main/Project_Walhazi 0.0.5/Project_Walhazi.pro
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,6 +32,10 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     project.cpp \
+<<<<<<<< HEAD:Project_Walhazi 0.0.6/Project_Walhazi.pro
+========
+    pub.cpp \
+>>>>>>>> 017f68f8ac2802c43806d0130038edb031543f35:Project_Walhazi 0.0.3/AAAAA/Dream-Beaver-main/Project_Walhazi 0.0.5/Project_Walhazi.pro
     search_engine.cpp \
     sponsors.cpp
 
@@ -40,6 +47,10 @@ HEADERS += \
     formation.h \
     mainwindow.h \
     project.h \
+<<<<<<<< HEAD:Project_Walhazi 0.0.6/Project_Walhazi.pro
+========
+    pub.h \
+>>>>>>>> 017f68f8ac2802c43806d0130038edb031543f35:Project_Walhazi 0.0.3/AAAAA/Dream-Beaver-main/Project_Walhazi 0.0.5/Project_Walhazi.pro
     search_engine.h \
     sponsors.h
 
