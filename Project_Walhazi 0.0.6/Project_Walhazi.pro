@@ -26,6 +26,7 @@ SOURCES += \
     entreprneur.cpp \
     equipments.cpp \
     formation.cpp \
+    login.cpp \
     main.cpp \
     mainwindow.cpp \
     project.cpp \
@@ -38,12 +39,14 @@ HEADERS += \
     entreprneur.h \
     equipments.h \
     formation.h \
+    login.h \
     mainwindow.h \
     project.h \
     search_engine.h \
     sponsors.h
 
 FORMS += \
+    login.ui \
     mainwindow.ui
 
 # Default rules for deployment.

@@ -43,5 +43,13 @@
         <file>tsawer/clock.svg</file>
         <file>tsawer/clock_hover.svg</file>
         <file>tsawer/historique.png</file>
+        <file>D:/Project Qt/Icons/r.png</file>
+        <file>D:/Qt Project/Dream-Beaver/Icons/facebook.svg</file>
+        <file>D:/Qt Project/Dream-Beaver/Icons/r.png</file>
+        <file>tsawer/r.png</file>
+        <file>tsawer/facebook.svg</file>
+        <file>tsawer/instagram.svg</file>
+        <file>tsawer/twitter.svg</file>
+        <file>tsawer/linkedin.svg</file>
     </qresource>
 </RCC>
