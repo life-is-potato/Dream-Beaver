@@ -180,7 +180,21 @@ public:
     QWidget *page_28;
     QLabel *label_82;
     QLabel *storage_ref;
-    QPushButton *pushButton_3;
+    QWidget *storage_add;
+    QLabel *label_85;
+    QLabel *label_86;
+    QLabel *label_87;
+    QLabel *label_88;
+    QLabel *id_storage;
+    QLabel *name_storage;
+    QLabel *type_storage;
+    QLabel *disp_storage;
+    QWidget *widget_13;
+    QLabel *label_89;
+    QLineEdit *lineEdit;
+    QPushButton *add_qnt;
+    QLabel *label_90;
+    QLabel *storage_ref_2;
     QWidget *page_2;
     QHBoxLayout *horizontalLayout_9;
     QStackedWidget *entreprneur;
@@ -1737,20 +1751,120 @@ public:
         page_28->setObjectName(QStringLiteral("page_28"));
         label_82 = new QLabel(page_28);
         label_82->setObjectName(QStringLiteral("label_82"));
-        label_82->setGeometry(QRect(210, -100, 391, 371));
+        label_82->setGeometry(QRect(210, -120, 391, 371));
         label_82->setPixmap(QPixmap(QString::fromUtf8(":/icons/tsawer/storage.png")));
         label_82->setScaledContents(true);
         storage_ref = new QLabel(page_28);
         storage_ref->setObjectName(QStringLiteral("storage_ref"));
-        storage_ref->setGeometry(QRect(320, 180, 161, 91));
+        storage_ref->setGeometry(QRect(320, 140, 161, 91));
         storage_ref->setStyleSheet(QLatin1String("color : black ;\n"
 "font-size:70px;\n"
 "font-weight:bold ;"));
         storage_ref->setScaledContents(false);
         storage_ref->setAlignment(Qt::AlignCenter);
-        pushButton_3 = new QPushButton(page_28);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(80, 330, 75, 23));
+        storage_add = new QWidget(page_28);
+        storage_add->setObjectName(QStringLiteral("storage_add"));
+        storage_add->setGeometry(QRect(30, 280, 751, 301));
+        storage_add->setStyleSheet(QLatin1String("#storage_add{\n"
+"	background-color: white  ;\n"
+"	border-radius : 20px ; \n"
+"	\n"
+"}"));
+        label_85 = new QLabel(storage_add);
+        label_85->setObjectName(QStringLiteral("label_85"));
+        label_85->setGeometry(QRect(40, 80, 31, 31));
+        label_85->setStyleSheet(QLatin1String("font-size:12px ;\n"
+"font-weight:bold ; "));
+        label_86 = new QLabel(storage_add);
+        label_86->setObjectName(QStringLiteral("label_86"));
+        label_86->setGeometry(QRect(40, 120, 51, 31));
+        label_86->setStyleSheet(QLatin1String("font-size:12px ;\n"
+"font-weight:bold ; "));
+        label_87 = new QLabel(storage_add);
+        label_87->setObjectName(QStringLiteral("label_87"));
+        label_87->setGeometry(QRect(40, 160, 51, 31));
+        label_87->setStyleSheet(QLatin1String("font-size:12px ;\n"
+"font-weight:bold ; "));
+        label_88 = new QLabel(storage_add);
+        label_88->setObjectName(QStringLiteral("label_88"));
+        label_88->setGeometry(QRect(40, 200, 91, 31));
+        label_88->setStyleSheet(QLatin1String("font-size:12px ;\n"
+"font-weight:bold ; "));
+        id_storage = new QLabel(storage_add);
+        id_storage->setObjectName(QStringLiteral("id_storage"));
+        id_storage->setGeometry(QRect(70, 85, 91, 21));
+        id_storage->setStyleSheet(QLatin1String("color : black ; \n"
+"font-size: 14px ; \n"
+"\n"
+""));
+        name_storage = new QLabel(storage_add);
+        name_storage->setObjectName(QStringLiteral("name_storage"));
+        name_storage->setGeometry(QRect(92, 123, 71, 21));
+        name_storage->setStyleSheet(QLatin1String("color : black ; \n"
+"font-size: 14px ;\n"
+"\n"
+""));
+        type_storage = new QLabel(storage_add);
+        type_storage->setObjectName(QStringLiteral("type_storage"));
+        type_storage->setGeometry(QRect(82, 164, 71, 21));
+        type_storage->setStyleSheet(QLatin1String("color : black ; \n"
+"font-size: 14px ; \n"
+" \n"
+""));
+        disp_storage = new QLabel(storage_add);
+        disp_storage->setObjectName(QStringLiteral("disp_storage"));
+        disp_storage->setGeometry(QRect(130, 203, 111, 21));
+        disp_storage->setStyleSheet(QLatin1String("color : black ; \n"
+"font-size: 14px ; \n"
+""));
+        widget_13 = new QWidget(storage_add);
+        widget_13->setObjectName(QStringLiteral("widget_13"));
+        widget_13->setGeometry(QRect(440, 10, 301, 281));
+        widget_13->setStyleSheet(QLatin1String("background-color : rgb(225, 246, 249) ;\n"
+"border-radius : 16px ; "));
+        label_89 = new QLabel(widget_13);
+        label_89->setObjectName(QStringLiteral("label_89"));
+        label_89->setGeometry(QRect(79, 20, 151, 41));
+        label_89->setStyleSheet(QLatin1String("font-size:20px ;\n"
+"font-weight:bold ; \n"
+"color : #0F141E ; "));
+        lineEdit = new QLineEdit(widget_13);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setGeometry(QRect(53, 90, 201, 41));
+        lineEdit->setStyleSheet(QLatin1String("background-color:white ; \n"
+"border-radius:10px ;\n"
+"padding : 0 10px 0 10px ;"));
+        add_qnt = new QPushButton(widget_13);
+        add_qnt->setObjectName(QStringLiteral("add_qnt"));
+        add_qnt->setGeometry(QRect(105, 150, 101, 31));
+        add_qnt->setCursor(QCursor(Qt::PointingHandCursor));
+        add_qnt->setStyleSheet(QLatin1String("#add_qnt{\n"
+"	background-color : #4AC7EA;\n"
+"	border:1px solid #4AC7EA ; \n"
+"	font-size : 12px ;\n"
+"	color:white ;\n"
+"}\n"
+"\n"
+"#add_qnt:hover {\n"
+"	background-color : #0F141E ;\n"
+"	color:white;\n"
+"	font-size : 12px ;\n"
+"	border:1px solid #0F141E ;\n"
+"}"));
+        label_90 = new QLabel(storage_add);
+        label_90->setObjectName(QStringLiteral("label_90"));
+        label_90->setGeometry(QRect(160, 30, 111, 41));
+        label_90->setStyleSheet(QLatin1String("font-size:20px ;\n"
+"font-weight:bold ; \n"
+"color : #4AC7EA ; "));
+        storage_ref_2 = new QLabel(page_28);
+        storage_ref_2->setObjectName(QStringLiteral("storage_ref_2"));
+        storage_ref_2->setGeometry(QRect(150, 160, 171, 51));
+        storage_ref_2->setStyleSheet(QLatin1String("color : black ; \n"
+"font-size:30px;\n"
+"font-weight:bold ;"));
+        storage_ref_2->setScaledContents(false);
+        storage_ref_2->setAlignment(Qt::AlignCenter);
         equipments_widget->addWidget(page_28);
 
         horizontalLayout_5->addWidget(equipments_widget);
@@ -1829,7 +1943,7 @@ public:
         toolbar->setGeometry(QRect(80, 39, 91, 145));
         page_16 = new QWidget();
         page_16->setObjectName(QStringLiteral("page_16"));
-        page_16->setGeometry(QRect(0, 0, 91, 61));
+        page_16->setGeometry(QRect(0, 0, 100, 30));
         police1 = new QPushButton(page_16);
         police1->setObjectName(QStringLiteral("police1"));
         police1->setGeometry(QRect(0, -10, 93, 31));
@@ -1845,7 +1959,7 @@ public:
         toolbar->addItem(page_16, QStringLiteral("Police"));
         page_17 = new QWidget();
         page_17->setObjectName(QStringLiteral("page_17"));
-        page_17->setGeometry(QRect(0, 0, 91, 61));
+        page_17->setGeometry(QRect(0, 0, 100, 30));
         red = new QPushButton(page_17);
         red->setObjectName(QStringLiteral("red"));
         red->setGeometry(QRect(0, 0, 16, 16));
@@ -1873,7 +1987,7 @@ public:
         toolbar->addItem(page_17, QStringLiteral("color"));
         page_18 = new QWidget();
         page_18->setObjectName(QStringLiteral("page_18"));
-        page_18->setGeometry(QRect(0, 0, 91, 61));
+        page_18->setGeometry(QRect(0, 0, 100, 30));
         size = new QSpinBox(page_18);
         size->setObjectName(QStringLiteral("size"));
         size->setGeometry(QRect(50, 0, 42, 22));
@@ -1886,7 +2000,7 @@ public:
         toolbar_2->setGeometry(QRect(0, 38, 85, 81));
         page_19 = new QWidget();
         page_19->setObjectName(QStringLiteral("page_19"));
-        page_19->setGeometry(QRect(0, 0, 85, 53));
+        page_19->setGeometry(QRect(0, 0, 100, 30));
         pdf_2 = new QPushButton(page_19);
         pdf_2->setObjectName(QStringLiteral("pdf_2"));
         pdf_2->setGeometry(QRect(-1, -10, 93, 41));
@@ -1901,7 +2015,7 @@ public:
         toolbar_3->setGeometry(QRect(160, 39, 101, 121));
         page_21 = new QWidget();
         page_21->setObjectName(QStringLiteral("page_21"));
-        page_21->setGeometry(QRect(0, 0, 101, 93));
+        page_21->setGeometry(QRect(0, 0, 100, 30));
         left = new QPushButton(page_21);
         left->setObjectName(QStringLiteral("left"));
         left->setGeometry(QRect(0, 0, 93, 28));
@@ -2778,31 +2892,20 @@ public:
         calendarFomation_2 = new QCalendarWidget(widget_11);
         calendarFomation_2->setObjectName(QStringLiteral("calendarFomation_2"));
         calendarFomation_2->setGeometry(QRect(0, 0, 461, 261));
-        calendarFomation_2->setStyleSheet(QLatin1String("QCalendarWidget {\n"
-"    background-color: #F7F6FC; /* Set the background color using your color palette */\n"
+        calendarFomation_2->setStyleSheet(QLatin1String("QCalendarWidget QAbstractItemView\n"
+"{ \n"
+"    selection-background-color: #042944; \n"
+"    selection-color: white;\n"
 "}\n"
-"\n"
-"QCalendarWidget QToolButton {\n"
-"    color: #0F141E; /* Set the text color using a dark color from your palette */\n"
+"QCalendarWidget QWidget \n"
+"{\n"
+"  color:grey;\n"
 "}\n"
-"\n"
-"QCalendarWidget QToolButton:hover {\n"
-"    background-color: #4AC7EA; /* Set a highlight color on hover using your primary color */\n"
-"}\n"
-"\n"
-"QCalendarWidget QWidget#qt_calendar_navigationbar {\n"
-"    background-color: #4AC7EA; /* Set the navigation bar color using your primary color */\n"
-"    color: #FFFFFF; /* Set the text color in the navigation bar to white */\n"
-"}\n"
-"\n"
-"QCalendarWidget QAbstractItemView:enabled {\n"
-"    color: #0F141E; /* Set the text color of enabled dates */\n"
-"}\n"
-"\n"
-"QCalendarWidget QAbstractItemView:!enabled {\n"
-"    color: #BFC9D3; /* Set the text color of disabled dates */\n"
-"}\n"
-""));
+"QCalendarWidget QTableView\n"
+"{\n"
+"    border-width:0px;\n"
+"    background-color:lightgrey;\n"
+"}"));
 
         horizontalLayout_13->addWidget(widget_11);
 
@@ -3616,15 +3719,15 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabs->setCurrentIndex(4);
+        tabs->setCurrentIndex(3);
         projects->setCurrentIndex(1);
-        equipments_widget->setCurrentIndex(4);
-        entreprneur->setCurrentIndex(0);
+        equipments_widget->setCurrentIndex(3);
+        entreprneur->setCurrentIndex(1);
         toolbar->setCurrentIndex(0);
         toolbar_2->setCurrentIndex(0);
         toolbar_3->setCurrentIndex(0);
-        formations->setCurrentIndex(2);
-        sponsor->setCurrentIndex(2);
+        formations->setCurrentIndex(0);
+        sponsor->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -3721,7 +3824,19 @@ public:
         search_btn->setText(QString());
         label_82->setText(QString());
         storage_ref->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
-        pushButton_3->setText(QApplication::translate("MainWindow", "PushButton", Q_NULLPTR));
+        label_85->setText(QApplication::translate("MainWindow", "ID :", Q_NULLPTR));
+        label_86->setText(QApplication::translate("MainWindow", "Name : ", Q_NULLPTR));
+        label_87->setText(QApplication::translate("MainWindow", "Type : ", Q_NULLPTR));
+        label_88->setText(QApplication::translate("MainWindow", "Disponibilit\303\251 :", Q_NULLPTR));
+        id_storage->setText(QString());
+        name_storage->setText(QString());
+        type_storage->setText(QString());
+        disp_storage->setText(QString());
+        label_89->setText(QApplication::translate("MainWindow", "Add to storage ", Q_NULLPTR));
+        lineEdit->setPlaceholderText(QApplication::translate("MainWindow", "Quantity to add", Q_NULLPTR));
+        add_qnt->setText(QApplication::translate("MainWindow", "ADD", Q_NULLPTR));
+        label_90->setText(QApplication::translate("MainWindow", "Entity Info", Q_NULLPTR));
+        storage_ref_2->setText(QApplication::translate("MainWindow", "Quantity :", Q_NULLPTR));
         file->setText(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         edit->setText(QApplication::translate("MainWindow", "Edit", Q_NULLPTR));
         alignement->setText(QApplication::translate("MainWindow", "Alignement", Q_NULLPTR));

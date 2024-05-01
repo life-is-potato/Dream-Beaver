@@ -1,0 +1,16 @@
+AJOUT de : 
+ID: 11222
+NOM: rrrrr
+EMAIL: ggyfhg@gmail.com
+NUMERO: 111111
+TYPE: morale
+Datetime: 2024-04-26T17:52:01
+-----------------------------
+MODIFICATION de : 
+ID: 11222
+NOM: rrrrr
+EMAIL: ggyfhg@gmail.com
+NUMERO: 555
+TYPE: morale
+Datetime: 2024-04-26T17:52:20
+-----------------------------

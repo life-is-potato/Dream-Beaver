@@ -1,4 +1,5 @@
 INPUT(
+./debug\arduino_equipment.o
 ./debug\barcodeprinter.o
 ./debug\databaseconnection.o
 ./debug\entreprneur.o
