@@ -2,6 +2,8 @@
 #include "mainwindow.h"
 
 
+
+
 QStandardItemModel * Equipments::afficher() {
     int rows ;
     QStandardItemModel * model = new QStandardItemModel();
@@ -27,7 +29,7 @@ QStandardItemModel * Equipments::afficher() {
     return model ;
 }
 
- bool Equipments::Add_element(int id , QString name , int type , int qnt , QString disp, QString desc) {
+ bool Equipments::Add_element(QString id , QString name , int type , int qnt , QString disp, QString desc) {
 
      QSqlQuery q ;
 
@@ -42,7 +44,7 @@ QStandardItemModel * Equipments::afficher() {
 
  }
 
- bool Equipments::Modify_element(int id , QString name , int type , int qnt , QString disp, QString desc) {
+ bool Equipments::Modify_element(QString id , QString name , int type , int qnt , QString disp, QString desc) {
 
      QSqlQuery q ;
      q.prepare("UPDATE EQUIPEMENTS SET  NOM = :v2, TYPE =:v3 , QNT_STOCK = :v4, DISPONIBILITE = :v5, DESCRIPTION = :v6 WHERE ID = :v1 ") ;
@@ -56,7 +58,7 @@ QStandardItemModel * Equipments::afficher() {
 
  }
 
- bool Equipments::Delete_element(int x ) {
+ bool Equipments::Delete_element(QString x ) {
        QSqlQuery q ;
        q.prepare("DELETE FROM EQUIPEMENTS WHERE ID = :id ") ;
        q.bindValue(":id",x) ;
@@ -140,4 +142,5 @@ QStandardItemModel * Equipments::afficher() {
      }
      return model ;
  }
+
 

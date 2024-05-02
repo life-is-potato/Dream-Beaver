@@ -7,6 +7,7 @@
 #include "barcodeprinter.h"
 
 
+
 class Equipments
 {
     private :
@@ -59,10 +60,11 @@ class Equipments
         QStandardItemModel * search_element(QString str) ;
         QStandardItemModel * tri_by_type() ;
         QStandardItemModel * tri_by_quantity() ;
-        bool Add_element(int , QString , int , int , QString , QString ) ;
-        bool Modify_element(int , QString , int , int , QString , QString ) ;
-        bool Delete_element(int) ;
+        bool Add_element(QString , QString , int , int , QString , QString ) ;
+        bool Modify_element(QString , QString , int , int , QString , QString ) ;
+        bool Delete_element(QString) ;
 
 };
+
 
 #endif // EQUIPMENTS_H

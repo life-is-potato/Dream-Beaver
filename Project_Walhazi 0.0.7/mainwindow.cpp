@@ -2,29 +2,17 @@
 #include "ui_mainwindow.h"
 #include <QTableWidget>
 #include <QVBoxLayout>
-#include <QtNetwork>
-#include <QSslSocket>
-#include "smtp.h"
-#include <QtNetwork>
-#include <QDebug>
-#include <QCoreApplication>
-#include <QProcess>
-
-
-
-
-
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+     //setWindowState(Qt::WindowMaximized);
     ui->setupUi(this);
     ui->tabs->setCurrentIndex(0) ;
 
     QRegExp regex1("^[a-zA-Z]*$");
-    QRegExp regex2("^[0-9]*$");
+    QRegExp regex2("^[a-zA-Z0-9]*$");
 
     QValidator *validator1 = new QRegExpValidator(regex1, ui->name);
     QValidator *validator2 = new QRegExpValidator(regex2, ui->qnt);
@@ -40,15 +28,37 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->tableView_2, &QAbstractItemView::clicked, this, &MainWindow::handleItemClicked);
     connect(ui->sortuser, &QPushButton::clicked, this, &MainWindow::on_sortuser_clicked);
     connect(ui->search_bar_3, &QLineEdit::textChanged, this, &MainWindow::rechercheProjets);
+    connect(ui->police1, &QToolButton::clicked, this, &MainWindow::setArial);
+    connect(ui->police2, &QToolButton::clicked, this, &MainWindow::setTimes);
+    connect(ui->red, &QToolButton::clicked, this, &MainWindow::setred);
+    connect(ui->green, &QToolButton::clicked, this, &MainWindow::setgreen);
+    connect(ui->yellow, &QToolButton::clicked, this, &MainWindow::setyellow);
+    connect(ui->blue, &QToolButton::clicked, this, &MainWindow::setblue);
+    connect(ui->white, &QToolButton::clicked, this, &MainWindow::setwhite);
+    connect(ui->black, &QToolButton::clicked, this, &MainWindow::setblack);
+    connect(ui->size, SIGNAL(valueChanged(int)), this, SLOT(size(int)));
+    connect(ui->left,&QPushButton::clicked, this, &MainWindow::on_left_clicked);
+    connect(ui->right,&QPushButton::clicked, this, &MainWindow::on_right_clicked);
+    connect(ui->center, &QPushButton::clicked, this, &MainWindow::on_center_clicked);
+
 
     ui->tableView_3->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tri_bar_formation->hide() ;
     chart_render3() ;
 
+    ui->tableView_5->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView_5->setModel(s.afficher());
+    ui->tri_bar_s->hide() ;
+    chart_render4() ;
+
+    ui->tableView_6->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    int flag = ard.connect_arduino() ;
+    if (!flag){
+        qDebug() << "arduino mrgl !" ;
+    }
+
 }
-
-
-
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -78,17 +88,12 @@ void MainWindow::on_back_clicked()
 
 void MainWindow::on_add_equip_clicked()
 {
-    int id = ui->ID->text().toInt();
+    QString id = ui->ID->text();
     QString name = ui->name->text() ;
     int type = ui->type->currentText().toInt() ;
     int qnt = ui->qnt->text().toInt() ;
     QString desc = ui->desc->toPlainText() ;
     int flag = 0 ;
-
-    if (ui->ID->text().length() != 8 ) {
-        flag = 1 ;
-        QMessageBox::critical(nullptr,"erreur","ID is not valid ! ") ;
-    }
 
     if (!isAlpha(name)) {
         QMessageBox::critical(nullptr,"erreur","name is not valid !") ;
@@ -123,16 +128,14 @@ if (flag == 0 ){
            ui->tableView->setModel(e->afficher());
            chart_render() ;
 
-           QString s = QString::number(id);
-
            BarcodePrinter * p = new BarcodePrinter();
            p->configurePrinter();
-           p->printBarcode(s);
+           p->savebarcode(id) ;
 
            ui->equipments_widget->setCurrentIndex(0);
-           }
-}
 
+           }
+      }
 }
 
 void MainWindow::on_tableView_activated(const QModelIndex &index)
@@ -168,7 +171,7 @@ void MainWindow::on_back_2_clicked()
 
 void MainWindow::on_modify_clicked()
 {
-    int id = ui->ID_2->text().toInt();
+    QString id = ui->ID_2->text();
     QString name = ui->name_2->text() ;
     int type = ui->type_2->currentText().toInt() ;
     int qnt = ui->qnt_2->text().toInt() ;
@@ -187,7 +190,6 @@ void MainWindow::on_modify_clicked()
 
 
 
-
                    chart_render() ;
                    ui->equipments_widget->setCurrentIndex(0);
             }
@@ -200,7 +202,7 @@ void MainWindow::on_modify_clicked()
 
 void MainWindow::on_delete_2_clicked()
 {
-    int id = ui->ID_2->text().toInt();
+    QString id = ui->ID_2->text();
     if (e->Delete_element(id)) {
            QMessageBox::information(nullptr,"okay","jwk mrgl") ;
            ui->tableView->setModel(e->afficher());
@@ -327,26 +329,33 @@ void MainWindow::clear_chart_widget2(){
     }
 }
 
+
 void MainWindow::chart_render(){
-    clear_chart_widget() ;
+    clear_chart_widget();
     QSqlQueryModel *model = new QSqlQueryModel();
-   // d.connect() ; // al DB
-    model->setQuery("select * from EQUIPEMENTS where  = '1' ");
+    model->setQuery("select * from EQUIPEMENTS where TYPE = '1'");
     int number1 = model->rowCount();
-    model->setQuery("select * from EQUIPEMENTS where TYPE = '2' ");
+    model->setQuery("select * from EQUIPEMENTS where TYPE = '2'");
     int number2 = model->rowCount();
-    model->setQuery("select * from EQUIPEMENTS where TYPE = '3' ");
+    model->setQuery("select * from EQUIPEMENTS where TYPE = '3'");
     int number3 = model->rowCount();
 
     QPieSeries *series = new QPieSeries();
     QStringList colors = {"#002F5D", "#8BC1F7", "#0066CC"};
     QStringList labels = {"1", "2", "3"};
     QVector<int> numbers = {number1, number2, number3};
+    int totalCount = number1 + number2 + number3; // Total count of all slices
+
     for (int i = 0; i < 3; ++i)
     {
         QString color = colors.at(i);
         QString label = labels.at(i);
-        QPieSlice *slice = new QPieSlice(label, numbers.at(i));
+        int count = numbers.at(i);
+        int percentage = static_cast<int>((count * 100.0) / totalCount);
+
+        // Create slice with label including percentage
+        QString labelText = QString("%1\n(%2%)").arg(label).arg(QString::number(percentage));
+        QPieSlice *slice = new QPieSlice(labelText, count);
         slice->setLabelVisible();
         slice->setPen(QPen(Qt::black, 1.5));
         slice->setLabelFont(QFont("Arial", 10,QFont::Bold));
@@ -381,11 +390,12 @@ void MainWindow::chart_render(){
     // 7eslet :
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->chart()->setTitleFont(QFont("MS Shell Dlg 2", 10,QFont::Bold));
+    chartView->chart()->setTitleFont(QFont("MS Shell Dlg 2",10,QFont::Bold));
     chartView->resize(300, 300);
 
     ui->donut->layout()->addWidget(chartView);
 }
+
 
 
 
@@ -397,23 +407,14 @@ void MainWindow::on_pushButton_clicked()
     q.bindValue(":id", s);
     q.exec();
 
-    QString filePath = QFileDialog::getExistingDirectory(this, tr("Select Directory"), QDir::homePath(), QFileDialog::ShowDirsOnly);
-
     while (q.next()) {
-        QByteArray blobData = q.value(0).toByteArray();
-        QString fileName = s + ".png";
-        QFile file(filePath + "/" + fileName);
-        if (!file.open(QIODevice::WriteOnly)) {
-            qDebug() << "8alet";
-        }
-        file.write(blobData);
-        file.close();
 
-        qDebug() << "Image downloaded mrgl";
+        BarcodePrinter *printer = new BarcodePrinter();
+        printer->configurePrinter();
+        printer->printBarcode(s);
+        qDebug() << "BarCode downloaded mrgl";
     }
 }
-
-
 
 
 bool MainWindow::isAlpha(QString str ){
@@ -434,21 +435,12 @@ bool MainWindow::isInteger(int x) {
         }
         return true;
 }
-
-
-
-void MainWindow::on_project_clicked()
-{
-    ui->tabs->setCurrentIndex(0) ;
-}
-void MainWindow::on_adds_clicked()
-{
-    ui->tabs->setCurrentIndex(4) ;
-}
-//entrepreneurs
+//entrepreneur
 void MainWindow::on_entreperneurs_clicked()
 {
-
+    ui->toolbar_3->hide();
+    ui->toolbar_2->hide();
+    ui->toolbar->hide();
     ui->tabs->setCurrentIndex(2) ;
     ui->entreprneur->setCurrentIndex(0) ;
     ui->tableView_2->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -458,6 +450,52 @@ void MainWindow::on_entreperneurs_clicked()
     ui->points->clear();
     selectedIndex = QModelIndex();
 }
+void MainWindow::on_alignement_clicked(){
+    if (ui->toolbar_3->isVisible())
+    {
+        ui->toolbar_3->hide();
+    }else
+        ui->toolbar_3->show();
+}
+void MainWindow::on_edit_clicked()
+{
+    if (ui->toolbar->isVisible())
+    {
+        ui->toolbar->hide();
+    }else
+        ui->toolbar->show();
+}
+void MainWindow::on_file_clicked()
+{
+    if (ui->toolbar_2->isVisible())
+    {
+        ui->toolbar_2->hide();
+    }else
+        ui->toolbar_2->show();
+}
+void MainWindow::setArial() {
+    currentFont.setFamily("Arial");
+    applyCurrentFormat();
+}
+
+void MainWindow::setTimes() {
+    currentFont.setFamily("Times New Roman");
+    applyCurrentFormat();
+}
+
+void MainWindow::size(int n) {
+    currentFont.setPointSize(n);
+    applyCurrentFormat();
+}
+
+void MainWindow::applyCurrentFormat() {
+    QTextCursor cursor = ui->textEdit->textCursor();
+    currentFormat.setForeground(currentColor);
+    currentFormat.setFont(currentFont);
+    cursor.setCharFormat(currentFormat);
+    ui->textEdit->setTextCursor(cursor);
+}
+
 
 void MainWindow::handleItemClicked(const QModelIndex &index)
 {
@@ -516,6 +554,42 @@ void MainWindow::on_sortuser_clicked()
 void MainWindow::rechercheProjets(const QString &searchText) {
     ui->tableView_2->setModel(a->recherche_projet(searchText));
 }
+void MainWindow::on_pdf_2_clicked() {
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save PDF"), "", tr("PDF Files (*.pdf)"));
+    if (filePath.isEmpty()) {
+        return;
+    }
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly)) {
+        QMessageBox::warning(this, tr("Error"), tr("Could not create file"));
+        return;
+    }
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(filePath);
+    QTextDocument doc;
+    doc.setPlainText(ui->textEdit->toPlainText());
+    doc.print(&printer);
+    QMessageBox::information(this, tr("Success"), tr("PDF file saved successfuly"));
+}
+void MainWindow::on_txt_clicked() {
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Save as TXT"), "", tr("Text Files (*.txt)"));
+    if (filePath.isEmpty()) {
+        return;
+    }
+    QFile file(filePath);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, tr("Error"), tr("Could not create file"));
+        return;
+    }
+    QString doc=ui->textEdit->toPlainText();
+    QTextStream out(&file);
+    out<<doc;
+    file.close();
+    QMessageBox::information(this, tr("sahit"), tr("tssajel"));
+}
+
 void MainWindow::on_pdfuser_clicked()
 {
          QString defaultFileName="tableauxEntrepreneur.pdf";
@@ -531,7 +605,6 @@ void MainWindow::on_pdfuser_clicked()
             printer.setOutputFormat(QPrinter::PdfFormat);
             printer.setPaperSize(QPrinter::A4);
             printer.setOutputFileName(filePath);
-
             QPainter painter;
             if (!painter.begin(&printer)) {
                 QMessageBox::warning(this, tr("Error"), tr("Could not create painter."));
@@ -542,9 +615,7 @@ void MainWindow::on_pdfuser_clicked()
             int cw= 100;
             int rowHeight = 20;
             QStringList h;
-            for (int i = 0; i<h.size(); ++i) {
-                painter.drawText(x+i * cw,y,h.at(i));
-            }
+
 
             // Draw table data
             int nl= ui->tableView_2->model()->rowCount();
@@ -558,7 +629,7 @@ void MainWindow::on_pdfuser_clicked()
 
             painter.end();
 
-            QMessageBox::information(this, tr("Success"), tr("PDF file saved successfully."));
+            QMessageBox::information(this, tr("Success"), tr("PDF file saved successfully"));
         }
     }
 
@@ -605,6 +676,8 @@ void MainWindow::on_add_user_clicked()
         ui->birthday->clearMask();
         ui->entreprneur->setCurrentIndex(0);
     }
+
+    ui->tableView_2->setModel(a->afficher()) ;
 }
 void MainWindow::on_modifyuser_clicked()
 {
@@ -659,6 +732,7 @@ void MainWindow::on_modifyuser_clicked()
     } else {
         qDebug() << "Failed to modify";
     }
+    ui->tableView_2->setModel(a->afficher()) ;
 }
 
 void MainWindow::on_adduser_clicked()
@@ -677,22 +751,24 @@ void MainWindow::chart_render2() {
     int number1 = 0;
     int number2 = 0;
     int number3 = 0;
+    int totalCount = 0;
     QDate currentDate = QDate::currentDate();
     while (query.next()) {
         QDate birthDate = query.value(0).toDate();
-        int age = birthDate.isNull() ?0: currentDate.year()-birthDate.year();
-        if (age>=18 && age<=30)
+        int age = birthDate.isNull() ? 0 : currentDate.year() - birthDate.year();
+        if (age >= 18 && age <= 30)
             number1++;
-        else if (age>30 && age<=40)
+        else if (age > 30 && age <= 40)
             number2++;
-        else if (age>40)
+        else if (age > 40)
             number3++;
+        totalCount++;
     }
-
     QPieSeries *series = new QPieSeries();
     QPieSlice *slice1 = series->append("18-30", number1);
     QPieSlice *slice2 = series->append("30-40", number2);
     QPieSlice *slice3 = series->append("over40", number3);
+    // Create chart and set series
     QChart *chart = new QChart();
     chart->addSeries(series);
     chart->setTitle("Age Pie");
@@ -700,12 +776,15 @@ void MainWindow::chart_render2() {
     chart->legend()->setFont(QFont("MS Shell Dig2", 7));
     chart->setBackgroundBrush(QColor("#FFFFFF"));
     chart->setAnimationOptions(QChart::AllAnimations);
+    // Set labels
+    slice1->setLabel(QString("18-30   %1%").arg((static_cast<double>(number1) / totalCount) * 100, 0, 'f', 2));
+    slice2->setLabel(QString("30-40   %1%").arg((static_cast<double>(number2) / totalCount) * 100, 0, 'f', 2));
+    slice3->setLabel(QString("over40  %1%").arg((static_cast<double>(number3) / totalCount) * 100, 0, 'f', 2));
+    // nessnaa f chart
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-    // nconnect slice clicked
     connect(series, &QPieSeries::clicked, this, &MainWindow::handleSliceClicked);
-
-    // ncleari mawjoud
+    // ncleari layout kdim
     if (ui->donut_2->layout()) {
         QLayoutItem *child;
         while ((child = ui->donut_2->layout()->takeAt(0)) != nullptr) {
@@ -714,15 +793,59 @@ void MainWindow::chart_render2() {
         }
         delete ui->donut_2->layout();
     }
+
+    // Set new layout
     QVBoxLayout *layout = new QVBoxLayout(ui->donut_2);
     layout->addWidget(chartView);
 }
 
+
+void MainWindow::on_left_clicked()
+{
+    ui->textEdit->setAlignment(Qt::AlignLeft);
+}
+
+void MainWindow::on_right_clicked()
+{
+    ui->textEdit->setAlignment(Qt::AlignRight);
+}
+
+void MainWindow::on_center_clicked()
+{
+    ui->textEdit->setAlignment(Qt::AlignCenter);
+}
 void MainWindow::handleSliceClicked(QPieSlice *slice) {
     slice->setExploded();
     slice->setLabelVisible(true);
 }
+void MainWindow::setred() {
+    currentColor = Qt::red;
+    applyCurrentFormat();
+}
 
+void MainWindow::setgreen() {
+    currentColor = Qt::green;
+    applyCurrentFormat();
+}
+
+void MainWindow::setblue() {
+    currentColor = Qt::blue;
+    applyCurrentFormat();
+}
+
+void MainWindow::setyellow() {
+    currentColor = Qt::yellow;
+    applyCurrentFormat();
+}
+
+void MainWindow::setblack() {
+    currentColor = Qt::black;
+    applyCurrentFormat();
+}
+void MainWindow::setwhite() {
+    currentColor = Qt::white;
+    applyCurrentFormat();
+}
 void MainWindow::on_pointsbutton_clicked() {
 if(selectedIndex.isValid()){
     QString cin = selectedIndex.sibling(selectedIndex.row(), 0).data(Qt::DisplayRole).toString();
@@ -733,7 +856,7 @@ if(selectedIndex.isValid()){
     ui->achivement5->setChecked(false);
     loadAchivements(cin);
     int p=a->getPoints(cin).toInt() ;
-    ui->tableView_4->setModel(f->afficher());
+    ui->tableView_4->setModel(a->afficherformation());
     ui->entreprneur->setCurrentIndex(3);
     ui->namee->setText(cin);
     ui->points_2->setText(QString::number(p));
@@ -747,7 +870,7 @@ void MainWindow::on_savecheck_clicked() {
     }
 
     QString cinToFind = selectedIndex.sibling(selectedIndex.row(), 0).data(Qt::DisplayRole).toString();
-    QFile file("C:/Users/MSI/Desktop/checkbox_states.txt");
+    QFile file("checkbox_states.txt");
 
     if (!file.open(QIODevice::ReadWrite | QIODevice::Text)) {
         qDebug() << "Failed to open file for reading and writing.";
@@ -899,7 +1022,7 @@ void MainWindow::on_achivement5_clicked(bool checked) {
 
 void MainWindow::loadAchivements(QString cin)
 {
-    QFile file("C:/Users/MSI/Desktop/checkbox_states.txt");
+    QFile file("checkbox_states.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Failed to open file for reading.";
         return;
@@ -960,7 +1083,7 @@ void MainWindow::on_formation_clicked()
    connect(ui->calendarFomation_2, &QCalendarWidget::clicked, this, &MainWindow::on_calendarWidget_clicked);
 
    populateCalendarWithFormations();
-   manager = new QNetworkAccessManager(this);
+       manager = new QNetworkAccessManager(this);
        connect(manager, &QNetworkAccessManager::finished, this, &MainWindow::replyFinished);
     }
 void MainWindow::on_add_formation_clicked()
@@ -979,9 +1102,8 @@ void MainWindow::on_add_form_clicked()
         QMessageBox::critical(nullptr, "Erreur", "ID mahouch howa");
         return;
     }
-    qDebug() << "ID String:" << idStr;
+
     int id = idStr.toInt();
-    qDebug() << "ID for SQL Query:" << id;
     QString type = ui->type_formation->currentText();
     QString instructeur = ui->instructeur->text();
     QDate dateDebut = ui->dateDebut->date();
@@ -1089,7 +1211,7 @@ void MainWindow::on_modify_formation_clicked()
 void MainWindow::on_delete_formation_clicked()
 {
     int id = ui->ID_formation_2->text().toInt();
-        if (e->Delete_element(id)) {
+        if (f->Delete_element(id)) {
             QMessageBox::information(nullptr, "Opération réussie", "La formation a été supprimée avec succès.");
             ui->tableView_3->setModel(f->afficher());
             ui->formations->setCurrentIndex(0);
@@ -1296,11 +1418,592 @@ void MainWindow::chart_render3(){
     ui->donut_5->layout()->addWidget(chartView);
 
 }
+//sponsors
+void MainWindow::on_sponsors_clicked()
+{
+    ui->tabs->setCurrentIndex(4) ;
+    ui->tableView_5->setModel(s.afficher());
+    ui->sponsor->setCurrentIndex(3) ;
+
+   clear_chart_widget4() ;
+   chart_render() ;
+    }
+
+void MainWindow::on_adds_clicked()
+{
+    ui->sponsor->setCurrentIndex(1) ;
+}
+
+
+void MainWindow::on_add_spon_clicked()
+{
+    // Récupérer les données saisies par l'utilisateur
+    int id = ui->ID_s->text().toInt();
+    QString nom = ui->name_s->text();
+    QString email = ui->email_s->text();
+    int num = ui->num_s->text().toInt();
+    QString type = ui->type_s->text();
+
+    // Vérifier si des champs obligatoires sont vides
+    if (nom.isEmpty() || email.isEmpty() || type.isEmpty()) {
+        QMessageBox::critical(nullptr, QObject::tr("Champs obligatoires vides"),
+                              QObject::tr("Veuillez remplir tous les champs obligatoires."),
+                              QMessageBox::Cancel);
+        return; // Arrêter l'exécution de la fonction
+    }
+
+    // Vérifier si l'email est valide (vous pouvez ajouter d'autres validations selon vos besoins)
+    QRegularExpression re("\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b");
+    if (!re.match(email).hasMatch()) {
+        QMessageBox::critical(nullptr, QObject::tr("Email invalide"),
+                              QObject::tr("Veuillez saisir une adresse email valide."),
+                              QMessageBox::Cancel);
+        return; // Arrêter l'exécution de la fonction
+    }
+
+    // Créer l'objet sponsor avec les données saisies
+    sponsors s(id, nom, email, num, type);
+
+    // Ajouter le sponsor
+    bool ajoutReussi = s.ajouter();
+
+    // Afficher un message en fonction du résultat de l'ajout
+    if (ajoutReussi) {
+        ui->tableView_5->setModel(s.afficher());
+        QMessageBox::information(nullptr, QObject::tr("Ajout réussi"),
+                                 QObject::tr("Le sponsor a été ajouté avec succès."),
+                                 QMessageBox::Cancel);
+        ui->sponsor->setCurrentIndex(2);
+    } else {
+        QMessageBox::critical(nullptr, QObject::tr("Ajout échoué"),
+                              QObject::tr("Échec de l'ajout du sponsor."),
+                              QMessageBox::Cancel);
+    }
+}
+
+void MainWindow::on_modify_spon_clicked()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+        QSqlQuery query;
+        query.prepare("SELECT * FROM SPONSORES WHERE ID= :ID  ");
+        query.bindValue(":ID", ui->ID_2_s->text().toInt());
+        query.exec();
+        model->setQuery(query);
+
+    // Check if the model contains any data before calling delete
+
+        if (model->rowCount() > 0) {
+
+            int id= ui->ID_2_s->text().toInt();
+                    QString nom= ui->name_2_s->text();
+                    QString email= ui->email_2_s->text();
+                    int num = ui->num_2_s->text().toInt();
+                    QString type= ui->type_2_s->text();
+
+
+ sponsors s(id,nom,email,num,type);
+
+            bool test = s.modifier(id);
+
+            if (test){
+                ui->tableView_5->setModel(s.afficher());
+            ui->sponsor->setCurrentIndex(2);
+            }
+
+            else{
+
+                ui->tableView_5->setModel(s.afficher());
+
+                QMessageBox::critical(nullptr,QObject::tr("Not OK"),
+
+                                              QObject::tr("Modification non effectué.\n"
+                                                          "Clic Cancel to exit."),QMessageBox::Cancel);
+            }
+
+        }
+        else {
+
+            QMessageBox::critical(nullptr, QObject::tr("ok"),
+                                     QObject::tr("le tableau est vide.\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel );
+
+        }
+
+}
+
+
+void MainWindow::on_delete_spon_clicked()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+
+        QSqlQuery query;
+
+        query.prepare("SELECT * FROM SPONSORES WHERE ID= :ID  ");
+        query.bindValue(":ID", ui->ID_2_s->text().toInt());
+        query.exec();
+
+        model->setQuery(query);
+
+        if (model->rowCount() > 0) {
+
+            int id = ui->ID_2_s->text().toInt();
+
+            bool test = s.supprimer(id);
+
+            if (test) {
+                QMessageBox::information(nullptr, QObject::tr("ok"),
+                                         QObject::tr("Suppression effectuée. \n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+                ui->tableView_5->setModel(s.afficher());
+                ui->sponsor->setCurrentIndex(2);
+            }
+            else {
+
+                QMessageBox::critical(nullptr, QObject::tr("ok"),
+                                         QObject::tr("Suppression no effectuée.\n"
+                                                     "Click Cancel to exit."), QMessageBox::Cancel);
+                ui->tableView_5->setModel(s.afficher());
+            }
+        }
+        else {
+            QMessageBox::critical(nullptr, QObject::tr("ok"),
+                                     QObject::tr("identifiant non trouvée!!\n"
+                                                 "Click Cancel to exit."), QMessageBox::Cancel);
+            ui->tableView_5->setModel(s.afficher());
+        }
+}
+
+
+
+void MainWindow::on_search_button_s_clicked()
+{
+    QString str = ui->search_bar_s->text() ;
+    ui->tableView_5->setModel(s.search_element(str)) ;
+}
+
+void MainWindow::on_search_bar_s_textChanged(const QString &arg1)
+{
+    ui->tableView_5->setModel(s.search_element(arg1)) ;
+ }
+
+
+
+void MainWindow::on_tri_s_clicked()
+{
+    if(!i) {
+         ui->tri_bar_s->hide() ;
+         i=1 ;
+    }
+    else {
+         ui->tri_bar_s->show() ;
+         i=0 ;
+    }
+}
+
+void MainWindow::on_tri_az_clicked()
+{
+    ui->tableView_5->setModel(s.afficheA_Z()) ;
+}
+
+
+
+void MainWindow::on_tri_za_clicked()
+{
+    ui->tableView_5->setModel(s.afficheZ_A()) ;
+}
+
+
+
+
+
+void MainWindow::on_pdf_s_clicked()
+{
+
+    ui->tableView_5->setModel(s.afficher());
+    QString defaultFileName = "walhzi.pdf";
+    QString saveFilePath = QFileDialog::getSaveFileName(this, tr("Export PDF"), QDir::homePath() + "/" + defaultFileName, tr("PDF Files (*.pdf)"));
+
+    if (!saveFilePath.isEmpty()) {
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFileName(saveFilePath);
+        printer.setPaperSize(QPrinter::A4);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+
+        QPainter painter(&printer);
+        painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
+
+        QAbstractItemModel* model = ui->tableView_5->model();
+
+        if (model) {
+            int rowCount = model->rowCount();
+            int columnCount = model->columnCount();
+
+            QTextDocument doc;
+            QTextCursor cursor(&doc) ;
+            QString tableHtml = "<table style=\" width: 100%; border: 1px solid black; font-size: 4px;\">";
+
+            tableHtml += "<tr style=\"background-color: #ccc;\">";
+            for (int col = 0; col < columnCount ; ++col) { // Exclude the last 2 columns
+                QVariant data = model->headerData(col, Qt::Horizontal);
+                tableHtml += "<th style=\"border: 1px solid black; padding: 8px;\">" + data.toString() + "</th>";
+            }
+            tableHtml += "</tr>";
+            for (int row = 0; row < rowCount; ++row) {
+                tableHtml += "<tr>";
+                for (int col = 0; col < columnCount ; ++col) {
+                    QModelIndex index = model->index(row, col);
+                    QVariant data = model->data(index);
+                    tableHtml += "<td style=\"border: 1px solid black; padding: 8px;\">" + data.toString() + "</td>";
+                }
+                tableHtml += "</tr>";
+            }
+            tableHtml += "</table>";
+            doc.setHtml(tableHtml);
+            painter.scale(30.0, 30.0);
+            doc.setPageSize(printer.pageRect().size());
+            doc.drawContents(&painter);
+        }
+        painter.end();
+    }
+}
+
+void MainWindow::clear_chart_widget4(){
+    QLayout *donutLayout = ui->donut_3->layout();
+    if (donutLayout) {
+        QLayoutItem *item;
+        while ((item = donutLayout->takeAt(0)) != nullptr) {
+            QWidget *widget = item->widget();
+            if (widget) {
+                delete widget;
+            }
+            delete item;
+        }
+    }
+}
+
+
+void MainWindow::chart_render4(){
+    clear_chart_widget() ;
+    QSqlQueryModel *model = new QSqlQueryModel();
+   // d.connect() ; // al DB
+    model->setQuery("select * from SPONSORS where TYPE = 'morale' ");
+    int number1 = model->rowCount();
+    model->setQuery("select * from SPONSORS where TYPE = 'physique' ");
+    int number2 = model->rowCount();
+    QPieSeries *series = new QPieSeries();
+    QStringList colors = {"#002F5D", "#8BC1F7"};
+    QStringList labels = {"morale", "physique"};
+    QVector<int> numbers = {number1, number2};
+    for (int i = 0; i < 2; ++i)
+    {
+        QString color = colors.at(i);
+        QString label = labels.at(i);
+        QPieSlice *slice = new QPieSlice(label, numbers.at(i));
+        slice->setLabelVisible();
+        slice->setPen(QPen(Qt::black, 1.5));
+        slice->setLabelFont(QFont("Arial", 10,QFont::Bold));
+        slice->setExploded();
+        connect(slice, &QPieSlice::clicked,ui->donut_3,[slice, series]() {
+            if (slice->isExploded()){
+                slice->setExploded(false);
+            }
+            else {
+                slice->setExploded();
+            }
+            for (QPieSlice *otherSlice : series->slices()){
+                if (otherSlice != slice) {
+                    otherSlice->setExploded(false);
+                }
+            }
+        });
+
+        slice->setBrush(QColor(color));
+        series->append(slice);
+    }
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->legend()->setFont(QFont("Arial", 10));
+    chart->setBackgroundBrush(QColor("#FFFFFF")); // Couleur de fond
+    QChart::AnimationOptions options = QChart::AllAnimations;
+    chart->setAnimationOptions(options);
+    chart->legend()->hide();
+
+    chart->setTitle("Type Chart :");
+
+    // 7eslet :
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->chart()->setTitleFont(QFont("MS Shell Dlg 2", 10,QFont::Bold));
+    chartView->resize(300, 300);
+
+    ui->donut_3->layout()->addWidget(chartView);
+}
+
+
+
+
+
+void MainWindow::on_tableView_5_activated(const QModelIndex &index)
+{
+    int row = index.row();
+    QString cinValue = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, 0)).toString();
+    QSqlQuery query;
+    query.prepare("SELECT * FROM SPONSORES WHERE ID = :val");
+    query.bindValue(":val", cinValue);
+    if (query.exec() && query.next()) {
+        ui->ID_2_s->setText(cinValue);
+        ui->name_2_s->setText(query.value(1).toString());
+        ui->email_2_s->setText(query.value(2).toString());
+        ui->num_2_s->setText(query.value(3).toString());
+        ui->type_2_s->setText(query.value(4).toString());
+        ui->sponsor->setCurrentIndex(0);
+    }
+}
+//projet
+void MainWindow::on_project_clicked()
+{
+    ui->tabs->setCurrentIndex(0) ;
+    ui->tableView_6->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->projects->setCurrentIndex(2);
+    ui->tableView_6->setModel(p->afficher());
+}
+void MainWindow::on_add_project_clicked(){
+    ui->projects->setCurrentIndex(0);
+}
+void MainWindow::on_add_projet_clicked(){
+    int id=ui->ID_projet->text().toInt();
+    float budget=ui->budget_projet->text().toFloat();
+     QString desc = ui->desc_projet->toPlainText();
+    int client=ui->client_projet->text().toInt();
+    QString name=ui->name_projet->text();
+    if (p->Add_element(id,name,budget,client, desc)) {
+        ui->ID_projet->clear();
+        ui->budget_projet->clear();
+        ui->desc_projet->clear();
+        ui->client_projet->clear();
+        ui->name_projet->clear();
+        ui->projects->setCurrentIndex(2);
+    }
+}
+void MainWindow::on_delete_project(){
+    int id = ui->ID_projet_2->text().toInt();
+    if (p->Delete_element(id)) {
+           QMessageBox::information(nullptr,"okay","jwk mrgl") ;
+           ui->tableView_6->setModel(p->afficher());
+           ui->projects->setCurrentIndex(2);
+    }
+    else {
+           QMessageBox::critical(nullptr,"zid thabet","8alet") ;
+    }
+}
+void MainWindow::on_modify_project(){
+    int id=ui->ID_projet_2->text().toInt();
+    float budget=ui->budget_project_2->text().toFloat();
+     QString desc = ui->desc_project_2->toPlainText();
+    int client=ui->client_project_2->text().toInt();
+    QString name=ui->name_projet_2->text();
+    if (p->Modify_element(id,name ,budget ,client ,desc)) {
+                   QMessageBox::information(nullptr,"okay","jwk mrgl") ;
+                   ui->tableView_6->setModel(e->afficher());
+                   ui->projects->setCurrentIndex(2);}
+}
+void MainWindow::on_tableView_6_activated(const QModelIndex &index){
+    int row = index.row();
+    QString id = ui->tableView_6->model()->data(ui->tableView_5->model()->index(row, 0)).toString();
+    QSqlQuery query;
+    query.prepare("SELECT * FROM PROJETS WHERE ID = :val");
+    query.bindValue(":val", id);
+    if (query.exec() && query.next()) {
+        ui->ID_projet_2->setText(id);
+        ui->name_2_s->setText(query.value(1).toString());
+        ui->budget_project_2->setText(query.value(2).toString());
+        ui->client_project_2->setText(query.value(3).toString());
+        ui->projects->setCurrentIndex(1);
+    }
+
+}
+
+void MainWindow::on_searchengine_clicked()
+{
+    ui->equipments_widget->setCurrentIndex(3) ;
+}
+
+void MainWindow::on_search_btn_clicked()
+{
+    // request :
+    QString query = ui->searchbar->text();
+    QString target_path = R"(C:\Users\moham\Desktop\arduino\build-Project_Walhazi-Desktop_Qt_5_9_9_MinGW_32bit-Debug\target.txt)";
+       QFile target(target_path);
+       if (target.open(QIODevice::WriteOnly | QIODevice::Text))
+       {
+           QTextStream out(&target);
+           out << query;
+           target.close();
+        }
+       //result :
+       QString result_path = R"(C:\Users\moham\Desktop\arduino\build-Project_Walhazi-Desktop_Qt_5_9_9_MinGW_32bit-Debug\results.txt)";
+       QFile result(result_path);
+       if (!result.open(QIODevice::ReadOnly | QIODevice::Text)) {
+           // Error handling if file cannot be opened
+           qDebug() << "Could not open file for reading";
+           return;
+       }
+
+       // Wait until the file is not empty
+       while (result.size() == 0) {
+           QCoreApplication::processEvents(); // Allow processing of events to prevent freezing the UI
+       }
+
+       // Create a model to store the data
+       QStandardItemModel* model = new QStandardItemModel();
+       model->setColumnCount(1);
+       model->setHeaderData(0, Qt::Horizontal, "Sites");
+
+       // Read the file line by line
+       QTextStream in(&result);
+       int row = 0;
+       while (!in.atEnd()) {
+           QString line = in.readLine();
+           QStringList fields = line.split(","); // Assuming CSV format, adjust as needed
+
+           // Add data to the model
+           for (int i = 0; i < fields.size(); ++i) {
+               QString field = fields.at(i);
+               QStandardItem* item = new QStandardItem(field);
+               model->setItem(row, i, item);
+           }
+
+           row++;
+       }
+       result.close();
+
+       // Close the file
+       result.open(QIODevice::WriteOnly | QIODevice::Truncate);
+       result.close();
+
+       // Set the model to the table view
+       ui->tableView_7->setModel(model);
+
+       // Adjust column widths
+       ui->tableView_7->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+
+}
+
+
+void MainWindow::on_arduino_clicked()
+{
+    ui->equipments_widget->setCurrentIndex(4);
+
+    QTimer *dataMonitorTimer;
+    dataMonitorTimer = new QTimer(this);
+    connect(dataMonitorTimer, &QTimer::timeout, this, &MainWindow::checkDataChanges);
+    dataMonitorTimer->start(1000);
+
+   }
+
+void MainWindow::on_add_s_clicked()
+{
+    ui->sponsor->setCurrentIndex(1) ;
+}
+
+
+void MainWindow::on_chatbot_send_clicked()
+{
+    QString botresponse ;
+    botresponse = s.chatbot(ui->usermessage->text()) ;
+    ui->response->append(botresponse) ;
+}
+
+void MainWindow::on_historique_clicked()
+{
+    ui->sponsor->setCurrentIndex(2) ;
+    ui->historique_page->setText(s.historique()) ;
+}
+
+void MainWindow::checkDataChanges() {
+       QByteArray data = ard.read_from_arduino();
+       QString result(data);
+       QString new_id ;
+       QSqlQuery q;
+       QString id ;
+       QString name ;
+       QString type ;
+       QString dispo ;
+       int qnt ;
+       int y = 0;
+
+
+       q.prepare("SELECT * FROM EQUIPEMENTS WHERE ID = :id_c");
+       q.bindValue(":id_c", result);
+
+       if (q.exec()) {
+           while (q.next()) {
+               id = q.value(0).toString() ;
+               name = q.value(1).toString() ;
+               type = q.value(2).toString() ;
+               dispo = q.value(3).toString() ;
+               qnt = q.value(4).toInt();
+               y++;
+           }
+
+           if (y > 0 && result != "0") {
+               ui->id_storage->setText(id) ;
+               ui->name_storage->setText(name) ;
+               ui->type_storage->setText(type) ;
+               ui->disp_storage->setText(dispo) ;
+               ard.write_to_arduino("1") ;
+               i = 0;
+               // Execute your code here
+               QTimer *timer = new QTimer(this);
+               connect(timer, &QTimer::timeout, this, [this, qnt]() {
+                   ui->storage_ref->setText(QString::number(i));
+                   if (++i >= qnt + 1) {
+                       static_cast<QTimer*>(sender())->deleteLater();
+                   }
+               });
+               timer->start(30);
+           }
+           if (result != "" && y == 0 ){
+                ui->id_storage->clear() ;
+                ui->name_storage->clear() ;
+                ui->type_storage->clear() ;
+                ui->disp_storage->clear() ;
+                ard.write_to_arduino("0") ;
+                new_id = result ;
+                ui->storage_ref->setText("0") ;
+                int result = QMessageBox::question(nullptr, "Entity Not Found", "Want to add it?",
+                                                   QMessageBox::Yes | QMessageBox::No);
+
+                if (result == QMessageBox::Yes) {
+                    ui->equipments_widget->setCurrentIndex(1) ;
+                    ui->ID->setText(new_id) ;
+               }
+           }
+       }
+   }
+
+void MainWindow::on_add_qnt_clicked()
+{
+    int qnt = ui->storage_ref->text().toInt() ;
+    int addon = ui->lineEdit->text().toInt() ;
+    QString id = ui->id_storage->text() ;
+    QString name = ui->name_storage->text() ;
+    qDebug() << name;
+    int new_qnt = qnt + addon ;
+    QSqlQuery q ;
+    q.prepare("UPDATE EQUIPEMENTS SET QNT_STOCK = :qnt WHERE  ID = :id ");
+    q.bindValue(":qnt",new_qnt) ;
+    q.bindValue(":id",id) ;
+    if(q.exec()){
+        ard.write_to_arduino("Name : " + name.toUtf8()) ;
+    }
+}
+
 
 void MainWindow::populateCalendarWithFormations()
 {
     ui->calendarFomation_2->setDateTextFormat(QDate(), QTextCharFormat());
-    formationInfoList.clear(); // Clear the list
+    formationInfoList.clear();
 
     QSqlQuery query;
     query.prepare("SELECT ID, INSTRUCTEUR, DD, DF FROM FORMATIONS");
@@ -1348,13 +2051,13 @@ void MainWindow::on_calendarWidget_clicked(const QDate &date)
                                      "ID: " + QString::number(info.id) +
                                      "\nINSTRUCTEUR: " + info.instructeur);
             dateFound = true;
-            break; // Stop searching
+            break;
         }
     }
 
     if (!dateFound && ui->calendarFomation_2->dateTextFormat(date).isEmpty())
     {
-        ui->dateDebut->setDate(date);  // Set the clicked date as the default "Date Debut"
+        ui->dateDebut->setDate(date);
 
         ui->formations->setCurrentIndex(1);
     }
@@ -1383,11 +2086,24 @@ void MainWindow::checkAbsence()
             QDate formationDate = query.value("DF").toDate();
             int absence = currentDate.daysTo(formationDate) - presence;
 
-
             if (absence > 3) {
-                sendEmailToEntrepreneur(entrepreneurID);
-                qDebug() << "Sent email to Entrepreneur with ID:" << entrepreneurID;
-                emailsSent = true;  // Set flag to true if email was sent
+                mailer emailSender; // Create an instance of the mailer class
+                QString entrepreneurEmail = getEmailById(entrepreneurID); // Function to get entrepreneur's email
+                QString subject = "Absence Notification"; // Email subject
+                QString body = "Dear Entrepreneur,\n\n"
+                               "This is to inform you that you have been absent from multiple formations. "
+                               "Please ensure attendance in upcoming formations.\n\n"
+                               "Best regards,\n"
+                               "Your Organization"; // Email body
+
+                // Call the sendEmail function with appropriate parameters
+                int result = emailSender.sendEmail(entrepreneurEmail, subject, body);
+                if (result == 0) {
+                    qDebug() << "Sent email to Entrepreneur with ID:" << entrepreneurID;
+                    emailsSent = true;  // Set flag to true if email was sent
+                } else {
+                    qDebug() << "Error sending email to Entrepreneur with ID:" << entrepreneurID;
+                }
             }
         }
 
@@ -1398,15 +2114,13 @@ void MainWindow::checkAbsence()
         qDebug() << "Error checking absence:" << query.lastError().text();
     }
 
-    if (!emailsSent) {
-        qDebug() << "No emails were sent for absence greater than 3 days.";
-    }
+    // Show QMessageBox based on whether emails were sent or not
+    QString message = emailsSent ? "Emails were sent for absence greater than 3 days."
+                                  : "No emails were sent for absence greater than 3 days.";
+    QMessageBox::information(this, "Email Status", message);
 }
 
-
-
-
-void MainWindow::sendEmailToEntrepreneur(const int &entrepreneurID)
+QString MainWindow::getEmailById(int entrepreneurID)
 {
     QString entrepreneurEmail;
     QSqlQuery query;
@@ -1417,50 +2131,9 @@ void MainWindow::sendEmailToEntrepreneur(const int &entrepreneurID)
         entrepreneurEmail = query.value("EMAIL").toString();
     } else {
         qDebug() << "Error: Failed to retrieve entrepreneur's email";
-        return;
     }
-
-    QString smtpServer = "smtp.gmail.com";
-    int smtpPort = 587; // SSL port for Gmail
-    QString smtpUser = "moustachnia@gmail.com"; // Your Gmail email address
-    QString smtpPass = "zzgn amhu grie isxc"; // Your Gmail password
-
-    QString from = "DreamBeaver@gmail.com"; // Sender email
-    QString subject = "Absence Notification"; // Email subject
-    QString body = "Dear Entrepreneur,\n\n"
-                   "This is to inform you that you have been absent from multiple formations. "
-                   "Please ensure attendance in upcoming formations.\n\n"
-                   "Best regards,\n"
-                   "Your Organization"; // Email body
-
-    QByteArray data;
-    data.append("From: " + from + "\r\n");
-    data.append("To: " + entrepreneurEmail + "\r\n");
-    data.append("Subject: " + subject + "\r\n");
-    data.append("Content-Type: text/plain; charset=utf-8\r\n");
-    data.append("\r\n"); // Empty line before message body
-    data.append(body);
-
-    // Create the request
-    QNetworkRequest request(QUrl("smtps://" + smtpServer + ":" + QString::number(smtpPort)));
-    request.setRawHeader("Authorization", "Basic " +
-                         QByteArray(QString("%1:%2").arg(smtpUser).arg(smtpPass).toLatin1()).toBase64());
-    request.setRawHeader("Content-Type", "text/plain");
-    request.setRawHeader("Content-Transfer-Encoding", "8bit");
-
-    QNetworkAccessManager manager;
-    QNetworkReply *reply = manager.post(request, data);
-
-    connect(reply, &QNetworkReply::finished, [=]() {
-        if (reply->error() == QNetworkReply::NoError) {
-            qDebug() << "Email sent to Entrepreneur with ID:" << entrepreneurID;
-        } else {
-            qDebug() << "Error sending email:" << reply->errorString();
-        }
-        reply->deleteLater();
-    });
+    return entrepreneurEmail;
 }
-
 
 
 
@@ -1473,6 +2146,7 @@ void MainWindow::emailStatus(const QString &status)
 void MainWindow::on_mailing_clicked()
 {
     checkAbsence();
+
 }
 
 void MainWindow::on_star_clicked()

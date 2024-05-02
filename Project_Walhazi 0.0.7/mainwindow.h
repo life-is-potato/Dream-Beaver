@@ -4,6 +4,10 @@
 #include"equipments.h"
 #include"entreprneur.h"
 #include"formation.h"
+#include"sponsors.h"
+#include"project.h"
+#include"arduino_equipment.h"
+#include"email.h"
 #include <QtSql>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -18,7 +22,6 @@
 #include <QPainter>
 #include <QFileDialog>
 
-
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
@@ -30,10 +33,13 @@
 #include <QTextStream>
 #include <QCheckBox>
 
+#include <QThread>
+#include <QDateTime>
+
+#include <QtNetwork>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QUrl>
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -59,9 +65,12 @@ public slots:
     void chart_render2();
     void clear_chart_widget3() ;
     void chart_render3() ;
+    void clear_chart_widget4() ;
+    void chart_render4() ;
     bool isAlpha(const QString str) ;
     bool isInteger(const int x) ;
-    
+    void checkDataChanges() ;
+
 
 private slots:
 
@@ -94,12 +103,24 @@ private slots:
     void on_pdf_clicked();
 
     void on_pushButton_clicked();
-
-    void on_project_clicked();
-
-    void on_adds_clicked();
-
     //Entrepreneur
+    void setTimes();
+    void setArial();
+    void size(int n);
+    void setred();
+    void setwhite();
+    void setblack();
+    void setyellow();
+    void setblue();
+    void setgreen();
+    void on_edit_clicked();
+    void on_file_clicked();
+    void on_pdf_2_clicked();
+    void on_txt_clicked();
+    void on_left_clicked();
+    void on_center_clicked();
+    void on_right_clicked();
+    void on_alignement_clicked();
     void on_entreperneurs_clicked();
     void handleItemDoubleClicked(const QModelIndex &index);
     void on_add_user_clicked();
@@ -135,22 +156,70 @@ private slots:
     void on_tri_typefor_clicked();
     void on_tri_nbrfor_clicked();
     void on_pdf_formation_clicked();
-    void populateCalendarWithFormations();
-    void on_calendarWidget_clicked(const QDate &date);
-    void checkAbsence();
-    void sendEmailToEntrepreneur(const int &entrepreneurID);
-    void emailStatus(const QString &status);
-    void on_mailing_clicked();
+    void applyCurrentFormat();
+    //sponsors
+    void on_sponsors_clicked();
+    void on_adds_clicked();
+    //void on_back_clicked();
+    void on_add_spon_clicked();
+    //void on_back_2_clicked();
+    void on_modify_spon_clicked();
+    void on_delete_spon_clicked();
+    void on_search_button_s_clicked();
+    void on_search_bar_s_textChanged(const QString &arg1);
+    void on_tri_s_clicked();
+    void on_pdf_s_clicked();
+    void on_tri_za_clicked();
+    void on_tri_az_clicked();
+    void on_tableView_5_activated(const QModelIndex &index);
+    //projet
+    void on_project_clicked();
+    void on_add_project_clicked();
+    void on_add_projet_clicked();
+    void on_delete_project();
+    void on_modify_project();
+    void on_tableView_6_activated(const QModelIndex &index);
+    void on_searchengine_clicked();
 
-    void on_star_clicked();
-    void replyFinished(QNetworkReply *reply);
+    void on_search_btn_clicked();
+
+    void on_arduino_clicked();
+
+    void on_add_s_clicked();
+
+    void on_chatbot_send_clicked();
+
+    void on_historique_clicked();
+
+    void on_add_qnt_clicked();
+    void populateCalendarWithFormations();
+   void on_calendarWidget_clicked(const QDate &date);
+   void checkAbsence();
+   void emailStatus(const QString &status);
+   void on_mailing_clicked();
+
+   void on_star_clicked();
+   void replyFinished(QNetworkReply *reply);
+   QString getEmailById(int entrepreneurID);
+
 private:
+    QColor currentColor;
+    QFont currentFont;
+    QTextCharFormat currentFormat;
     Ui::MainWindow *ui;
     Equipments * e ;
     entreprneur * a ;
     Formations *f;
+    sponsors s;
+    sponsors Stmp;
+    project *p;
     int i ;
     QModelIndex selectedIndex;
+    QRectF circleRect;
+    bool isResizing;
+    QPointF lastMousePos;
+    arduino_equipment ard ;
+    QByteArray data ;
     QVector<FormationInfo> formationInfoList;
     QNetworkAccessManager *manager;
 
