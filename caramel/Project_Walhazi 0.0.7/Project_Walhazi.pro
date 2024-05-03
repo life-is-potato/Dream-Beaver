@@ -7,9 +7,11 @@ QT       += serialport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+INCLUDEPATH += openssl
 
-LIBS += -LC:"/Program Files/OpenSSL-Win64/lib/VC/x64/MD/libcrypto.lib"
-LIBS += -LC:"/Program Files/OpenSSL-Win64/lib/VC/x64/MD/libssl.lib"
+
+
+
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

@@ -201,7 +201,7 @@ private slots:
    void on_star_clicked();
    void replyFinished(QNetworkReply *reply);
    QString getEmailById(int entrepreneurID);
-
+    void checkAbsences();
 private:
     QColor currentColor;
     QFont currentFont;

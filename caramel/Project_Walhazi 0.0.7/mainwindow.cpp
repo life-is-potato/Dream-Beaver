@@ -2065,6 +2065,159 @@ void MainWindow::on_calendarWidget_clicked(const QDate &date)
 
 void MainWindow::checkAbsence()
 {
+    // Obtenez la date actuelle
+    QDate currentDate = QDate::currentDate();
+    qDebug() << "Current Date:" << currentDate.toString("yyyy-MM-dd");
+
+    // Préparez la requête SQL pour récupérer les informations pertinentes
+    QSqlQuery query;
+    query.prepare("SELECT ef.ID_ENTR, ef.ID_FORM, ef.PRESENCE, f.DF "
+                  "FROM ENTREPRENEURS_FORMATIONS ef "
+                  "INNER JOIN FORMATIONS f ON ef.ID_FORM = f.ID "
+                  "WHERE f.DF > :currentDate");
+    query.bindValue(":currentDate", currentDate);
+
+    bool emailsSent = false;  // Flag pour suivre si des e-mails ont été envoyés
+
+    if (query.exec()) {
+        bool formationsFound = false;  // Flag pour suivre si des formations sont trouvées
+        while (query.next()) {
+            formationsFound = true;  // Réglez le drapeau sur true si des lignes sont trouvées
+            int entrepreneurID = query.value("ID_ENTR").toInt();
+            int presence = query.value("PRESENCE").toInt();
+            QDate formationDate = query.value("DF").toDate();
+            int absence = currentDate.daysTo(formationDate) - presence;
+
+            if (absence > 3) {
+                QString entrepreneurEmail = getEmailById(entrepreneurID); // Obtenez l'e-mail de l'entrepreneur
+                QString subject = "Absence Notification"; // Objet de l'e-mail
+                QString body = "Dear Entrepreneur,\n\n"
+                               "This is to inform you that you have been absent from multiple formations. "
+                               "Please ensure attendance in upcoming formations.\n\n"
+                               "Best regards,\n"
+                               "Your Organization"; // Corps de l'e-mail
+
+                // Appel du script Python avec les informations nécessaires
+                QProcess *process = new QProcess(this);
+                QString pythonScript = "C:/Users/moham/Desktop/arduino/mail.py";
+                QStringList arguments;
+                arguments << entrepreneurEmail << subject << body;
+                process->start("python", QStringList() << pythonScript << arguments);
+                process->waitForFinished();
+
+                // Vérifier le résultat de l'envoi de l'e-mail
+                if (process->exitCode() == 0) {
+                    qDebug() << "Sent email to Entrepreneur with ID:" << entrepreneurID;
+                    emailsSent = true;  // Réglez le drapeau sur true si l'e-mail a été envoyé
+                } else {
+                    qDebug() << "Error sending email to Entrepreneur with ID:" << entrepreneurID;
+                }
+            }
+        }
+
+        if (!formationsFound) {
+            qDebug() << "No formations found with DF > currentDate";
+        }
+    } else {
+        qDebug() << "Error checking absence:" << query.lastError().text();
+    }
+
+    // Afficher un QMessageBox en fonction de si des e-mails ont été envoyés ou non
+    QString message = emailsSent ? "Emails were sent for absence greater than 3 days."
+                                  : "No emails were sent for absence greater than 3 days.";
+    QMessageBox::information(this, "Email Status", message);
+}
+
+
+QString MainWindow::getEmailById(int entrepreneurID)
+{
+    QString entrepreneurEmail;
+    QSqlQuery query;
+    query.prepare("SELECT EMAIL FROM ENTREPRENEURS WHERE CIN = :cin");
+    query.bindValue(":cin", entrepreneurID);
+
+    if (query.exec() && query.next()) {
+        entrepreneurEmail = query.value("EMAIL").toString();
+    } else {
+        qDebug() << "Error: Failed to retrieve entrepreneur's email";
+    }
+    return entrepreneurEmail;
+}
+
+
+
+void MainWindow::emailStatus(const QString &status)
+{
+    qDebug() << "Email Status:" << status;
+}
+
+
+void MainWindow::on_mailing_clicked()
+{
+    checkAbsence();
+
+}
+
+void MainWindow::on_star_clicked()
+{
+    // Call Python script to scrape the website and retrieve the most recent formation
+    QProcess *process = new QProcess(this);
+    QString pythonScript = "C:/Users/moham/Desktop/arduino/check.py";
+    process->start("python", QStringList() << pythonScript);
+    process->waitForFinished();
+
+    // Read the output of the Python script
+    QByteArray output = process->readAllStandardOutput();
+    QString outputStr = QString::fromUtf8(output);
+
+    // Display the information in a QMessageBox
+    QMessageBox::information(this, "Recent Formation", outputStr);
+}
+
+
+void MainWindow::replyFinished(QNetworkReply *reply)
+{
+    if (reply->error() != QNetworkReply::NoError) {
+        qDebug() << "Network Error:" << reply->errorString();
+        reply->deleteLater();
+        return;
+    }
+
+    QString html = reply->readAll();
+    reply->deleteLater();
+
+    QString formationName;
+    int nameStart = html.indexOf("<div class=\"produit-item__title\">");
+    if (nameStart != -1) {
+        nameStart = html.indexOf(">", nameStart) + 1;
+        int nameEnd = html.indexOf("</div>", nameStart);
+        if (nameEnd != -1) {
+            formationName = html.mid(nameStart, nameEnd - nameStart).trimmed();
+        }
+    }
+
+    QString startDate;
+    int dateStart = html.indexOf("<div class=\"produit-item__details__items\">");
+    if (dateStart != -1) {
+        int spanStart = html.indexOf("<span>", dateStart);
+        if (spanStart != -1) {
+            spanStart = html.indexOf(">", spanStart) + 1;
+            int spanEnd = html.indexOf("</span>", spanStart);
+            if (spanEnd != -1) {
+                startDate = html.mid(spanStart, spanEnd - spanStart).trimmed();
+            }
+        }
+    }
+
+    QString message = "Most Recently Added Formation:\n\n";
+    message += "Formation Name: " + formationName + "\n";
+    message += "Start Date: " + startDate + "\n";
+
+    QMessageBox::information(this, "Recent Formation", message);
+}
+
+void MainWindow::checkAbsences()
+{
     QDate currentDate = QDate::currentDate();
     qDebug() << "Current Date:" << currentDate.toString("yyyy-MM-dd");
 
@@ -2118,81 +2271,4 @@ void MainWindow::checkAbsence()
     QString message = emailsSent ? "Emails were sent for absence greater than 3 days."
                                   : "No emails were sent for absence greater than 3 days.";
     QMessageBox::information(this, "Email Status", message);
-}
-
-QString MainWindow::getEmailById(int entrepreneurID)
-{
-    QString entrepreneurEmail;
-    QSqlQuery query;
-    query.prepare("SELECT EMAIL FROM ENTREPRENEURS WHERE CIN = :cin");
-    query.bindValue(":cin", entrepreneurID);
-
-    if (query.exec() && query.next()) {
-        entrepreneurEmail = query.value("EMAIL").toString();
-    } else {
-        qDebug() << "Error: Failed to retrieve entrepreneur's email";
-    }
-    return entrepreneurEmail;
-}
-
-
-
-void MainWindow::emailStatus(const QString &status)
-{
-    qDebug() << "Email Status:" << status;
-}
-
-
-void MainWindow::on_mailing_clicked()
-{
-    checkAbsence();
-
-}
-
-void MainWindow::on_star_clicked()
-{
-    QUrl url("https://www.my-mooc.com/fr/categorie/programmation");
-        QNetworkRequest request(url);
-        manager->get(request);
-}
-
-void MainWindow::replyFinished(QNetworkReply *reply)
-{
-    if (reply->error() != QNetworkReply::NoError) {
-        qDebug() << "Network Error:" << reply->errorString();
-        reply->deleteLater();
-        return;
-    }
-
-    QString html = reply->readAll();
-    reply->deleteLater();
-
-    QString formationName;
-    int nameStart = html.indexOf("<div class=\"produit-item__title\">");
-    if (nameStart != -1) {
-        nameStart = html.indexOf(">", nameStart) + 1;
-        int nameEnd = html.indexOf("</div>", nameStart);
-        if (nameEnd != -1) {
-            formationName = html.mid(nameStart, nameEnd - nameStart).trimmed();
-        }
-    }
-
-    QString startDate;
-    int dateStart = html.indexOf("<div class=\"produit-item__details__items\">");
-    if (dateStart != -1) {
-        int spanStart = html.indexOf("<span>", dateStart);
-        if (spanStart != -1) {
-            spanStart = html.indexOf(">", spanStart) + 1;
-            int spanEnd = html.indexOf("</span>", spanStart);
-            if (spanEnd != -1) {
-                startDate = html.mid(spanStart, spanEnd - spanStart).trimmed();
-            }
-        }
-    }
-
-    QString message = "Most Recently Added Formation:\n\n";
-    message += "Formation Name: " + formationName + "\n";
-    message += "Start Date: " + startDate + "\n";
-
-    QMessageBox::information(this, "Recent Formation", message);
 }

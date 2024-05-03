@@ -1,7 +1,9 @@
 #ifndef EMAIL_H
 #define EMAIL_H
 #include <QString>
-
+#include<openssl/ssl.h>
+#include<openssl/tls1.h>
+#include<openssl/thread.h>
 class mailer {
 public:
   mailer();
