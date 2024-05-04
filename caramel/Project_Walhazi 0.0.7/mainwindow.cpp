@@ -1225,7 +1225,7 @@ void MainWindow::on_delete_formation_clicked()
 
 void MainWindow::on_search_button_f_clicked()
 {
-    QString str = ui->search_bar_2->text() ;
+    QString str = ui->search_formation->text() ;
     ui->tableView_3->setModel(f->search_element(str)) ;
 }
 
@@ -2271,4 +2271,240 @@ void MainWindow::checkAbsences()
     QString message = emailsSent ? "Emails were sent for absence greater than 3 days."
                                   : "No emails were sent for absence greater than 3 days.";
     QMessageBox::information(this, "Email Status", message);
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ui->formations->setCurrentIndex(3);
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ui->formations->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_pushButton_6_clicked() {
+    ui->formations->setCurrentIndex(4);
+    refreshFormationWidgets();
+}
+
+void MainWindow::on_search_button_f_2_clicked() {
+    QString str = ui->search_formation_2->text();
+    formationData = retrieveFormationDataFromDatabase(str);
+    populateFormationWidgets(formationData);
+}
+
+void MainWindow::on_search_formation_2_textChanged() {
+    on_search_button_f_2_clicked(); // Trigger search when text changes
+}
+
+void MainWindow::populateFormationWidgets(const QVector<FormationData> &searchResults) {
+    clearFormationWidgets();
+
+    // Clear existing layout from widget_15
+    QLayout *existingLayout = ui->widget_15->layout();
+    if (existingLayout) {
+        delete existingLayout;
+    }
+
+    // Set up new layout for widget_15
+    QGridLayout *widget15Layout = new QGridLayout(ui->widget_15);
+    ui->widget_15->setLayout(widget15Layout);
+
+    int row = 0;
+    int column = 0;
+    for (const FormationData &data : searchResults) {
+        addFormationWidget(data, widget15Layout, row, column);
+        column++;
+        if (column == 4) {
+            column = 0;
+            row++;
+        }
+    }
+}
+
+
+void MainWindow::refreshFormationWidgets() {
+    formationData = retrieveFormationDataFromDatabase("");
+    populateFormationWidgets(formationData);
+}
+
+void MainWindow::sortFormationWidgetsByDate() {
+    static Qt::SortOrder sortOrder = Qt::AscendingOrder; // Static variable to store the current sorting order
+
+    std::sort(formationData.begin(), formationData.end(), [sortOrder](const FormationData &a, const FormationData &b) {
+        return (sortOrder == Qt::AscendingOrder) ? a.dateDebut < b.dateDebut : a.dateDebut > b.dateDebut;
+    });
+
+    qDebug() << "Sorted Formation Data By Date:";
+    for (const auto &data : formationData) {
+        qDebug() << "ID:" << data.id << "Type:" << data.type << "Instructeur:" << data.instructeur;
+    }
+
+    populateFormationWidgets(formationData);
+
+    // Toggle the sorting order for the next call
+    sortOrder = (sortOrder == Qt::AscendingOrder) ? Qt::DescendingOrder : Qt::AscendingOrder;
+}
+
+
+void MainWindow::clearFormationWidgets() {
+    for (FormationWidget *widget : formationWidgets) {
+        widget->deleteLater();
+    }
+    formationWidgets.clear();
+}
+
+void MainWindow::addFormationWidget(const FormationData &data, QGridLayout *layout, int row, int column) {
+    QWidget *container = new QWidget;
+    container->setStyleSheet("QWidget { background-color: white; border: 2px solid blue; border-radius: 5px; padding-left: 5px; }");
+
+    QVBoxLayout *containerLayout = new QVBoxLayout(container);
+    containerLayout->setContentsMargins(0, 0, 0, 0);
+    containerLayout->setSpacing(0);
+
+    FormationWidget *widget = new FormationWidget(container);
+    // Set formation data using the FormationData object directly
+    widget->setFormationData(data);
+
+    containerLayout->addWidget(widget);
+    layout->addWidget(container, row, column);
+    connect(widget, &FormationWidget::mousePressed, this, &MainWindow::handleFormationClicked);
+
+    container->setCursor(Qt::PointingHandCursor);
+
+    container->setStyleSheet("QWidget:hover { background-color: lightgray; border: 2px solid blue; border-radius: 5px; padding-left: 5px; }");
+}
+
+
+
+
+
+FormationData MainWindow::extractFormationData(QStandardItemModel *model, int index) {
+    FormationData data;
+    // Extract formation data from the model
+    data.type = model->index(index, 0).data(Qt::DisplayRole).toString();
+    data.instructeur = model->index(index, 1).data(Qt::DisplayRole).toString();
+    data.dateDebut = model->index(index, 2).data(Qt::DisplayRole).toDate();
+    data.dateFin = model->index(index, 3).data(Qt::DisplayRole).toDate();
+    data.description = model->index(index, 4).data(Qt::DisplayRole).toString();
+    data.nbParticipants = model->index(index, 5).data(Qt::DisplayRole).toInt();
+    // Extract other FormationData fields similarly
+    return data;
+}
+
+
+void MainWindow::handleFormationClicked() {
+    FormationWidget *senderWidget = qobject_cast<FormationWidget *>(sender());
+    if (senderWidget) {
+        FormationData data = senderWidget->getFormationData();
+        qDebug() << "Clicked Formation ID:" << data.id; // Debug statement to check the ID
+        qDebug() << "Clicked Formation Type:" << data.type;
+        qDebug() << "Clicked Formation Instructeur:" << data.instructeur;
+        qDebug() << "Clicked Formation Date Début:" << data.dateDebut;
+        qDebug() << "Clicked Formation Date Fin:" << data.dateFin;
+        qDebug() << "Clicked Formation Description:" << data.description;
+        qDebug() << "Clicked Formation Nombre de Participants:" << data.nbParticipants;
+
+        // Set the formation data to the modification form in the stacked widget
+        ui->ID_formation_2->setText(QString::number(data.id));
+        ui->type_formation_2->setCurrentText(data.type);
+        ui->instructeur_2->setText(data.instructeur);
+        ui->dateDebut_3->setDate(data.dateDebut);
+        ui->dateFin_3->setDate(data.dateFin);
+        ui->description_3->setText(data.description);
+        ui->nbParticipants_2->setText(QString::number(data.nbParticipants));
+
+        // Switch to the modification form in the stacked widget
+        ui->formations->setCurrentIndex(2);
+    }
+}
+
+
+QVector<FormationData> MainWindow::retrieveFormationDataFromDatabase(const QString &str) {
+    QVector<FormationData> formations;
+
+    // Assuming there's a database connection established earlier
+
+    // Prepare the query
+    QString queryString = "SELECT ID, TYPE, INSTRUCTEUR, DD, DF, DESCRIPTION, NB_PARTICIPANTS FROM FORMATIONS";
+    if (!str.isEmpty()) {
+        queryString += " WHERE TYPE LIKE '%" + str + "%' OR INSTRUCTEUR LIKE '%" + str + "%' OR DESCRIPTION LIKE '%" + str + "%'";
+        // Add additional conditions for other columns if needed
+    }
+
+    // Retrieve formation data from the database
+    QSqlQuery query(queryString);
+    while (query.next()) {
+        FormationData data;
+        data.id = query.value(0).toInt();
+        data.type = query.value(1).toString();
+        data.instructeur = query.value(2).toString();
+        data.dateDebut = query.value(3).toDate();
+        data.dateFin = query.value(4).toDate();
+        data.description = query.value(5).toString();
+        data.nbParticipants = query.value(6).toInt();
+        formations.append(data);
+    }
+
+    return formations;
+}
+void MainWindow::sortFormationWidgetsByParticipants() {
+    static Qt::SortOrder sortOrder = Qt::AscendingOrder; // Static variable to store the current sorting order
+
+    std::sort(formationData.begin(), formationData.end(), [sortOrder](const FormationData &a, const FormationData &b) {
+        return (sortOrder == Qt::AscendingOrder) ? a.nbParticipants < b.nbParticipants : a.nbParticipants > b.nbParticipants;
+    });
+
+    qDebug() << "Sorted Formation Data By Number of Participants:";
+    for (const auto &data : formationData) {
+        qDebug() << "ID:" << data.id << "Type:" << data.type << "Participants:" << data.nbParticipants;
+    }
+
+    populateFormationWidgets(formationData);
+
+    // Toggle the sorting order for the next call
+    sortOrder = (sortOrder == Qt::AscendingOrder) ? Qt::DescendingOrder : Qt::AscendingOrder;
+}
+
+void MainWindow::on_tri_typefor_2_clicked()
+{
+    sortFormationWidgetsByDate();
+}
+
+void MainWindow::on_tri_nbrfor_2_clicked()
+{
+    sortFormationWidgetsByParticipants();
+}
+void MainWindow::on_tri_formation_2_clicked()
+{
+    if(!i) {
+         ui->tri_bar_formation_2->hide() ;
+         i=1 ;
+    }
+    else {
+         ui->tri_bar_formation_2->show() ;
+         i=0 ;
+    }
+}
+
+void MainWindow::on_pdf_formation_2_clicked()
+{
+    on_pdf_formation_clicked();
+}
+
+void MainWindow::on_add_formation_2_clicked()
+{
+    on_add_formation_clicked();
+}
+
+void MainWindow::on_mailing_2_clicked()
+{
+    on_mailing_clicked();
+}
+
+void MainWindow::on_star_2_clicked()
+{
+    on_star_clicked();
 }

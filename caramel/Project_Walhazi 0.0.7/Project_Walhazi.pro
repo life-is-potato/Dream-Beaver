@@ -32,6 +32,7 @@ SOURCES += \
     entreprneur.cpp \
     equipments.cpp \
     formation.cpp \
+    formationwidget.cpp \
     main.cpp \
     mainwindow.cpp \
     project.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
     sponsors.cpp
 
 HEADERS += \
+    HoverableWidget.h \
     arduino_equipment.h \
     barcodeprinter.h \
     databaseconnection.h \
@@ -46,6 +48,7 @@ HEADERS += \
     entreprneur.h \
     equipments.h \
     formation.h \
+    formationwidget.h \
     mainwindow.h \
     project.h \
     search_engine.h \

@@ -34,8 +34,8 @@
 	background-color:#F7F6FC;
 }</string>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
      <widget class="QWidget" name="side_bar" native="true">
       <property name="maximumSize">
        <size>
@@ -606,7 +606,7 @@ font-weight:bold;
       </widget>
      </widget>
     </item>
-    <item>
+    <item row="0" column="1">
      <widget class="QWidget" name="main" native="true">
       <property name="maximumSize">
        <size>
@@ -751,7 +751,7 @@ QPushButton::hover {
             </rect>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="page_24">
             <widget class="QGroupBox" name="groupBox_2">
@@ -1540,7 +1540,7 @@ QScrollBar:horizontal {
 }  </string>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_3">
               <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -3170,7 +3170,7 @@ font-weight:bold ;</string>
 }  </string>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>2</number>
              </property>
              <widget class="QWidget" name="page_6">
               <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -3310,8 +3310,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>91</width>
+                        <height>55</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3363,8 +3363,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>91</width>
+                        <height>55</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3472,8 +3472,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>91</width>
+                        <height>55</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3521,8 +3521,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>85</width>
+                        <height>51</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3587,8 +3587,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>101</width>
+                        <height>91</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -5340,10 +5340,10 @@ font-weight:bold ; </string>
             <widget class="QWidget" name="table_3" native="true">
              <property name="geometry">
               <rect>
-               <x>-10</x>
-               <y>10</y>
+               <x>0</x>
+               <y>250</y>
                <width>814</width>
-               <height>291</height>
+               <height>321</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -5428,6 +5428,7 @@ QHeaderView::section {
 }
 #add_formation::hover {
 	image:url(:/icons/tsawer/plus_hover.svg);
+cursor: pointer;
 }</string>
               </property>
               <property name="text">
@@ -5477,6 +5478,9 @@ QHeaderView::section {
 	
 	image: url(:/icons/tsawer/search.svg);
 } 
+QPushButton::hover{
+cursor: pointer;
+}
 
 </string>
               </property>
@@ -5502,6 +5506,7 @@ QHeaderView::section {
 }
 QPushButton::hover {
 	image: url(:/icons/tsawer/filter_hover.svg);
+cursor: pointer;
 }</string>
               </property>
               <property name="text">
@@ -5592,6 +5597,7 @@ QPushButton::hover {
 QPushButton::hover {
 	
 	image: url(:/icons/tsawer/download_hover.svg);
+cursor: pointer;
 }</string>
               </property>
               <property name="text">
@@ -5613,6 +5619,7 @@ QPushButton::hover {
 }
 #mailing::hover {
 	image:url(:/icons/tsawer/mail.svg);
+cursor: pointer;
 }</string>
               </property>
               <property name="text">
@@ -5634,6 +5641,7 @@ QPushButton::hover {
 }
 #star::hover {
 	image:url(:/icons/tsawer/star.svg);
+cursor: pointer;
 }</string>
               </property>
               <property name="text">
@@ -5644,10 +5652,10 @@ QPushButton::hover {
             <widget class="QWidget" name="others_4" native="true">
              <property name="geometry">
               <rect>
-               <x>-10</x>
-               <y>300</y>
-               <width>814</width>
-               <height>285</height>
+               <x>0</x>
+               <y>0</y>
+               <width>811</width>
+               <height>241</height>
               </rect>
              </property>
              <property name="maximumSize">
@@ -5668,30 +5676,71 @@ border-radius:20px ;
                  <string notr="true">background-color:white ; 
 border-radius:15px ; </string>
                 </property>
-                <widget class="QCalendarWidget" name="calendarFomation_2">
+                <widget class="QLabel" name="label_91">
                  <property name="geometry">
                   <rect>
-                   <x>0</x>
-                   <y>0</y>
-                   <width>461</width>
-                   <height>261</height>
+                   <x>160</x>
+                   <y>40</y>
+                   <width>211</width>
+                   <height>71</height>
                   </rect>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QCalendarWidget QAbstractItemView
-{ 
-    selection-background-color: #042944; 
-    selection-color: white;
+                  <string notr="true">	font-size: 25px ; 
+	font-weight:bold ; </string>
+                 </property>
+                 <property name="text">
+                  <string>better view?</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="pushButton_5">
+                 <property name="geometry">
+                  <rect>
+                   <x>280</x>
+                   <y>140</y>
+                   <width>121</width>
+                   <height>41</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+ 
+	image: url(:/icons/tsawer/calendar (1).svg);
 }
-QCalendarWidget QWidget 
-{
-  color:grey;
-}
-QCalendarWidget QTableView
-{
-    border-width:0px;
-    background-color:lightgrey;
+
+QPushButton::hover {
+	
+	image: url(:/icons/tsawer/calendar.svg);
+cursor: pointer;
 }</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="pushButton_6">
+                 <property name="geometry">
+                  <rect>
+                   <x>82</x>
+                   <y>147</y>
+                   <width>111</width>
+                   <height>31</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton {
+ 
+	image: url(:/icons/tsawer/grid.svg);
+}
+
+QPushButton::hover {
+	
+	image: url(:/icons/tsawer/grid (1).svg);
+cursor: pointer;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
                  </property>
                 </widget>
                </widget>
@@ -6389,7 +6438,7 @@ font-weight:bold ; </string>
                <rect>
                 <x>150</x>
                 <y>20</y>
-                <width>201</width>
+                <width>231</width>
                 <height>31</height>
                </rect>
               </property>
@@ -6400,7 +6449,7 @@ font-weight:bold ; </string>
 </string>
               </property>
               <property name="text">
-               <string>Add Formation</string>
+               <string>Modify Formation</string>
               </property>
              </widget>
              <widget class="QLabel" name="label_44">
@@ -6461,6 +6510,327 @@ font-weight:bold ; </string>
 </string>
               </property>
              </widget>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="page_30">
+            <widget class="QWidget" name="widget_14" native="true">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>110</y>
+               <width>801</width>
+               <height>881</height>
+              </rect>
+             </property>
+             <widget class="QCalendarWidget" name="calendarFomation_2">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>791</width>
+                <height>451</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QCalendarWidget {
+    border-radius: 10px; /* Adjust the value to control the roundness of the edges */
+}
+
+</string>
+              </property>
+             </widget>
+            </widget>
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>93</width>
+               <height>28</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+	background-color:#F7F6FC; 
+	border-radius:1px ; 
+	image: url(:/icons/tsawer/arrow-left.svg);
+}
+
+QPushButton::hover {
+	
+	image: url(:/icons/tsawer/arrow-left_hover.svg);
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="page_31">
+            <widget class="QWidget" name="table_6" native="true">
+             <property name="geometry">
+              <rect>
+               <x>-20</x>
+               <y>0</y>
+               <width>851</width>
+               <height>71</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:white ; 
+border-radius:20px ; 
+</string>
+             </property>
+             <widget class="QPushButton" name="add_formation_2">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>20</y>
+                <width>21</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">#add_formation_2 {
+	image: url(:/icons/tsawer/plus.svg);
+}
+#add_formation_2::hover {
+	image:url(:/icons/tsawer/plus_hover.svg);
+cursor: pointer;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+             <widget class="QLineEdit" name="search_formation_2">
+              <property name="geometry">
+               <rect>
+                <x>540</x>
+                <y>15</y>
+                <width>191</width>
+                <height>31</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QLineEdit {
+ 	background-color:transparent ;
+	border-radius:15px ; 
+	border:1px solid #BFC9D3; 
+	padding : 0 40px 0 10px ; 
+} </string>
+              </property>
+              <property name="placeholderText">
+               <string>search by client name</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="search_button_f_2">
+              <property name="geometry">
+               <rect>
+                <x>700</x>
+                <y>15</y>
+                <width>21</width>
+                <height>31</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {	
+	background-color: transparent ;
+	border-radius:20px ; 
+	
+	image: url(:/icons/tsawer/search.svg);
+} 
+QPushButton::hover {
+cursor: pointer;
+}
+</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="tri_formation_2">
+              <property name="geometry">
+               <rect>
+                <x>80</x>
+                <y>20</y>
+                <width>21</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	image: url(:/icons/tsawer/filter.svg);
+}
+QPushButton::hover {
+	image: url(:/icons/tsawer/filter_hover.svg);
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+             <widget class="QWidget" name="tri_bar_formation_2" native="true">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="geometry">
+               <rect>
+                <x>110</x>
+                <y>15</y>
+                <width>321</width>
+                <height>31</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QWidget {
+ 	background-color:#0F141E ;
+	border-radius:10px ; 
+	padding : 0 40px 0 10px ; 
+}</string>
+              </property>
+              <widget class="QRadioButton" name="tri_typefor_2">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>5</y>
+                 <width>111</width>
+                 <height>20</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QRadioButton{
+	background-color:transparent ; 
+	color:white ; 
+	border:0px ; 
+	font-weight :bold ; 
+}</string>
+               </property>
+               <property name="text">
+                <string>date</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+              <widget class="QRadioButton" name="tri_nbrfor_2">
+               <property name="geometry">
+                <rect>
+                 <x>130</x>
+                 <y>5</y>
+                 <width>211</width>
+                 <height>21</height>
+                </rect>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QRadioButton{
+	background-color:transparent ; 
+	color:white ; 
+	border:0px ; 
+	font-weight :bold ; 
+}</string>
+               </property>
+               <property name="text">
+                <string>participants number</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QPushButton" name="pdf_formation_2">
+              <property name="geometry">
+               <rect>
+                <x>50</x>
+                <y>20</y>
+                <width>21</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	image: url(:/icons/tsawer/download.svg);
+}
+QPushButton::hover {
+	
+	image: url(:/icons/tsawer/download_hover.svg);
+cursor: pointer;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="mailing_2">
+              <property name="geometry">
+               <rect>
+                <x>440</x>
+                <y>20</y>
+                <width>93</width>
+                <height>28</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">#mailing_2 {
+	image: url(:/icons/tsawer/mail.svg);
+}
+#mailing_2::hover {
+	image:url(:/icons/tsawer/mail.svg);
+cursor: pointer;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="star_2">
+              <property name="geometry">
+               <rect>
+                <x>740</x>
+                <y>20</y>
+                <width>93</width>
+                <height>28</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">#star_2 {
+	image: url(:/icons/tsawer/star.svg);
+}
+#star_2::hover {
+	image:url(:/icons/tsawer/star.svg);
+cursor: pointer;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </widget>
+            <widget class="QWidget" name="widget_15" native="true">
+             <property name="geometry">
+              <rect>
+               <x>-20</x>
+               <y>80</y>
+               <width>831</width>
+               <height>501</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:white ; 
+border-radius:20px ; </string>
+             </property>
             </widget>
            </widget>
           </widget>

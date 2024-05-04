@@ -47,5 +47,9 @@
         <file>tsawer/refresh_hover.svg</file>
         <file>tsawer/mail.svg</file>
         <file>tsawer/star.svg</file>
+        <file>tsawer/calendar (1).svg</file>
+        <file>tsawer/calendar.svg</file>
+        <file>tsawer/grid (1).svg</file>
+        <file>tsawer/grid.svg</file>
     </qresource>
 </RCC>

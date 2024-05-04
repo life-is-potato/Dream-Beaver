@@ -8,6 +8,9 @@
 #include"project.h"
 #include"arduino_equipment.h"
 #include"email.h"
+#include "formationwidget.h"
+#include"HoverableWidget.h"
+
 #include <QtSql>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -50,6 +53,7 @@ struct FormationInfo {
     QDate dateDebut;
     QDate dateFin;
 };
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -202,6 +206,34 @@ private slots:
    void replyFinished(QNetworkReply *reply);
    QString getEmailById(int entrepreneurID);
     void checkAbsences();
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_6_clicked();
+    QVector<FormationData> retrieveFormationDataFromDatabase(const QString &str);
+    void addFormationWidget(const FormationData &data, QGridLayout *layout, int row, int column);
+    void handleFormationClicked();
+    void on_search_button_f_2_clicked();
+    void on_search_formation_2_textChanged();
+    void clearFormationWidgets();
+    void populateFormationWidgets(const QVector<FormationData> &searchResults);
+    void sortFormationWidgetsByDate();
+    void refreshFormationWidgets();
+    FormationData extractFormationData(QStandardItemModel *model, int index);
+    void on_tri_typefor_2_clicked();
+    void sortFormationWidgetsByParticipants();
+
+    void on_tri_nbrfor_2_clicked();
+    void on_tri_formation_2_clicked();
+    void on_pdf_formation_2_clicked();
+
+    void on_add_formation_2_clicked();
+
+    void on_mailing_2_clicked();
+
+    void on_star_2_clicked();
+
 private:
     QColor currentColor;
     QFont currentFont;
@@ -222,6 +254,9 @@ private:
     QByteArray data ;
     QVector<FormationInfo> formationInfoList;
     QNetworkAccessManager *manager;
+    QVBoxLayout *formationLayout;
+    QVector<FormationWidget *> formationWidgets;
+    QVector<FormationData> formationData;
 
 };
 #endif // MAINWINDOW_H
