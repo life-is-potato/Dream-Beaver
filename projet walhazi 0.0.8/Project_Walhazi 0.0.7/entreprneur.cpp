@@ -10,11 +10,11 @@ QStandardItemModel *entreprneur::afficherformation()
     model->setHeaderData(0, Qt::Horizontal, "ID");
     model->setHeaderData(1, Qt::Horizontal, "TYPE");
     model->setHeaderData(2, Qt::Horizontal, "INSTRUCTEUR");
-    model->setHeaderData(3, Qt::Horizontal, "DATEDEBUT");
-    model->setHeaderData(4, Qt::Horizontal, "DATEFIN");
+    model->setHeaderData(3, Qt::Horizontal, "DD");
+    model->setHeaderData(4, Qt::Horizontal, "DF");
     model->setHeaderData(5, Qt::Horizontal, "DESCRIPTION");
     QDateTime currentDate = QDateTime::currentDateTime();
-    query.prepare("SELECT * FROM FORMATIONS WHERE DATEDEBUT > :currentDate");
+    query.prepare("SELECT * FROM FORMATIONS WHERE DD > :currentDate");
     query.bindValue(":currentDate", currentDate.toString(Qt::ISODate));
     if (query.exec())
     {
@@ -175,7 +175,7 @@ QString entreprneur::losePoints(QString cin,int p)
 bool entreprneur::isFormationValid(int formationId)
 {
     QSqlQuery query;
-    query.prepare("SELECT DATEDEBUT, DATEFIN FROM formations WHERE id = :id");
+    query.prepare("SELECT DD FROM formations WHERE id = :id");
     query.bindValue(":id", formationId);
 
     if (!query.exec()) {

@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
     if (!flag){
         qDebug() << "arduino mrgl !" ;
     }
-
+    QObject::connect(ard.getserial(),SIGNAL(readyRead()),this,SLOT(checkRFIDCard()));
 }
 MainWindow::~MainWindow()
 {
@@ -2275,3 +2275,125 @@ void MainWindow::checkAbsences()
                                   : "No emails were sent for absence greater than 3 days.";
     QMessageBox::information(this, "Email Status", message);
 }
+void MainWindow::RFID(int b)
+{
+    if (b == 1)
+    {
+        ui->tabs->setCurrentIndex(3);
+        ui->formations->setCurrentIndex(3);
+       return;
+    }
+    else
+    {
+        ui->ed->setText("xxxxxxxxxx");
+        ui->itd->setText("xxxxxxxxxx");
+        ui->ftype->setText("xxxxxxxxxx");
+        ui->eid->setText("xxxxxxxxxx");
+        ui->denied->show();
+        ui->granted->hide();
+        ui->yebki->show();
+        ui->beaverfaehan->hide();
+        ui->tabs->setCurrentIndex(5);
+    }
+}
+
+void MainWindow::checkRFIDCard()
+{
+    int b=0;
+    static QString accumulatedData;
+    QByteArray newData = ard.read_from_arduino();
+    QString cleanedData = QString::fromUtf8(newData).remove(QRegExp("[\\n\\r\\t]"));
+    accumulatedData += cleanedData;
+    if (accumulatedData.length() == 8) {
+        QString IDCARD = accumulatedData.trimmed();
+        qDebug() << "IDCARD:" << IDCARD;
+
+        // Prepare and execute the query
+        QSqlQuery query;
+        query.prepare("SELECT e.NOM,e.cin, f.INSTRUCTEUR,f.type,ef.presence "
+                      "FROM ENTREPRENEURS_FORMATIONS ef "
+                      "JOIN ENTREPRENEURS e ON ef.ID_ENTR = e.CIN "
+                      "JOIN FORMATIONS f ON ef.ID_FORM = f.ID "
+                      "WHERE ef.IDCARD = :IDCARD");
+        query.bindValue(":IDCARD", IDCARD);
+
+        if (!query.exec()) {
+            qDebug() << "Query execution failed:" << query.lastError().text();
+            return;
+        }
+
+        if (query.next()) {
+             entrepreneurName = query.value(0).toString();
+             instructorName = query.value(2).toString();
+             Identrepreneur = query.value(1).toString();
+             type = query.value(3).toString();
+             presence = query.value(4).toInt();
+            RFID(1);
+        } else {
+            RFID(b);
+            QByteArray noMatchMessage = "NO_MATCH";
+            ard.write_to_arduino(noMatchMessage);
+
+        }
+        accumulatedData.clear();
+    }
+}
+void MainWindow::on_yes_clicked()
+{
+
+    QString arduinoMessage = "MATCH: \n NOM:" + entrepreneurName + "\n Instructeur:" + instructorName;
+    QByteArray messageBytes = arduinoMessage.toUtf8();
+
+    ui->ed->setText(entrepreneurName);
+    ui->itd->setText(instructorName);
+    ui->ftype->setText(type);
+    ui->eid->setText(Identrepreneur);
+    ui->denied->hide();
+    ui->granted->show();
+    ui->yebki->hide();
+    ui->beaverfaehan->show();
+    ui->ed->setReadOnly(true);
+    ui->itd->setReadOnly(true);
+    ui->ftype->setReadOnly(true);
+    ui->eid->setReadOnly(true);
+    ui->tabs->setCurrentIndex(3);
+    ui->formations->setCurrentIndex(4);
+    ard.write_to_arduino(messageBytes);
+    presence++;
+    int cin = Identrepreneur.toInt();
+    QSqlQuery q;
+    q.prepare("UPDATE ENTREPRENEURS_FORMATIONS SET  PRESENCE = :v1 WHERE ID_ENTR = :cin");
+    q.bindValue(":cin", cin);
+    q.bindValue(":v1", presence);
+    if (!q.exec()) {
+        qDebug() << "Update failed:" << q.lastError().text();
+        return;
+    }else
+    {
+        qDebug() << "Update nejhet:" << q.lastError().text();
+    }
+
+}
+
+void MainWindow::on_no_clicked()
+{
+    QString arduinoMessage ="Blacklisted";
+    QByteArray messageBytes = arduinoMessage.toUtf8();
+    ard.write_to_arduino(messageBytes);
+    ui->ed->setText("xxxxxxxxxx");
+    ui->itd->setText("xxxxxxxxxx");
+    ui->ftype->setText("xxxxxxxxxx");
+    ui->eid->setText("xxxxxxxxxx");
+    ui->ed->setReadOnly(true);
+    ui->itd->setReadOnly(true);
+    ui->ftype->setReadOnly(true);
+    ui->eid->setReadOnly(true);
+    ui->denied->show();
+    ui->granted->hide();
+    ui->yebki->show();
+    ui->beaverfaehan->hide();
+    ui->tabs->setCurrentIndex(3);
+    ui->formations->setCurrentIndex(4);
+
+}
+

@@ -202,6 +202,11 @@ private slots:
    void replyFinished(QNetworkReply *reply);
    QString getEmailById(int entrepreneurID);
     void checkAbsences();
+
+    void on_yes_clicked();
+    void on_no_clicked();
+    void checkRFIDCard();
+    void RFID(int b);
 private:
     QColor currentColor;
     QFont currentFont;
@@ -222,6 +227,11 @@ private:
     QByteArray data ;
     QVector<FormationInfo> formationInfoList;
     QNetworkAccessManager *manager;
+    int presence;
+    QString entrepreneurName;
+    QString instructorName ;
+    QString Identrepreneur ;
+    QString type;
 
 };
 #endif // MAINWINDOW_H

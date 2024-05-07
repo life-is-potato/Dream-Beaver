@@ -58,3 +58,7 @@ int arduino_equipment::connect_arduino() {
     return 1 ;
  }
 
+ QSerialPort *arduino_equipment::getserial()
+ {
+    return serial;
+ }
