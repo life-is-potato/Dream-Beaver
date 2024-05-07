@@ -1,5 +1,0 @@
-achivement1 1 11111111
-achivement2 0 11111111
-achivement3 0 11111111
-achivement4 0 11111111
-achivement5 0 11111111
