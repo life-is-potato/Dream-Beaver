@@ -738,7 +738,7 @@ QPushButton::hover {
           <string notr="true"/>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page_10">
           <widget class="QStackedWidget" name="projects">
@@ -751,7 +751,7 @@ QPushButton::hover {
             </rect>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="page_24">
             <widget class="QGroupBox" name="groupBox_2">
@@ -1293,78 +1293,13 @@ font-weight:bold ; </string>
             </widget>
            </widget>
            <widget class="QWidget" name="page_26">
-            <widget class="QWidget" name="others_5" native="true">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>5</y>
-               <width>796</width>
-               <height>279</height>
-              </rect>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>285</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:#F7F6FC   ; 
-border-radius:20px ; 
-</string>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_16">
-              <item>
-               <widget class="QWidget" name="donut_4" native="true">
-                <property name="maximumSize">
-                 <size>
-                  <width>320</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">background-color:white ; 
-border-radius:15px ; </string>
-                </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_17">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_18">
-                   <item>
-                    <widget class="QLabel" name="username_5">
-                     <property name="styleSheet">
-                      <string notr="true">#username {
-	background-color:transparent ; 
-	color:black ; 
-	font-size:13px ; 
-}</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="widget_12" native="true">
-                <property name="styleSheet">
-                 <string notr="true">background-color:white ; 
-border-radius:15px ; </string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
             <widget class="QWidget" name="table_5" native="true">
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>290</y>
+               <y>8</y>
                <width>796</width>
-               <height>279</height>
+               <height>271</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1375,9 +1310,9 @@ border-radius:20px ;
              <widget class="QTableView" name="tableView_6">
               <property name="geometry">
                <rect>
-                <x>100</x>
+                <x>20</x>
                 <y>80</y>
-                <width>591</width>
+                <width>751</width>
                 <height>171</height>
                </rect>
               </property>
@@ -1439,8 +1374,14 @@ QScrollBar:horizontal {
               <property name="sortingEnabled">
                <bool>true</bool>
               </property>
+              <attribute name="horizontalHeaderMinimumSectionSize">
+               <number>50</number>
+              </attribute>
               <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>146</number>
+               <number>180</number>
+              </attribute>
+              <attribute name="verticalHeaderDefaultSectionSize">
+               <number>24</number>
               </attribute>
              </widget>
              <widget class="QPushButton" name="add_project">
@@ -1488,16 +1429,16 @@ QScrollBar:horizontal {
 } </string>
               </property>
               <property name="placeholderText">
-               <string>search by Id/Name</string>
+               <string>search</string>
               </property>
              </widget>
              <widget class="QPushButton" name="search_button_4">
               <property name="geometry">
                <rect>
-                <x>700</x>
-                <y>15</y>
-                <width>21</width>
-                <height>31</height>
+                <x>80</x>
+                <y>20</y>
+                <width>16</width>
+                <height>21</height>
                </rect>
               </property>
               <property name="cursor">
@@ -1514,6 +1455,111 @@ QScrollBar:horizontal {
               </property>
               <property name="text">
                <string/>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="pdf_3">
+              <property name="geometry">
+               <rect>
+                <x>50</x>
+                <y>20</y>
+                <width>21</width>
+                <height>21</height>
+               </rect>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	image: url(:/icons/tsawer/download.svg);
+}
+QPushButton::hover {
+	
+	image: url(:/icons/tsawer/download_hover.svg);
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </widget>
+            <widget class="QWidget" name="donut_4" native="true">
+             <property name="geometry">
+              <rect>
+               <x>300</x>
+               <y>290</y>
+               <width>501</width>
+               <height>271</height>
+              </rect>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>10000</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_17">
+                <item>
+                 <widget class="QLabel" name="username_5">
+                  <property name="styleSheet">
+                   <string notr="true">#username {
+	background-color:transparent ; 
+	color:black ; 
+	font-size:13px ; 
+}</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="widget_12" native="true">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>292</y>
+               <width>281</width>
+               <height>271</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:white ; 
+border-radius:15px ; </string>
+             </property>
+             <widget class="QLabel" name="Logo">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>261</width>
+                <height>251</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="pushButton_9">
+              <property name="geometry">
+               <rect>
+                <x>240</x>
+                <y>0</y>
+                <width>41</width>
+                <height>23</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>switch</string>
               </property>
              </widget>
             </widget>
@@ -3472,8 +3518,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>91</width>
+                        <height>61</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3521,8 +3567,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>85</width>
+                        <height>53</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3587,8 +3633,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>100</width>
-                        <height>30</height>
+                        <width>101</width>
+                        <height>93</height>
                        </rect>
                       </property>
                       <attribute name="label">

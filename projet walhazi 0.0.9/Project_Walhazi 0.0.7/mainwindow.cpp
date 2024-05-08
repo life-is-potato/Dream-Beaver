@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->tabs->setCurrentIndex(0) ;
 
+
     QRegExp regex1("^[a-zA-Z]*$");
     QRegExp regex2("^[a-zA-Z0-9]*$");
 
@@ -40,7 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->left,&QPushButton::clicked, this, &MainWindow::on_left_clicked);
     connect(ui->right,&QPushButton::clicked, this, &MainWindow::on_right_clicked);
     connect(ui->center, &QPushButton::clicked, this, &MainWindow::on_center_clicked);
-
+    connect(ui->tableView_6, &QTableView::doubleClicked, this, &MainWindow::tableView_6_handleDoubleClick);
+    connect(ui->tableView_6, &QTableView::clicked, this, &MainWindow::tableView_6_handleClick);
 
     ui->tableView_3->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tri_bar_formation->hide() ;
@@ -50,9 +52,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableView_5->setModel(s.afficher());
     ui->tri_bar_s->hide() ;
     chart_render4() ;
-
     ui->tableView_6->setSelectionBehavior(QAbstractItemView::SelectRows);
-
+    ui->tableView_6->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->projects->setCurrentIndex(2);
+    ui->tableView_6->setModel(p->afficher());
+    budgetChartRender();
+    ui->projects->update();
     int flag = ard.connect_arduino() ;
     if (!flag){
         qDebug() << "arduino mrgl !" ;
@@ -328,7 +333,19 @@ void MainWindow::clear_chart_widget2(){
         }
     }
 }
-
+void MainWindow::clear_chart_widget5(){
+    QLayout *donutLayout = ui->donut_4->layout();
+    if (donutLayout) {
+        QLayoutItem *item;
+        while ((item = donutLayout->takeAt(0)) != nullptr) {
+            QWidget *widget = item->widget();
+            if (widget) {
+                delete widget;
+            }
+            delete item;
+        }
+    }
+}
 
 void MainWindow::chart_render(){
     clear_chart_widget();
@@ -1766,23 +1783,37 @@ void MainWindow::on_project_clicked()
     ui->tableView_6->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->projects->setCurrentIndex(2);
     ui->tableView_6->setModel(p->afficher());
+    budgetChartRender();
 }
 void MainWindow::on_add_project_clicked(){
     ui->projects->setCurrentIndex(0);
 }
 void MainWindow::on_add_projet_clicked(){
+    QString logoFilePath = QFileDialog::getOpenFileName(this, tr("Select Logo Image"), "", tr("Images (*.png *.jpg *.jpeg)"));
+           if (logoFilePath.isEmpty()) {
+               qDebug() << "No logo image selected.";
+               return;
+           }
+
+           // Prompt user to select maquette image file
+           QString maquetteFilePath = QFileDialog::getOpenFileName(this, tr("Select Maquette Image"), "", tr("Images (*.png *.jpg *.jpeg)"));
+           if (maquetteFilePath.isEmpty()) {
+               qDebug() << "No maquette image selected.";
+               return;
+           }
     int id=ui->ID_projet->text().toInt();
     float budget=ui->budget_projet->text().toFloat();
      QString desc = ui->desc_projet->toPlainText();
     int client=ui->client_projet->text().toInt();
     QString name=ui->name_projet->text();
-    if (p->Add_element(id,name,budget,client, desc)) {
+    if (p->Add_element(id, name, budget, client, desc, logoFilePath, maquetteFilePath))  {
         ui->ID_projet->clear();
         ui->budget_projet->clear();
         ui->desc_projet->clear();
         ui->client_projet->clear();
         ui->name_projet->clear();
         ui->projects->setCurrentIndex(2);
+        ui->tableView_6->setModel(p->afficher());
     }
 }
 void MainWindow::on_delete_project(){
@@ -2689,4 +2720,315 @@ void MainWindow::on_pushButton_6_clicked()
 void MainWindow::on_pushButton_10_clicked()
 {
     on_pushButton_8_clicked();
+}
+
+void MainWindow::tableView_6_handleDoubleClick(const QModelIndex &index){
+    if (index.isValid()) {
+
+            // Retrieve data from the model for the double-clicked row
+            QString id = ui->tableView_6->model()->data(ui->tableView_6->model()->index(index.row(), 0)).toString();
+            QSqlQuery query ;
+            query.prepare("SELECT nom,description,logo,budget,maquette,client FROM PROJETS WHERE id = :v1") ;
+            query.bindValue(":v1", id);
+            if(query.exec()){
+            query.next();
+            QString name = query.value("nom").toString();
+            QString description = query.value("description").toString();
+            QString budget = query.value("budget").toString();
+            QString client = query.value("client").toString();
+            ui->projects->setCurrentIndex(1);
+            ui->ID_projet_2->setText(id);
+            ui->name_projet_2->setText(name);
+            ui->desc_project_2->setText(description);
+            ui->client_project_2->setText(client);
+            ui->budget_project_2->setText(budget);
+            // Output the data using qDebug
+            qDebug() << "Double-clicked row data: ID=" << id << ", Name=" << name << ", Budget=" << budget << ", Client=" << client <<  ", Description=" << description;
+        }
+      }
+}
+
+void MainWindow::on_delete__project_clicked()
+{
+    int id = ui->ID_projet_2->text().toInt();
+    if (p->Delete_element(id)) {
+           QMessageBox::information(nullptr,"okay","jwk mrgl") ;
+           ui->tableView_6->setModel(p->afficher());
+           ui->projects->setCurrentIndex(2);
+    }
+    else {
+           QMessageBox::critical(nullptr,"zid thabet","8alet") ;
+    }
+}
+
+void MainWindow::on_modify_project_clicked()
+{
+    int id=ui->ID_projet_2->text().toInt();
+    float budget=ui->budget_project_2->text().toFloat();
+     QString desc = ui->desc_project_2->toPlainText();
+    int client=ui->client_project_2->text().toInt();
+    QString name=ui->name_projet_2->text();
+    if (p->Modify_element(id,name ,budget ,client ,desc)) {
+                   QMessageBox::information(nullptr,"okay","jwk mrgl") ;
+                   ui->tableView_6->setModel(e->afficher());
+                   ui->projects->setCurrentIndex(2);}
+}
+
+void MainWindow::on_search_bar_4_textChanged(const QString &arg1)
+{
+    QSqlQuery query ;
+    qDebug()<< arg1;
+    query.prepare("SELECT ID,nom,budget,client FROM PROJETS WHERE ID=:v1 OR UPPER(NOM) LIKE UPPER(:v2) OR UPPER(DESCRIPTION) LIKE UPPER(:v3) OR BUDGET=:v4 OR CLIENT=:v5");
+    query.bindValue(":v1", QVariant(arg1.toInt()).toInt());
+    query.bindValue(":v2", "%" + arg1 + "%");
+    query.bindValue(":v3", "%" + arg1 + "%");
+    query.bindValue(":v4", QVariant(arg1.toFloat()).toDouble());
+    query.bindValue(":v5", QVariant(arg1.toInt()).toInt());
+    if(query.exec()){
+    int i=0;
+    ui->tableView_6->model()->removeRows(0,ui->tableView_6->model()->rowCount());
+    while(query.next()){
+        qDebug() << "id:" << query.value(0);
+        ui->tableView_6->model()->insertRow(i);
+        for(int j = 0 ; j < 4 ; j++ ){
+             ui->tableView_6->model()->setData(ui->tableView_6->model()->index(i,j),query.value(j));
+       }
+       i++;
+    }
+    }
+    else{
+        qDebug() << "Error executing SQL query to add image:" << query.lastError().text();
+    }
+}
+
+void dumpProjectsToPDF() {
+    QSqlQuery query;
+    if (!query.exec("SELECT * FROM PROJETS")) {
+        qDebug() << "Error executing SQL query:" << query.lastError().text();
+        return;
+    }
+
+    QString filePath = QFileDialog::getSaveFileName(nullptr, "Save PDF File", "", "PDF Files (*.pdf)");
+    if (filePath.isEmpty()) {
+        qDebug() << "File path is empty.";
+        return;
+    }
+
+    QPrinter printer;
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName(filePath);
+
+    QPainter painter;
+    painter.begin(&printer);
+
+    int yPos = 20;
+
+    while (query.next()) {
+
+        int id = query.value("ID").toInt();
+        QString name = query.value("NOM").toString();
+        float budget = query.value("BUDGET").toFloat();
+        int client = query.value("CLIENT").toInt();
+        QString desc = query.value("DESCRIPTION").toString();
+        QByteArray logoData = query.value("LOGO").toByteArray();
+        QByteArray maquetteData = query.value("MAQUETTE").toByteArray();
+
+        painter.drawText(100, yPos, "ID: " + QString::number(id));
+        painter.drawText(200, yPos, "Name: " + name);
+        painter.drawText(400, yPos, "Budget: " + QString::number(budget));
+        painter.drawText(600, yPos, "Client: " + QString::number(client));
+        painter.drawText(800, yPos, "Description: " + desc);
+
+        yPos += 20; // Increment Y position for next row
+
+        QImage logoImage;
+        if (!logoImage.loadFromData(logoData)) {
+            qDebug() << "Error loading logo image.";
+            continue;
+        }
+        painter.drawImage(100, yPos, logoImage.scaledToWidth(100)); // Draw logo
+
+
+        QImage maquetteImage;
+        if (!maquetteImage.loadFromData(maquetteData)) {
+            qDebug() << "Error loading maquette image.";
+            continue;
+        }
+        painter.drawImage(300, yPos, maquetteImage.scaledToWidth(100)); // Draw maquette
+
+        yPos += 120;
+    }
+
+    painter.end();
+}
+void MainWindow::on_pdf_3_clicked()
+{
+    dumpProjectsToPDF();
+}
+void MainWindow::budgetChartRender() {
+    clear_chart_widget5();
+
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("SELECT * FROM PROJETS");
+
+    QVector<int> budgetCounts(4, 0);
+    QStringList categories;
+
+    while (model->canFetchMore())
+        model->fetchMore();
+
+    for (int i = 0; i < model->rowCount(); ++i) {
+        QSqlRecord record = model->record(i);
+        float budget = record.value("BUDGET").toFloat();
+        int categoryIndex = static_cast<int>(budget / 3000);
+        if (categoryIndex >= 3)
+            categoryIndex = 3;
+        budgetCounts[categoryIndex]++;
+    }
+
+    QPieSeries *series = new QPieSeries();
+
+    for (int i = 0; i < 4; ++i) {
+            QString label;
+            if (i == 3) {
+                label = QString(">= $%1").arg(i * 3000);
+            } else {
+                label = QString("$%1 - $%2").arg(i * 3000).arg((i + 1) * 3000 - 1);
+            }
+            categories.append(label);
+            series->append(label, budgetCounts[i]);
+     }
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setBackgroundBrush(QColor("#FFFFFF"));
+    chart->setAnimationOptions(QChart::AllAnimations);
+    chart->setTitle("Project Budget Distribution");
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    chartView->chart()->setTitleFont(QFont("MS Shell Dlg 2", 10, QFont::Bold));
+    chartView->resize(300, 300);
+    QToolTip::setFont(QFont("Arial", 10));
+    for (QPieSlice *slice : series->slices()) {
+        slice->setLabel(QString("%1 (%2)").arg(slice->label()).arg(slice->value()));
+    }
+
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignTop);
+    ui->donut_4->layout()->addWidget(chartView);
+}
+
+void MainWindow::tableView_6_handleClick(const QModelIndex &index){
+    if (index.isValid()) {
+
+            // Retrieve data from the model for the double-clicked row
+            QString id = ui->tableView_6->model()->data(ui->tableView_6->model()->index(index.row(), 0)).toString();
+            projectID=id.toInt();
+            QSqlQuery query ;
+            query.prepare("SELECT logo FROM PROJETS WHERE id = :v1") ;
+            query.bindValue(":v1", id);
+            if(query.exec()){
+                query.next();
+                MaquetteShowing=false;
+                QByteArray logoData = query.value("LOGO").toByteArray();
+                        QImage logoImage;
+                        if (logoImage.loadFromData(logoData)) {
+                            ui->Logo->setPixmap(QPixmap::fromImage(logoImage));
+                            ui->Logo->setScaledContents(true); // Scale the image to fit the label
+                        } else {
+                            qDebug() << "Error loading logo image.";
+                        }
+            }
+      }
+}
+
+
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    QSqlQuery query ;
+    query.prepare("SELECT logo,maquette FROM PROJETS WHERE id = :v1") ;
+    query.bindValue(":v1", projectID);
+    QByteArray logoData;
+    if(query.exec()){
+        query.next();
+    if (MaquetteShowing==true){
+        logoData = query.value("LOGO").toByteArray();
+        MaquetteShowing=false;
+    }
+    else{
+        logoData = query.value("MAQUETTE").toByteArray();
+        MaquetteShowing=true;
+    }
+    QImage logoImage;
+    if (logoImage.loadFromData(logoData)) {
+        ui->Logo->setPixmap(QPixmap::fromImage(logoImage));
+        ui->Logo->setScaledContents(true); // Scale the image to fit the label
+    } else {
+        qDebug() << "Error loading logo image.";
+    }
+    }
+}
+
+double calculateRMSE(const QImage &image1, const QImage &image2) {
+    double sumOfSquaredDifferences = 0.0;
+
+    for (int y = 0; y < image1.height(); ++y) {
+        for (int x = 0; x < image1.width(); ++x) {
+            QRgb pixel1 = image1.pixel(x, y);
+            QRgb pixel2 = image2.pixel(x, y);
+            int diff = qRed(pixel1) - qRed(pixel2); // Assuming grayscale, use qRed
+            sumOfSquaredDifferences += diff * diff;
+        }
+    }
+
+    double meanSquaredError = sumOfSquaredDifferences / (image1.width() * image1.height());
+    return sqrt(meanSquaredError);
+}
+
+void MainWindow::searchSimilarImages(){
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open Image"), "", tr("Image Files (*.png *.jpg *.jpeg *.bmp *.gif)"));
+        if (filePath.isEmpty()) {
+            qDebug() << "No image selected.";
+            return;
+        }
+
+        // Read the selected image file
+        QFile file(filePath);
+        if (!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "Error opening file:" << file.errorString();
+            return;
+        }
+        QByteArray imageData = file.readAll();
+        file.close();
+        int i=0;
+        // Iterate through the rows of the PROJETS table
+        ui->tableView_6->model()->removeRows(0,ui->tableView_6->model()->rowCount());
+        QSqlQuery query("SELECT ID,nom,budget,client, LOGO, MAQUETTE FROM PROJETS");
+        while (query.next()) {
+            int projectId = query.value("ID").toInt();
+            QByteArray logoData = query.value("LOGO").toByteArray();
+            QByteArray maquetteData = query.value("MAQUETTE").toByteArray();
+
+            // Compare the selected image data with the logo and maquette blob data
+            if (imageData == logoData || imageData == maquetteData) {
+                // Match found, display or store details of the matching project
+                // Match found, display or store details of the matching project
+                ui->tableView_6->model()->insertRow(i);
+                               for(int j = 0 ; j < 4 ; j++ ){
+                                    ui->tableView_6->model()->setData(ui->tableView_6->model()->index(i,j),query.value(j));
+                              }
+                              i++;
+                qDebug() << "Match found for project ID:" << projectId;
+                // You can display or store project details as needed
+            }
+        }
+}
+
+
+
+void MainWindow::on_search_button_4_clicked()
+{
+    searchSimilarImages();
 }

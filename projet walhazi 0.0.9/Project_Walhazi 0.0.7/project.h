@@ -42,7 +42,8 @@ public:
     }
 
     QStandardItemModel * afficher() ;
-    bool Add_element(int , QString , float , int , QString ) ;
+    bool Add_element(int , QString , float , int , QString , QString logoFilePath, QString maquetteFilePath) ;
+    bool addImageToDatabase(int projectId, QString filePath, QString columnName);
     bool Modify_element(int , QString , float, int , QString ) ;
     bool Delete_element(int) ;
 };

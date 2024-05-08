@@ -60,6 +60,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    int projectID;
+    bool MaquetteShowing;
 
 public slots:
     void clear_chart_widget() ;
@@ -241,7 +243,22 @@ private slots:
     void on_pushButton_6_clicked();
 
     void on_pushButton_10_clicked();
+    void tableView_6_handleDoubleClick(const QModelIndex &index);
+    void on_delete__project_clicked();
 
+    void on_modify_project_clicked();
+
+    void on_search_button_4_clicked();
+
+    void on_search_bar_4_textChanged(const QString &arg1);
+
+    void on_pdf_3_clicked();
+    void budgetChartRender();
+    void clear_chart_widget5();
+    void tableView_6_handleClick(const QModelIndex &index);
+
+    void on_pushButton_9_clicked();
+    void searchSimilarImages();
 private:
     QColor currentColor;
     QFont currentFont;
