@@ -391,16 +391,22 @@ public:
     QLabel *label_44;
     QLineEdit *ID_formation_2;
     QLineEdit *instructeur_2;
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
     QLabel *label_image_preview_2;
     QLabel *label_98;
     QPushButton *pushButton_6;
     QPushButton *back_13;
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
     QWidget *page_30;
     QWidget *confirmation;
     QLabel *title1_10;
     QPushButton *yes;
     QPushButton *no;
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
     QPushButton *back_14;
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
     QWidget *page_31;
     QWidget *add_container_11;
     QLabel *label_91;
@@ -424,7 +430,10 @@ public:
     QPushButton *pushButton_3;
     QWidget *widget_15;
     QCalendarWidget *calendarFomation_2;
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
     QPushButton *pushButton_10;
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
     QWidget *page_33;
     QWidget *widget_16;
     QWidget *table_6;
@@ -2132,7 +2141,7 @@ public:
         toolbar->addItem(page_17, QStringLiteral("color"));
         page_18 = new QWidget();
         page_18->setObjectName(QStringLiteral("page_18"));
-        page_18->setGeometry(QRect(0, 0, 91, 61));
+        page_18->setGeometry(QRect(0, 0, 100, 30));
         size = new QSpinBox(page_18);
         size->setObjectName(QStringLiteral("size"));
         size->setGeometry(QRect(50, 0, 42, 22));
@@ -2145,7 +2154,7 @@ public:
         toolbar_2->setGeometry(QRect(0, 38, 85, 81));
         page_19 = new QWidget();
         page_19->setObjectName(QStringLiteral("page_19"));
-        page_19->setGeometry(QRect(0, 0, 85, 53));
+        page_19->setGeometry(QRect(0, 0, 100, 30));
         pdf_2 = new QPushButton(page_19);
         pdf_2->setObjectName(QStringLiteral("pdf_2"));
         pdf_2->setGeometry(QRect(-1, -10, 93, 41));
@@ -2160,7 +2169,7 @@ public:
         toolbar_3->setGeometry(QRect(160, 39, 101, 121));
         page_21 = new QWidget();
         page_21->setObjectName(QStringLiteral("page_21"));
-        page_21->setGeometry(QRect(0, 0, 101, 93));
+        page_21->setGeometry(QRect(0, 0, 100, 30));
         left = new QPushButton(page_21);
         left->setObjectName(QStringLiteral("left"));
         left->setGeometry(QRect(0, 0, 93, 28));
@@ -3554,6 +3563,7 @@ public:
 "	background-color:#4AC7EA ; \n"
 "	color:white ; \n"
 "}"));
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
         back_14 = new QPushButton(page_30);
         back_14->setObjectName(QStringLiteral("back_14"));
         back_14->setGeometry(QRect(20, 20, 31, 31));
@@ -3568,6 +3578,8 @@ public:
 "	\n"
 "	image: url(:/icons/tsawer/arrow-left_hover.svg);\n"
 "}"));
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
         formations->addWidget(page_30);
         page_31 = new QWidget();
         page_31->setObjectName(QStringLiteral("page_31"));
@@ -3738,6 +3750,7 @@ public:
 "}\n"
 "\n"
 ""));
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
         pushButton_10 = new QPushButton(page_32);
         pushButton_10->setObjectName(QStringLiteral("pushButton_10"));
         pushButton_10->setGeometry(QRect(680, 20, 111, 31));
@@ -3752,6 +3765,8 @@ public:
 "	image: url(:/icons/tsawer/grid (1).svg);\n"
 "cursor: pointer;\n"
 "}"));
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
         formations->addWidget(page_32);
         page_33 = new QWidget();
         page_33->setObjectName(QStringLiteral("page_33"));
@@ -4393,15 +4408,26 @@ public:
 
         retranslateUi(MainWindow);
 
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
         tabs->setCurrentIndex(2);
         projects->setCurrentIndex(2);
         equipments_widget->setCurrentIndex(4);
+========
+        tabs->setCurrentIndex(3);
+        projects->setCurrentIndex(1);
+        equipments_widget->setCurrentIndex(0);
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
         entreprneur->setCurrentIndex(3);
         toolbar->setCurrentIndex(2);
         toolbar_2->setCurrentIndex(0);
         toolbar_3->setCurrentIndex(0);
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
         formations->setCurrentIndex(2);
         sponsor->setCurrentIndex(0);
+========
+        formations->setCurrentIndex(6);
+        sponsor->setCurrentIndex(2);
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -4642,6 +4668,7 @@ public:
         label_48->setText(QApplication::translate("MainWindow", "ID", Q_NULLPTR));
         title1_4->setText(QApplication::translate("MainWindow", "Modify Formation", Q_NULLPTR));
         label_44->setText(QApplication::translate("MainWindow", "instructeur", Q_NULLPTR));
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
         label_image_preview_2->setText(QString());
         label_98->setText(QApplication::translate("MainWindow", "Image", Q_NULLPTR));
         pushButton_6->setText(QString());
@@ -4650,6 +4677,11 @@ public:
         yes->setText(QApplication::translate("MainWindow", "YES", Q_NULLPTR));
         no->setText(QApplication::translate("MainWindow", "NO", Q_NULLPTR));
         back_14->setText(QString());
+========
+        title1_10->setText(QApplication::translate("MainWindow", "Are You Sure You Want to Open The Door ?", Q_NULLPTR));
+        yes->setText(QApplication::translate("MainWindow", "YES", Q_NULLPTR));
+        no->setText(QApplication::translate("MainWindow", "NO", Q_NULLPTR));
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
         label_91->setText(QApplication::translate("MainWindow", "FormationType :", Q_NULLPTR));
         label_92->setText(QApplication::translate("MainWindow", " EntrepreneurName :", Q_NULLPTR));
         label_93->setText(QApplication::translate("MainWindow", "Instructeur :", Q_NULLPTR));
@@ -4662,7 +4694,10 @@ public:
         label_95->setText(QString());
         back_6->setText(QString());
         pushButton_3->setText(QString());
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/ui_mainwindow.h
         pushButton_10->setText(QString());
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/ui_mainwindow.h
         add_formation_2->setText(QString());
         search_formation_2->setPlaceholderText(QApplication::translate("MainWindow", "search by client name", Q_NULLPTR));
         search_button_f_2->setText(QString());

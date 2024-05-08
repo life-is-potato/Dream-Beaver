@@ -60,7 +60,10 @@ MainWindow::MainWindow(QWidget *parent)
     if (!flag){
         qDebug() << "arduino connected ! " ;
     }
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
 
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
     QObject::connect(ard.getserial(),SIGNAL(readyRead()),this,SLOT(checkRFIDCard()));
 }
 
@@ -1116,6 +1119,20 @@ void MainWindow::on_add_form_clicked()
         QMessageBox::critical(nullptr, "Erreur", "kifeh ouselt hatitha 5alta!!!???");
         return;
     }
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
+========
+
+    if (dateDebut < QDate::currentDate()) {
+        QMessageBox::critical(nullptr, "Erreur", "tabda fil mathi!!!!???");
+        return;
+    }
+
+    if (dateFin <= dateDebut) {
+        QMessageBox::critical(nullptr, "Erreur", "toufa 9bal ma tabda!!!!????");
+        return;
+    }
+
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
     if (f->Add_element(id, type, instructeur, dateDebut, dateFin, description, nbParticipants,selectedImageData)) {
         QMessageBox::information(nullptr, "najhet", "c bon tzedet");
         ui->ID_formation->clear();
@@ -2274,11 +2291,18 @@ void MainWindow::RFID(int b)
     {
         ui->tabs->setCurrentIndex(3);
         ui->formations->setCurrentIndex(3);
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
     }
     else
     {
         ui->tabs->setCurrentIndex(3);
         ui->formations->setCurrentIndex(4);
+========
+       return;
+    }
+    else
+    {
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
         ui->ed->setText("xxxxxxxxxx");
         ui->itd->setText("xxxxxxxxxx");
         ui->ftype->setText("xxxxxxxxxx");
@@ -2287,12 +2311,20 @@ void MainWindow::RFID(int b)
         ui->granted->hide();
         ui->yebki->show();
         ui->beaverfaehan->hide();
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
 
+========
+        ui->tabs->setCurrentIndex(5);
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
     }
 }
 
 void MainWindow::checkRFIDCard()
 {
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
+========
+    int b=0;
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
     static QString accumulatedData;
     QByteArray newData = ard.read_from_arduino();
     QString cleanedData = QString::fromUtf8(newData).remove(QRegExp("[\\n\\r\\t]"));
@@ -2300,6 +2332,11 @@ void MainWindow::checkRFIDCard()
     if (accumulatedData.length() == 8) {
         QString IDCARD = accumulatedData.trimmed();
         qDebug() << "IDCARD:" << IDCARD;
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
+========
+
+        // Prepare and execute the query
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
         QSqlQuery query;
         query.prepare("SELECT e.NOM,e.cin, f.INSTRUCTEUR,f.type,ef.presence "
                       "FROM ENTREPRENEURS_FORMATIONS ef "
@@ -2308,6 +2345,7 @@ void MainWindow::checkRFIDCard()
                       "WHERE ef.IDCARD = :IDCARD");
         query.bindValue(":IDCARD", IDCARD);
 
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
         if (query.exec()) {
 
             if (query.next()) {
@@ -2324,6 +2362,26 @@ void MainWindow::checkRFIDCard()
             }
        }
 
+========
+        if (!query.exec()) {
+            qDebug() << "Query execution failed:" << query.lastError().text();
+            return;
+        }
+
+        if (query.next()) {
+             entrepreneurName = query.value(0).toString();
+             instructorName = query.value(2).toString();
+             Identrepreneur = query.value(1).toString();
+             type = query.value(3).toString();
+             presence = query.value(4).toInt();
+            RFID(1);
+        } else {
+            RFID(b);
+            QByteArray noMatchMessage = "NO_MATCH";
+            ard.write_to_arduino(noMatchMessage);
+
+        }
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
         accumulatedData.clear();
     }
 }
@@ -2436,7 +2494,11 @@ void MainWindow::refreshFormationWidgets() {
 void MainWindow::sortFormationWidgetsByDate() {
     static Qt::SortOrder sortOrder = Qt::AscendingOrder; // Static variable to store the current sorting order
 
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
     std::sort(formationData.begin(), formationData.end(), [](const FormationData &a, const FormationData &b) {
+========
+    std::sort(formationData.begin(), formationData.end(), [sortOrder](const FormationData &a, const FormationData &b) {
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
         return (sortOrder == Qt::AscendingOrder) ? a.dateDebut < b.dateDebut : a.dateDebut > b.dateDebut;
     });
 
@@ -2560,7 +2622,11 @@ QVector<FormationData> MainWindow::retrieveFormationDataFromDatabase(const QStri
 void MainWindow::sortFormationWidgetsByParticipants() {
     static Qt::SortOrder sortOrder = Qt::AscendingOrder; // Static variable to store the current sorting order
 
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
     std::sort(formationData.begin(), formationData.end(), [](const FormationData &a, const FormationData &b) {
+========
+    std::sort(formationData.begin(), formationData.end(), [sortOrder](const FormationData &a, const FormationData &b) {
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp
         return (sortOrder == Qt::AscendingOrder) ? a.nbParticipants < b.nbParticipants : a.nbParticipants > b.nbParticipants;
     });
 
@@ -2667,6 +2733,7 @@ void MainWindow::on_pushButton_10_clicked()
 {
     on_pushButton_8_clicked();
 }
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.cpp
 
 void MainWindow::tableView_6_handleDoubleClick(const QModelIndex &index){
     if (index.isValid()) {
@@ -3073,3 +3140,5 @@ void MainWindow::on_back_9_clicked()
 {
     ui->sponsor->setCurrentIndex(3) ;
 }
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.cpp

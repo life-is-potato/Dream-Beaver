@@ -738,7 +738,11 @@ QPushButton::hover {
           <string notr="true"/>
          </property>
          <property name="currentIndex">
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.ui
           <number>2</number>
+========
+          <number>3</number>
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.ui
          </property>
          <widget class="QWidget" name="page_10">
           <widget class="QStackedWidget" name="projects">
@@ -1642,7 +1646,7 @@ border-radius:15px ; </string>
 }  </string>
              </property>
              <property name="currentIndex">
-              <number>4</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_3">
               <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -3662,8 +3666,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>91</width>
-                        <height>61</height>
+                        <width>100</width>
+                        <height>30</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3711,8 +3715,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>85</width>
-                        <height>53</height>
+                        <width>100</width>
+                        <height>30</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -3777,8 +3781,8 @@ color: rgb(255, 255, 255);}
                        <rect>
                         <x>0</x>
                         <y>0</y>
-                        <width>101</width>
-                        <height>93</height>
+                        <width>100</width>
+                        <height>30</height>
                        </rect>
                       </property>
                       <attribute name="label">
@@ -5552,7 +5556,11 @@ font-weight:bold ; </string>
             </rect>
            </property>
            <property name="currentIndex">
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.ui
             <number>2</number>
+========
+            <number>5</number>
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.ui
            </property>
            <widget class="QWidget" name="page_13">
             <widget class="QWidget" name="others_4" native="true">
@@ -6413,6 +6421,7 @@ font-weight:bold ; </string>
                <string/>
               </property>
              </widget>
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.ui
             </widget>
             <widget class="QPushButton" name="back_12">
              <property name="geometry">
@@ -6441,6 +6450,8 @@ QPushButton::hover {
              <property name="text">
               <string/>
              </property>
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.ui
             </widget>
            </widget>
            <widget class="QWidget" name="page_15">
@@ -6863,6 +6874,7 @@ cursor: pointer;
               </property>
              </widget>
             </widget>
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.ui
             <widget class="QPushButton" name="back_13">
              <property name="geometry">
               <rect>
@@ -6891,6 +6903,8 @@ QPushButton::hover {
               <string/>
              </property>
             </widget>
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.ui
            </widget>
            <widget class="QWidget" name="page_30">
             <widget class="QWidget" name="confirmation" native="true">
@@ -6988,6 +7002,7 @@ QPushButton::hover {
               </property>
              </widget>
             </widget>
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.ui
             <widget class="QPushButton" name="back_14">
              <property name="geometry">
               <rect>
@@ -7016,6 +7031,8 @@ QPushButton::hover {
               <string/>
              </property>
             </widget>
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.ui
            </widget>
            <widget class="QWidget" name="page_31">
             <widget class="QWidget" name="add_container_11" native="true">
@@ -7725,7 +7742,11 @@ cursor: pointer;
             </rect>
            </property>
            <property name="currentIndex">
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.ui
             <number>0</number>
+========
+            <number>3</number>
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.ui
            </property>
            <widget class="QWidget" name="page_20">
             <widget class="QWidget" name="add_container_8" native="true">

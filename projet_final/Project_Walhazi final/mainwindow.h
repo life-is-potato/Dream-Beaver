@@ -184,12 +184,22 @@ private slots:
     void on_star_clicked();
     void replyFinished(QNetworkReply *reply);
     void checkAbsences();
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.h
+========
+
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.h
     void on_yes_clicked();
     void on_no_clicked();
     void checkRFIDCard();
     void RFID(int b);
     void on_pushButton_3_clicked();
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.h
     void on_pushButton_7_clicked();
+========
+
+    void on_pushButton_7_clicked();
+    QVector<FormationData> retrieveFormationDataFromDatabase(const QString &str);
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.h
     void addFormationWidget(const FormationData &data, QGridLayout *layout, int row, int column);
     void handleFormationClicked();
     void on_search_button_f_2_clicked();
@@ -198,6 +208,7 @@ private slots:
     void populateFormationWidgets(const QVector<FormationData> &searchResults);
     void sortFormationWidgetsByDate();
     void refreshFormationWidgets();
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.h
     void on_tri_typefor_2_clicked();
     void sortFormationWidgetsByParticipants();
     void on_tri_nbrfor_2_clicked();
@@ -255,6 +266,27 @@ private slots:
     void on_back_8_clicked();
 
     void on_back_9_clicked();
+========
+    FormationData extractFormationData(QStandardItemModel *model, int index);
+    void on_tri_typefor_2_clicked();
+    void sortFormationWidgetsByParticipants();
+
+    void on_tri_nbrfor_2_clicked();
+    void on_tri_formation_2_clicked();
+    void on_pdf_formation_2_clicked();
+
+    void on_add_formation_2_clicked();
+
+    void on_mailing_2_clicked();
+
+    void on_star_2_clicked();
+    void on_pushButton_8_clicked();
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_10_clicked();
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.h
 
 private:
     int openssl = 0 ;
@@ -286,7 +318,10 @@ private:
     QVector<FormationWidget *> formationWidgets;
     QVector<FormationData> formationData;
     QByteArray selectedImageData;
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/mainwindow.h
 
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/mainwindow.h
 };
 #endif // MAINWINDOW_H
 

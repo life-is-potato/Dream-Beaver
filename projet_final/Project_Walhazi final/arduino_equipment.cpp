@@ -62,8 +62,11 @@ int arduino_equipment::connect_arduino() {
  {
     return serial;
  }
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/arduino_equipment.cpp
 
  int arduino_equipment::serial_close() {
     serial->close() ;
     return 0 ;
  }
+========
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/arduino_equipment.cpp

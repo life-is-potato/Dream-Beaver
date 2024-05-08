@@ -3,9 +3,9 @@
 
 bool DataBaseConnection::connect(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QODBC") ;
-    db.setDatabaseName("fab_lab");
-    db.setUserName("Jessy");
-    db.setPassword("274988");
+    db.setDatabaseName("test-bd");
+    db.setUserName("Lehnin");
+    db.setPassword("Lehnin123");
     return db.open() ;
 }
 

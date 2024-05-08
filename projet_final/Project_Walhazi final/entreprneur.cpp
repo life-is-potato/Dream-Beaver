@@ -13,12 +13,18 @@ QStandardItemModel *entreprneur::afficherformation()
     model->setHeaderData(3, Qt::Horizontal, "DD");
     model->setHeaderData(4, Qt::Horizontal, "DF");
     model->setHeaderData(5, Qt::Horizontal, "DESCRIPTION");
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/entreprneur.cpp
     QDate currentDate = QDate::currentDate();
     QString formattedDate = currentDate.toString("dd/MM/yy");
 
 
     query.prepare("SELECT * FROM FORMATIONS WHERE DD > :currentDate");
     query.bindValue(":currentDate", formattedDate);
+========
+    QDateTime currentDate = QDateTime::currentDateTime();
+    query.prepare("SELECT * FROM FORMATIONS WHERE DD > :currentDate");
+    query.bindValue(":currentDate", currentDate.toString(Qt::ISODate));
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/Project_Walhazi 0.0.7/entreprneur.cpp
     if (query.exec())
     {
         while (query.next())

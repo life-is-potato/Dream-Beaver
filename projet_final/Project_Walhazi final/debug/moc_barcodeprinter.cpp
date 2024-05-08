@@ -6,7 +6,11 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
+<<<<<<<< HEAD:projet_final/Project_Walhazi final/debug/moc_barcodeprinter.cpp
 #include "../barcodeprinter.h"
+========
+#include "../Project_Walhazi 0.0.7/barcodeprinter.h"
+>>>>>>>> b910a0edda1592e1abd8a5899d3b4463a39139ea:projet walhazi 0.0.9/build/debug/moc_barcodeprinter.cpp
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
