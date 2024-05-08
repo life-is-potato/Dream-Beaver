@@ -3032,3 +3032,107 @@ void MainWindow::on_search_button_4_clicked()
 {
     searchSimilarImages();
 }
+
+QString generateSQLQuery(const QString& prompt)
+{
+    // Split the prompt into tokens based on spaces
+    QStringList tokens = prompt.split(" ", QString::SkipEmptyParts);
+
+    // Initialize variables for constructing the SQL query
+    QString sqlQuery = "SELECT id, nom, budget, client FROM PROJETS WHERE ";
+    QString logicalOperator = "AND"; // Default logical operator
+
+    // Iterate through the tokens
+    for (int i = 0; i < tokens.size(); ++i) {
+        QString token = tokens[i];
+
+        // Convert logical operators to SQL equivalent
+        if (token.toLower() == "and" || token == "&") {
+            logicalOperator = "AND";
+            continue;
+        } else if (token.toLower() == "or" || token == "|") {
+            logicalOperator = "OR";
+            continue;
+        } else if (token.toLower() == "not" || token == "!") {
+            logicalOperator = "NOT";
+            continue;
+        } else if (token.toLower() == "xor" || token == "^") {
+            logicalOperator = "XOR";
+            continue;
+        }
+
+        // Check if token is a valid column
+        if (token == "id" || token == "nom" || token == "budget" || token == "client") {
+            // Check if the next token is a valid comparator
+            if (i + 1 < tokens.size()) {
+                QString comparator = tokens[++i];
+
+                // Check if comparator doesn't require a value
+                if (comparator == ">>") {
+                    return sqlQuery + token + " = (SELECT MAX(" + token + ") FROM PROJETS)";
+                } else if (comparator == "<<") {
+                    return sqlQuery + token + " = (SELECT MIN(" + token + ") FROM PROJETS)";
+                }
+
+                // Check if there's enough tokens for value
+                if (i + 1 < tokens.size()) {
+                    QString value = tokens[++i];
+
+                    // Convert comparator to SQL equivalent
+                    if (comparator.toLower() == "greater" || comparator == ">") {
+                        comparator = ">";
+                    } else if (comparator.toLower() == "greater or equals" || comparator == ">=") {
+                        comparator = ">=";
+                    } else if (comparator.toLower() == "equals" || comparator == "=") {
+                        comparator = "=";
+                    } else if (comparator.toLower() == "smaller than" || comparator == "<") {
+                        comparator = "<";
+                    } else if (comparator.toLower() == "smaller or equals" || comparator == "<=") {
+                        comparator = "<=";
+                    } else if (comparator.toLower() == "like" || comparator == "~=") {
+                        comparator = "LIKE";
+                        value = "%" + value + "%"; // Add wildcards for substring search
+                    }
+
+                    // Append column, comparator, and value to SQL query
+                    sqlQuery += token + " " + comparator + " '" + value + "' " + logicalOperator + " ";
+                } else {
+                    qDebug() << "Error: Insufficient tokens for value.";
+                    return "";
+                }
+            } else {
+                qDebug() << "Error: Insufficient tokens for comparator.";
+                return "";
+            }
+        } else {
+            qDebug() << "Error: Invalid column name.";
+            return "";
+        }
+    }
+
+    // Remove trailing logical operator and spaces
+    sqlQuery.chop(logicalOperator.size() + 1);
+
+    return sqlQuery;
+}
+void MainWindow::on_search_button_clicked()
+{
+    const QString textquery=generateSQLQuery(ui->search_bar->text());
+    qDebug()<<textquery;
+    int i=0;
+    // Iterate through the rows of the PROJETS table
+    ui->tableView_6->model()->removeRows(0,ui->tableView_6->model()->rowCount());
+    QSqlQuery query;
+    query.prepare(textquery);
+    qDebug()<<query.isValid();
+    query.exec();
+    while (query.next()) {
+        int projectId = query.value("ID").toInt();
+        ui->tableView_6->model()->insertRow(i);
+                       for(int j = 0 ; j < 4 ; j++ ){
+                            ui->tableView_6->model()->setData(ui->tableView_6->model()->index(i,j),query.value(j));
+                      }
+        qDebug() << "Match found for project ID:" << projectId;
+        i++;
+    }
+}

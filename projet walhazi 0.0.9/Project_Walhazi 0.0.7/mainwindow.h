@@ -259,6 +259,8 @@ private slots:
 
     void on_pushButton_9_clicked();
     void searchSimilarImages();
+    void on_search_button_clicked();
+
 private:
     QColor currentColor;
     QFont currentFont;
